@@ -1,0 +1,162 @@
+<script type="text/markdown" id="info">
+name: The Web of Babel
+description: >
+  A browser for an internet that doesn't exist, inspired by Borges' Library of Babel. Type any URL and an AI hallucinates a plausible web page. Click links to keep browsing.
+type: ai
+github: webofbabel
+nochrome: true
+redirects: ['hallucinet']
+blog: 2026/0504
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Web of Babel</title>
+<link rel="stylesheet" href="{{ static }}webofbabel.css">
+</head>
+<body>
+
+<!-- Title bar -->
+<div class="titlebar" id="titlebar">
+  <img id="titlebar-favicon" class="titlebar-favicon" style="display:none">
+  <span class="titlebar-text" id="titlebar-text">The Web of Babel</span>
+</div>
+
+<!-- Menu bar -->
+<div class="menubar">
+  <div class="menu-wrapper">
+    <div class="menu-item" onclick="toggleDropdown('file-dropdown')">File</div>
+    <div class="dropdown" id="file-dropdown">
+      <div class="dropdown-item" onclick="closeAllDropdowns(); navigate('about:babel')">Home</div>
+      <div class="dropdown-separator"></div>
+      <div class="dropdown-item" onclick="closeAllDropdowns(); savePage()">Save Page</div>
+      <div class="dropdown-item" onclick="closeAllDropdowns(); showViewSource()">View Source</div>
+    </div>
+  </div>
+  <div class="menu-wrapper">
+    <div class="menu-item" onclick="toggleDropdown('history-dropdown')">History</div>
+    <div class="dropdown" id="history-dropdown">
+      <div class="dropdown-list" id="history-list"></div>
+    </div>
+  </div>
+  <div class="menu-wrapper">
+    <div class="menu-item" onclick="toggleDropdown('bookmarks-dropdown')">Bookmarks</div>
+    <div class="dropdown" id="bookmarks-dropdown">
+      <div class="dropdown-action" onclick="addBookmark()">+ Bookmark this page</div>
+      <div class="dropdown-separator"></div>
+      <div class="dropdown-list" id="bookmarks-list"></div>
+    </div>
+  </div>
+  <div class="menu-item" onclick="openConfig()">Options</div>
+</div>
+
+<!-- Location bar + search -->
+<div class="location-bar">
+  <span class="nav-btn disabled" id="btn-back" onclick="goBack()">&#9664;</span>
+  <span class="nav-btn disabled" id="btn-forward" onclick="goForward()">&#9654;</span>
+  <span class="nav-btn" onclick="reload()">&#8635;</span>
+  <input type="text" id="url-input" value=""
+         onkeydown="if(event.key==='Enter') navigate(this.value)">
+  <span class="cache-badge" id="cache-badge" onclick="regenerateCurrent()" title="Click to regenerate">cached</span>
+</div>
+
+<!-- Main area: viewport only -->
+<div class="main-area">
+  <div class="viewport">
+    <iframe id="viewport" sandbox="allow-scripts allow-forms allow-modals"></iframe>
+  </div>
+</div>
+
+<!-- Status bar -->
+<div class="statusbar">
+  <div class="status-text" id="status-text">Ready</div>
+  <div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+</div>
+
+<!-- Config dialog -->
+<div class="config-overlay" id="config-overlay">
+  <div class="config-dialog">
+    <div class="config-titlebar">
+      <span>Options</span>
+      <div class="close-btn" onclick="closeConfig()">X</div>
+    </div>
+    <div class="config-body">
+      <div class="config-row">
+        <label for="cfg-provider">Provider</label>
+        <select id="cfg-provider" onchange="onProviderChange()">
+          <option value="anthropic">Anthropic</option>
+          <option value="openai">OpenAI</option>
+          <option value="gemini">Google Gemini</option>
+          <option value="openrouter">OpenRouter</option>
+          <option value="ollama">Ollama (local)</option>
+        </select>
+      </div>
+      <div class="config-row">
+        <label for="cfg-model">Model</label>
+        <select id="cfg-model" onchange="onModelSelectChange()"></select>
+      </div>
+      <div class="config-row" id="custom-model-row" style="display:none">
+        <label for="cfg-custom-model">Custom model name</label>
+        <input type="text" id="cfg-custom-model" placeholder="e.g. my-fine-tuned-model">
+      </div>
+      <div class="config-row" id="api-key-row">
+        <label for="cfg-key">API Key</label>
+        <input type="password" id="cfg-key" placeholder="sk-...">
+      </div>
+      <div class="config-row ollama-only" id="ollama-url-row">
+        <label for="cfg-ollama-url">Ollama Base URL</label>
+        <input type="text" id="cfg-ollama-url" placeholder="http://localhost:11434">
+      </div>
+      <div class="config-row provider-help" id="anthropic-help-row">
+        <div class="provider-instructions">
+          Anthropic organizations with custom data retention cannot make direct browser requests. Use a key from another organization or choose another provider.
+        </div>
+      </div>
+      <div class="config-row provider-help" id="gemini-help-row">
+        <div class="provider-instructions">
+          Get a free API key at <a href="https://aistudio.google.com/api-keys" target="_blank">aistudio.google.com/api-keys</a>
+        </div>
+      </div>
+      <div class="config-row provider-help" id="openrouter-help-row">
+        <div class="provider-instructions">
+          Browse <a href="https://openrouter.ai/collections/free-models" target="_blank">free models on OpenRouter</a> — many work without payment.
+        </div>
+      </div>
+      <div class="config-row provider-help" id="ollama-help-row">
+        <div class="provider-instructions">
+          To use Ollama, start it with CORS enabled for this site:<br>
+          <code>OLLAMA_ORIGINS=* ollama serve</code><br>
+          Your browser may ask to allow access to local resources.
+        </div>
+      </div>
+      <div class="config-buttons">
+        <button onclick="saveConfig()">OK</button>
+        <button onclick="closeConfig()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Source dialog -->
+<div class="config-overlay" id="source-overlay">
+  <div class="config-dialog source-dialog">
+    <div class="config-titlebar">
+      <span id="source-title">View Source</span>
+      <button class="copy-btn" onclick="copySource()">Copy HTML</button>
+      <div class="close-btn" onclick="closeViewSource()">X</div>
+    </div>
+    <div class="source-body">
+      <pre id="source-content"></pre>
+    </div>
+  </div>
+</div>
+
+<script src="{{ static }}generate_page.js"></script>
+<script src="{{ static }}navigator.js"></script>
+</body>
+</html>

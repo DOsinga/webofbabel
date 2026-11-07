@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Berlin travel guide &amp; travel tips | Lonely Planet</title>
+  <meta name="description" content="Plan your trip to Berlin with Lonely Planet's travel guide: top things to do, neighborhoods, where to eat, practical information and expert tips." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2300b3b0'/%3E%3Cpath d='M18 44c8-2 15-11 15-24 0-1 0-2-1-3 8 1 14 7 14 17 0 12-10 18-20 18-4 0-7-1-8-2z' fill='white'/%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --teal:#009c9a;
+      --teal-dark:#007a78;
+      --ink:#222;
+      --muted:#666;
+      --light:#f7f7f7;
+      --line:#e6e6e6;
+      --yellow:#ffd84d;
+      --red:#d84040;
+      --blue:#1f6feb;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.5;
+    }
+    a{color:var(--blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .topbar{
+      background:#0f1720;
+      color:#fff;
+      font-size:13px;
+      padding:8px 0;
+    }
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .topbar .wrap,.mainnav .wrap,.crumbs .wrap,.hero .wrap,.content .wrap,.footer .wrap,.newsletter .wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .toplinks a{color:#cfd8df;margin-right:16px}
+    .mainnav{
+      border-bottom:1px solid var(--line);
+      background:#fff;
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;padding:16px 0;
+      font-weight:bold;font-size:24px;color:#111
+    }
+    .logo{
+      width:38px;height:38px;border-radius:50%;
+      background:linear-gradient(135deg,var(--teal),#22c7c3);
+      position:relative;display:inline-block;
+    }
+    .logo:before{
+      content:"";position:absolute;left:11px;top:8px;width:18px;height:22px;
+      border-radius:18px 18px 4px 18px;background:#fff;transform:rotate(18deg);
+    }
+    .navlinks a{color:#222;margin:0 10px;font-weight:600;font-size:15px}
+    .actions{display:flex;align-items:center;gap:12px}
+    .search{
+      border:1px solid var(--line);border-radius:999px;padding:9px 14px;width:260px;color:#444;background:#fafafa
+    }
+    .btn{
+      display:inline-block;padding:10px 16px;border-radius:999px;font-weight:700
+    }
+    .btn.teal{background:var(--teal);color:#fff}
+    .btn.ghost{border:1px solid var(--line);color:#222;background:#fff}
+    .crumbs{
+      background:#fafafa;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)
+    }
+    .crumbs .wrap{padding-top:12px;padding-bottom:12px;justify-content:flex-start;flex-wrap:wrap}
+    .crumbs a{color:var(--muted)}
+    .hero{
+      background:
+        linear-gradient(to top, rgba(0,0,0,.48), rgba(0,0,0,.12)),
+        linear-gradient(120deg,#4a4a4a 0%, #6b7a8d 30%, #a04f45 65%, #d18a58 100%);
+      color:#fff;
+      min-height:430px;
+      display:flex;
+      align-items:flex-end;
+    }
+    .hero .wrap{
+      display:block;
+      width:100%;
+      padding-top:64px;padding-bottom:38px;
+    }
+    .eyebrow{
+      display:inline-block;background:rgba(255,255,255,.16);padding:6px 10px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.02em
+    }
+    h1{font-size:56px;line-height:1.03;margin:16px 0 10px}
+    .subhero{
+      max-width:760px;font-size:20px;color:#edf3f5
+    }
+    .hero-meta{
+      display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:14px;color:#eef
+    }
+    .content{padding:34px 0 60px}
+    .layout{
+      display:grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap:36px;
+      align-items:start;
+    }
+    .section{margin-bottom:36px}
+    .section h2{
+      font-size:30px;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--line)
+    }
+    .lede{
+      font-size:18px;color:#333
+    }
+    .callout{
+      background:#f0fbfb;border:1px solid #cdeeee;border-radius:14px;padding:18px 18px 16px;margin:20px 0
+    }
+    .callout strong{display:block;font-size:18px;margin-bottom:6px}
+    .cards{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+    }
+    .card{
+      border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff
+    }
+    .card .img{
+      height:160px;
+      background:linear-gradient(135deg,#7f8ea3,#c0c8d6 45%, #eac39a);
+    }
+    .card:nth-child(2) .img{background:linear-gradient(135deg,#303841,#5a5f66 40%, #c2574b)}
+    .card:nth-child(3) .img{background:linear-gradient(135deg,#4d6152,#86a27d 45%, #d4b06a)}
+    .card-body{padding:16px}
+    .kicker{font-size:12px;color:var(--teal-dark);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+    .card h3{font-size:21px;margin:6px 0 8px}
+    .muted{color:var(--muted)}
+    .quickfacts{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px
+    }
+    .fact{
+      border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff
+    }
+    .fact strong{display:block;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+    .fact span{display:block;font-size:18px;margin-top:5px;font-weight:700}
+    .neighborhoods{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:16px
+    }
+    .hood{
+      border:1px solid var(--line);border-radius:14px;padding:16px;background:#fcfcfc
+    }
+    .hood h3{margin:0 0 6px}
+    .list{
+      margin:0;padding-left:18px
+    }
+    .list li{margin:8px 0}
+    .sidebar .sticky{
+      position:sticky;top:86px
+    }
+    .sidebox{
+      border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff;margin-bottom:18px
+    }
+    .sidebox h3{margin:0 0 10px;font-size:22px}
+    .price{
+      display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)
+    }
+    .price:last-child{border-bottom:0}
+    .chip{
+      display:inline-block;padding:5px 8px;border-radius:999px;background:#fff5cc;color:#7f6300;font-weight:700;font-size:12px
+    }
+    .editor-picks a{
+      display:block;padding:10px 0;border-bottom:1px solid var(--line);color:#222;font-weight:600
+    }
+    .editor-picks a:last-child{border-bottom:0}
+    .quote{
+      font-size:18px;font-style:italic;color:#444;border-left:4px solid var(--teal);padding-left:14px;margin:12px 0
+    }
+    .table{
+      width:100%;border-collapse:collapse;font-size:15px
+    }
+    .table th,.table td{border-bottom:1px solid var(--line);padding:12px 10px;text-align:left;vertical-align:top}
+    .table th{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+    .newsletter{
+      background:#0f1720;color:#fff;padding:36px 0;margin-top:28px
+    }
+    .newsletter .wrap{align-items:center}
+    .newsletter h3{margin:0 0 6px;font-size:30px}
+    .newsletter p{margin:0;color:#d3dbe3}
+    .newsletter-form{
+      display:flex;gap:10px;flex-wrap:wrap
+    }
+    .newsletter input{
+      min-width:280px;padding:12px 14px;border-radius:999px;border:0
+    }
+    .footer{
+      background:#f6f8fa;border-top:1px solid var(--line);padding:34px 0 50px
+    }
+    .footer-grid{
+      display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:26px;width:100%
+    }
+    .footer h4{margin:0 0 10px}
+    .footer a{display:block;margin:8px 0;color:#364152}
+    .tiny{font-size:13px;color:#6b7280}
+    .tagline{max-width:340px}
+    @media (max-width: 980px){
+      .layout{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      .quickfacts{grid-template-columns:repeat(2,1fr)}
+      .neighborhoods{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      h1{font-size:42px}
+      .search{display:none}
+    }
+    @media (max-width: 640px){
+      .quickfacts{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .hero{min-height:360px}
+      h1{font-size:36px}
+      .subhero{font-size:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="toplinks">
+        <a href="https://www.lonelyplanet.com/news">News</a>
+        <a href="https://www.lonelyplanet.com/articles">Articles</a>
+        <a href="https://www.lonelyplanet.com/booking">Book trips</a>
+        <a href="https://www.lonelyplanet.com/shop">Shop</a>
+      </div>
+      <div class="toplinks">
+        <a href="https://www.lonelyplanet.com/sign-in">Sign in</a>
+        <a href="https://www.lonelyplanet.com/help">Help</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mainnav">
+    <div class="wrap">
+      <a class="brand" href="https://www.lonelyplanet.com/">
+        <span class="logo"></span>
+        <span>lonely planet</span>
+      </a>
+      <div class="navlinks">
+        <a href="https://www.lonelyplanet.com/destinations">Destinations</a>
+        <a href="https://www.lonelyplanet.com/best-in-travel">Best in Travel</a>
+        <a href="https://www.lonelyplanet.com/tips-and-advice">Travel Tips</a>
+        <a href="https://www.lonelyplanet.com/inspiration">Inspiration</a>
+        <a href="https://www.lonelyplanet.com/experiences">Experiences</a>
+      </div>
+      <div class="actions">
+        <input class="search" type="text" value="Search destinations, articles, guides" />
+        <a class="btn ghost" href="https://www.lonelyplanet.com/trips">My trips</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="crumbs">
+    <div class="wrap">
+      <a href="https://www.lonelyplanet.com/">Home</a> /
+      <a href="https://www.lonelyplanet.com/europe">Europe</a> /
+      <a href="https://www.lonelyplanet.com/germany">Germany</a> /
+      <span>Berlin</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">City Guide</div>
+      <h1>Berlin</h1>
+      <div class="subhero">
+        Creative, raw and endlessly layered, Berlin rewards curiosity with world-class museums, waterside beer gardens, bold food, and a history that still shapes every neighborhood.
+      </div>
+      <div class="hero-meta">
+        <span>Why go: culture, nightlife, history, architecture</span>
+        <span>Best time: May to Sep</span>
+        <span>Ideal trip: 3–5 days</span>
+        <span>Updated: February 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="wrap">
+      <div class="layout">
+        <div class="main">
+          <section class="section">
+            <h2>Why visit Berlin</h2>
+            <p class="lede">
+              Berlin doesn’t ask you to admire it from a distance; it invites you in. One minute you’re standing before the neoclassical sweep of Museum Island, the next you’re cycling along the former Wall, ducking into a courtyard cafe in Mitte or following basslines into Kreuzberg after dark. This is a city of reinvention, where imperial facades, postwar scars and experimental energy sit side by side.
+            </p>
+            <p>
+              There’s no single “Berlin experience.” Some travelers come for history: the Brandenburg Gate, the Reichstag dome, Checkpoint Charlie and the deeply moving Memorial to the Murdered Jews of Europe. Others arrive for creativity: gallery weekends, independent cinemas, repurposed industrial spaces, contemporary dance, vinyl shops and a famously democratic nightlife scene. Most discover it’s the combination that matters.
+            </p>
+            <div class="callout">
+              <strong>Lonely Planet tip</strong>
+              Berlin is bigger than first-timers expect. Base yourself near a U-Bahn or S-Bahn line, and group sights by neighborhood rather than crisscrossing the city. A museum morning in Mitte, a canal-side lunch in Kreuzberg and a sunset in Prenzlauer Berg makes for a classic day.
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>At a glance</h2>
+            <div class="quickfacts">
+              <div class="fact">
+                <strong>Country</strong>
+                <span>Germany</span>
+              </div>
+              <div class="fact">
+                <strong>Population</strong>
+                <span>3.8 million</span>
+              </div>
+              <div class="fact">
+                <strong>Currency</strong>
+                <span>Euro (€)</span>
+              </div>
+              <div class="fact">
+                <strong>Language</strong>
+                <span>German</span>
+              </div>
+              <div class="fact">
+                <strong>Airport</strong>
+                <span>BER</span>
+              </div>
+              <div class="fact">
+                <strong>Time zone</strong>
+                <span>CET / CEST</span>
+              </div>
+              <div class="fact">
+                <strong>Local transport</strong>
+                <span>U-Bahn, S-Bahn, tram, bus</span>
+              </div>
+              <div class="fact">
+                <strong>Known for</strong>
+                <span>History, clubs, art, green space</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Top things to do</h2>
+            <div class="cards">
+              <article class="card">
+                <div class="img"></div>
+                <div class="card-body">
+                  <div class="kicker">History</div>
+                  <h3>Walk from the Brandenburg Gate to the Reichstag</h3>
+                  <p class="muted">Start with Berlin’s most recognizable landmark, then book ahead for the glass dome of the Reichstag for sweeping city views and a look at Norman Foster’s celebrated redesign.</p>
+                  <a href="https://www.lonelyplanet.com/articles/best-things-to-do-in-berlin">Read more</a>
+                </div>
+              </article>
+              <article class="card">
+                <div class="img"></div>
+                <div class="card-body">
+                  <div class="kicker">Culture</div>
+                  <h3>Spend a day on Museum Island</h3>
+                  <p class="muted">A UNESCO-listed cluster of museums where ancient treasures, monumental architecture and Berlin’s intellectual history converge on the Spree.</p>
+                  <a href="https://www.lonelyplanet.com/articles/how-to-visit-museum-island-berlin">Plan your visit</a>
+                </div>
+              </article>
+              <article class="card">
+                <div class="img"></div>
+                <div class="card-body">
+                  <div class="kicker">Local life</div>
+                  <h3>Picnic in Tempelhofer Feld</h3>
+                  <p class="muted">An old airport transformed into one of Europe’s most unusual public parks, beloved for cycling, kiteboarding, skating and long golden-hour hangouts.</p>
+                  <a href="https://www.lonelyplanet.com/articles/best-parks-in-berlin">Find more green spaces</a>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Best neighborhoods</h2>
+            <div class="neighborhoods">
+              <div class="hood">
+                <h3>Mitte</h3>
+                <p>Best for first-time visitors. Berlin’s historic core packs in headline sights, polished hotels, galleries, boutique shopping and easy transit connections.</p>
+              </div>
+              <div class="hood">
+                <h3>Kreuzberg</h3>
+                <p>Best for nightlife and food. Diverse, energetic and proudly independent, Kreuzberg is all canal walks, late-night shawarma, bars and creative spaces.</p>
+              </div>
+              <div class="hood">
+                <h3>Prenzlauer Berg</h3>
+                <p>Best for cafes and relaxed streets. Think leafy squares, bakeries, playgrounds, brunch spots and beautifully restored apartment blocks.</p>
+              </div>
+              <div class="hood">
+                <h3>Friedrichshain</h3>
+                <p>Best for edge and after-dark energy. Street art, riverside clubs, warehouse culture and a young local scene define this part of former East Berlin.</p>
+              </div>
+              <div class="hood">
+                <h3>Charlottenburg</h3>
+                <p>Best for classic Berlin. Elegant boulevards, high-end shopping along Kurfürstendamm, fine dining and the baroque Charlottenburg Palace.</p>
+              </div>
+              <div class="hood">
+                <h3>Neukölln</h3>
+                <p>Best for trendsetting local flavor. Rooftop bars, natural wine, Turkish markets and rapidly changing streetscapes give Neukölln its restless appeal.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Berlin in 3 days</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Morning</th>
+                  <th>Afternoon</th>
+                  <th>Evening</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1</strong></td>
+                  <td>Brandenburg Gate, Reichstag, Memorial to the Murdered Jews of Europe</td>
+                  <td>Museum Island and a Spree riverside walk</td>
+                  <td>Dinner in Hackescher Markt, cocktails in Mitte</td>
+                </tr>
+                <tr>
+                  <td><strong>2</strong></td>
+                  <td>East Side Gallery and Oberbaum Bridge</td>
+                  <td>Kreuzberg food stops, Jewish Museum or Topography of Terror</td>
+                  <td>Canal bars, live music or club night</td>
+                </tr>
+                <tr>
+                  <td><strong>3</strong></td>
+                  <td>Tempelhofer Feld by bike or Mauerpark flea market on Sunday</td>
+                  <td>Charlottenburg Palace or shopping on Ku'damm</td>
+                  <td>Sunset from Klunkerkranich or a beer garden in Prenzlauer Berg</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="section">
+            <h2>Eat &amp; drink</h2>
+            <p>
+              Berlin’s food scene is far more than currywurst, though you should absolutely try one from a beloved stand. The city’s culinary identity is shaped by migration, experimentation and affordability, which means Turkish bakeries, Vietnamese canteens, natural-wine bars, fine-dining tasting menus and old-school beer halls all coexist comfortably.
+            </p>
+            <ul class="list">
+              <li><strong>Try:</strong> currywurst, döner kebab, käsespätzle, schnitzel, Turkish breakfast spreads and third-wave coffee.</li>
+              <li><strong>Where to graze:</strong> Markthalle Neun in Kreuzberg for street food events and local producers.</li>
+              <li><strong>Sweet stop:</strong> Pick up a slice of cheesecake or a plum tart at a neighborhood konditorei.</li>
+              <li><strong>Beer garden mood:</strong> Seek lakeside or park-edge spots in Tiergarten and along the Spree in summer.</li>
+            </ul>
+            <div class="quote">
+              “Berlin is at its best when you leave room for detours: a bakery you didn’t plan on, a courtyard cafe, a sunset on a bridge, a record shop that turns into an hour.” — Lonely Planet Local Expert
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>When to go</h2>
+            <p>
+              Berlin is a year-round destination, but each season has its own personality. Late spring and summer bring long evenings, lakeside escapes, open-air festivals and packed terraces. September often delivers mild weather and a cultural calendar full of exhibitions and performances. Winter can be gray, but Christmas markets, museums, concert halls and cozy bars make it atmospheric rather than sleepy.
+            </p>
+            <ul class="list">
+              <li><strong>May–June:</strong> Pleasant temperatures, outdoor dining, parks in bloom.</li>
+              <li><strong>July–August:</strong> Festival season, warm days and the best time for lakes and open-air venues.</li>
+              <li><strong>September:</strong> Excellent for city walking and fewer peak-summer crowds.</li>
+              <li><strong>December:</strong> Christmas markets, mulled wine and striking winter light.</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>Getting around</h2>
+            <p>
+              Berlin’s integrated public transport network is one of Europe’s most efficient. U-Bahn and S-Bahn lines cover central areas and beyond, while trams are especially useful in former East Berlin. A day pass is good value if you’re making several journeys, and many central neighborhoods are excellent for cycling.
+            </p>
+            <ul class="list">
+              <li>Validate tickets where required and keep them with you for inspection.</li>
+              <li>Airport trains connect BER to the city center efficiently.</li>
+              <li>Taxis and ride-hailing are widely available, but traffic can be slow at peak times.</li>
+              <li>Walking is rewarding in neighborhoods like Mitte, Kreuzberg and Prenzlauer Berg.</li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2>Practical information</h2>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Emergency</th>
+                  <td>112 for ambulance and fire; 110 for police</td>
+                </tr>
+                <tr>
+                  <th>Tipping</th>
+                  <td>Round up or add around 5–10% in restaurants for good service</td>
+                </tr>
+                <tr>
+                  <th>Payment</th>
+                  <td>Cards are increasingly accepted, but some bars, cafes and kiosks still prefer cash</td>
+                </tr>
+                <tr>
+                  <th>Museum planning</th>
+                  <td>Major museums can be busiest on weekends; reserve timed entries where possible</td>
+                </tr>
+                <tr>
+                  <th>Sunday rhythm</th>
+                  <td>Most shops close on Sundays, though restaurants, museums and some stations remain lively</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="section">
+            <h2>More on Berlin</h2>
+            <div class="cards">
+              <article class="card">
+                <div class="img" style="background:linear-gradient(135deg,#6d7d93,#9fb4c3 50%, #f0d2ab);"></div>
+                <div class="card-body">
+                  <div class="kicker">Guide</div>
+                  <h3>Where to stay in Berlin for every travel style</h3>
+                  <p class="muted">From design-forward hotels in Mitte to budget-friendly guesthouses in Neukölln.</p>
+                  <a href="https://www.lonelyplanet.com/articles/where-to-stay-in-berlin">Explore neighborhoods</a>
+                </div>
+              </article>
+              <article class="card">
+                <div class="img" style="background:linear-gradient(135deg,#22303f,#3b5168 46%, #d0734f);"></div>
+                <div class="card-body">
+                  <div class="kicker">Itinerary</div>
+                  <h3>The perfect weekend in Berlin</h3>
+                  <p class="muted">A tightly planned 48-hour route with museum stops, food picks and sunset viewpoints.</p>
+                  <a href="https://www.lonelyplanet.com/articles/weekend-in-berlin-itinerary">See the itinerary</a>
+                </div>
+              </article>
+              <article class="card">
+                <div class="img" style="background:linear-gradient(135deg,#4a5d54,#7fa48f 48%, #e1bd79);"></div>
+                <div class="card-body">
+                  <div class="kicker">Day trips</div>
+                  <h3>Best day trips from Berlin</h3>
+                  <p class="muted">Potsdam palaces, lakes, forests and memorial sites within easy reach by train.</p>
+                  <a href="https://www.lonelyplanet.com/articles/best-day-trips-from-berlin">Start planning</a>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sticky">
+            <div class="sidebox">
+              <span class="chip">Plan your trip</span>
+              <h3>Berlin essentials</h3>
+              <div class="price"><span>Best time to visit</span><strong>May–Sep</strong></div>
+              <div class="price"><span>Suggested budget</span><strong>€85–€220/day</strong></div>
+              <div class="price"><span>Average coffee</span><strong>€3.40</strong></div>
+              <div class="price"><span>Museum day pass</span><strong>from €24</strong></div>
+              <div class="price"><span>Airport to center</span><strong>30–40 min</strong></div>
+              <div style="margin-top:14px">
+                <a class="btn teal" href="https://www.lonelyplanet.com/booking/europe/germany/berlin">Book hotels &amp; stays</a>
+              </div>
+            </div>
+
+            <div class="sidebox editor-picks">
+              <h3>Editor's picks</h3>
+              <a href="https://www.lonelyplanet.com/articles/best-things-to-do-in-berlin">15 best things to do in Berlin</a>
+              <a href="https://www.lonelyplanet.com/articles/best-restaurants-in-berlin">Where to eat in Berlin right now</a>
+              <a href="https://www.lonelyplanet.com/articles/best-nightlife-in-berlin">A local guide to Berlin nightlife</a>
+              <a href="https://www.lonelyplanet.com/articles/berlin-with-kids">Berlin with kids: parks, museums and easy wins</a>
+              <a href="https://www.lonelyplanet.com/articles/free-things-to-do-in-berlin">The best free things to do in Berlin</a>
+            </div>
+
+            <div class="sidebox">
+              <h3>Nearby destinations</h3>
+              <div class="editor-picks">
+                <a href="https://www.lonelyplanet.com/germany/potsdam">Potsdam</a>
+                <a href="https://www.lonelyplanet.com/germany/hamburg">Hamburg</a>
+                <a href="https://www.lonelyplanet.com/germany/dresden">Dresden</a>
+                <a href="https://www.lonelyplanet.com/poland/warsaw">Warsaw</a>
+                <a href="https://www.lonelyplanet.com/czech-republic/prague">Prague</a>
+              </div>
+            </div>
+
+            <div class="sidebox">
+              <h3>Need to know</h3>
+              <p class="muted" style="margin-top:0">
+                Reserve the Reichstag, popular clubs and headline exhibitions ahead of time, especially on weekends and during summer.
+              </p>
+              <a class="btn ghost" href="https://www.lonelyplanet.com/tips-and-advice/germany">See travel advice</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <section class="newsletter">
+    <div class="wrap">
+      <div>
+        <h3>Get more travel inspiration, tips and exclusive offers</h3>
+        <p>Discover weekly ideas for city breaks, longer journeys and smarter trip planning from Lonely Planet.</p>
+      </div>
+      <form class="newsletter-form">
+        <input type="email" value="Email address" />
+        <a class="btn teal" href="https://www.lonelyplanet.com/newsletter/signup">Sign up</a>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="https://www.lonelyplanet.com/" style="padding:0;margin-bottom:8px;font-size:22px">
+            <span class="logo"></span>
+            <span>lonely planet</span>
+          </a>
+          <p class="tagline tiny">
+            Lonely Planet has been guiding travelers since 1973. Explore destinations, practical advice and travel inspiration from experts and locals around the world.
+          </p>
+          <p class="tiny">© 2026 Lonely Planet Global, Inc. All rights reserved.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="https://www.lonelyplanet.com/europe">Europe</a>
+          <a href="https://www.lonelyplanet.com/asia">Asia</a>
+          <a href="https://www.lonelyplanet.com/north-america">North America</a>
+          <a href="https://www.lonelyplanet.com/south-america">South America</a>
+          <a href="https://www.lonelyplanet.com/africa">Africa</a>
+        </div>
+        <div>
+          <h4>Travel planning</h4>
+          <a href="https://www.lonelyplanet.com/booking">Book trips</a>
+          <a href="https://www.lonelyplanet.com/shop">Guidebooks</a>
+          <a href="https://www.lonelyplanet.com/articles">Articles</a>
+          <a href="https://www.lonelyplanet.com/travel-tips">Travel tips</a>
+          <a href="https://www.lonelyplanet.com/best-in-travel">Best in Travel</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="https://www.lonelyplanet.com/about">About Lonely Planet</a>
+          <a href="https://www.lonelyplanet.com/contact">Contact us</a>
+          <a href="https://www.lonelyplanet.com/privacy-policy">Privacy policy</a>
+          <a href="https://www.lonelyplanet.com/terms-and-conditions">Terms &amp; conditions</a>
+          <a href="https://www.lonelyplanet.com/accessibility">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hacker News</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23ff6600'/><text y='.9em' font-size='90' x='10' fill='white'>Y</text></svg>">
+<style>
+  body {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 10pt;
+    background-color: #f6f6ef;
+    margin: 0;
+    padding: 0;
+  }
+  #hnmain {
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f6f6ef;
+  }
+  .header {
+    background-color: #ff6600;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+  }
+  .header a {
+    color: black;
+    text-decoration: none;
+  }
+  .header .logo {
+    display: inline-block;
+    border: 1px solid white;
+    padding: 1px 4px;
+    font-weight: bold;
+    margin-right: 4px;
+    color: white;
+    font-size: 11pt;
+  }
+  .header .sitename {
+    font-weight: bold;
+    margin-right: 10px;
+    color: black;
+  }
+  .header nav {
+    display: inline;
+  }
+  .header nav a {
+    margin-right: 8px;
+    font-size: 9pt;
+    color: black;
+  }
+  .header .login {
+    margin-left: auto;
+    font-size: 9pt;
+    color: black;
+  }
+  .spacer {
+    height: 2px;
+    background-color: #ff6600;
+  }
+  table.itemlist {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .rank {
+    color: #828282;
+    font-size: 10pt;
+    text-align: right;
+    padding-right: 6px;
+    vertical-align: top;
+    padding-top: 3px;
+    width: 28px;
+  }
+  .votelinks {
+    vertical-align: top;
+    padding-top: 2px;
+    width: 14px;
+  }
+  .votelinks a {
+    color: #828282;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+  .votelinks .votearrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid #9a9a9a;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  .votelinks .votearrow:hover {
+    border-bottom-color: #ff6600;
+  }
+  .title {
+    padding: 3px 0 0 2px;
+    vertical-align: top;
+  }
+  .title a.storylink {
+    font-size: 10pt;
+    color: #000;
+    text-decoration: none;
+  }
+  .title a.storylink:visited {
+    color: #828282;
+  }
+  .title a.storylink:hover {
+    text-decoration: underline;
+  }
+  .title .sitebit {
+    font-size: 8pt;
+    color: #828282;
+    margin-left: 5px;
+  }
+  .title .sitebit a {
+    color: #828282;
+    text-decoration: none;
+  }
+  .title .sitebit a:hover {
+    text-decoration: underline;
+  }
+  .subtext {
+    font-size: 7pt;
+    color: #828282;
+    padding: 0 0 5px 2px;
+    vertical-align: top;
+  }
+  .subtext a {
+    color: #828282;
+    text-decoration: none;
+  }
+  .subtext a:hover {
+    text-decoration: underline;
+  }
+  .score {
+    font-weight: bold;
+    color: #828282;
+  }
+  tr.spacer-row td {
+    height: 5px;
+  }
+  .morelink {
+    padding: 10px 0 10px 38px;
+  }
+  .morelink a {
+    color: #828282;
+    text-decoration: none;
+    font-size: 10pt;
+  }
+  .morelink a:hover {
+    text-decoration: underline;
+  }
+  .footer {
+    text-align: center;
+    padding: 10px;
+    color: #828282;
+    font-size: 8pt;
+    border-top: 1px solid #ff6600;
+    margin-top: 8px;
+  }
+  .footer a {
+    color: #828282;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<center>
+<table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%">
+  <tr>
+    <td>
+      <!-- Header -->
+      <table border="0" cellpadding="4" cellspacing="0" width="100%" style="background-color:#ff6600;">
+        <tr>
+          <td style="width:18px; padding-right:4px;">
+            <a href="http://news.ycombinator.com"><img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'><rect width='18' height='18' fill='%23ff6600'/><text y='14' x='3' font-size='14' fill='white' font-family='sans-serif'>Y</text></svg>" width="18" height="18" style="border:1px solid white; display:block;"></a>
+          </td>
+          <td style="line-height:12pt; height:10px;">
+            <span style="font-size:13pt; font-weight:bold;"><a href="http://news.ycombinator.com" style="color:black; text-decoration:none;">Hacker News</a></span>
+            &nbsp;
+            <a href="http://news.ycombinator.com/newest" style="color:black; text-decoration:none; font-size:9pt;">new</a>&nbsp;|&nbsp;
+            <a href="http://news.ycombinator.com/front" style="color:black; text-decoration:none; font-size:9pt;">past</a>&nbsp;|&nbsp;
+            <a href="http://news.ycombinator.com/newcomments" style="color:black; text-decoration:none; font-size:9pt;">comments</a>&nbsp;|&nbsp;
+            <a href="http://news.ycombinator.com/ask" style="color:black; text-decoration:none; font-size:9pt;">ask</a>&nbsp;|&nbsp;
+            <a href="http://news.ycombinator.com/show" style="color:black; text-decoration:none; font-size:9pt;">show</a>&nbsp;|&nbsp;
+            <a href="http://news.ycombinator.com/jobs" style="color:black; text-decoration:none; font-size:9pt;">jobs</a>&nbsp;|&nbsp;
+            <a href="http://news.ycombinator.com/submit" style="color:black; text-decoration:none; font-size:9pt;">submit</a>
+          </td>
+          <td style="text-align:right; padding-right:4px;">
+            <a href="http://news.ycombinator.com/login" style="color:black; text-decoration:none; font-size:9pt;">login</a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr style="height:2px;"><td style="background-color:#ff6600; height:2px;"></td></tr>
+  <tr>
+    <td>
+      <!-- Story List -->
+      <table class="itemlist" border="0" cellpadding="0" cellspacing="0">
+
+        <!-- Item 1 -->
+        <tr class="athing">
+          <td class="rank">1.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://lwn.net/Articles/979853/" class="storylink">The Linux kernel's new real-time preemption model is now in mainline</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=lwn.net">lwn.net</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">847 points</span> by <a href="http://news.ycombinator.com/user?id=tptacek">tptacek</a> 3 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38847291">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38847291">312 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 2 -->
+        <tr class="athing">
+          <td class="rank">2.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://www.anthropic.com/research/interpretability-monosemanticity" class="storylink">Scaling Monosemanticity: Extracting Interpretable Features from Claude</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=anthropic.com">anthropic.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">721 points</span> by <a href="http://news.ycombinator.com/user?id=mwseibel">mwseibel</a> 5 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38841022">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38841022">298 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 3 -->
+        <tr class="athing">
+          <td class="rank">3.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://blog.rust-lang.org/2024/05/02/Rust-1.78.0.html" class="storylink">Rust 1.78.0 Released</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=rust-lang.org">rust-lang.org</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">694 points</span> by <a href="http://news.ycombinator.com/user?id=steveklabnik">steveklabnik</a> 4 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38843910">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38843910">274 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 4 -->
+        <tr class="athing">
+          <td class="rank">4.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://simonwillison.net/2024/sqlite-llm-rag/" class="storylink">Building a local RAG pipeline with SQLite and open-source LLMs</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=simonwillison.net">simonwillison.net</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">583 points</span> by <a href="http://news.ycombinator.com/user?id=simonw">simonw</a> 6 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38840112">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38840112">187 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 5 -->
+        <tr class="athing">
+          <td class="rank">5.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://spectrum.ieee.org/quantum-computing-2024" class="storylink">The Quiet Quantum Revolution Nobody Is Talking About</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=spectrum.ieee.org">spectrum.ieee.org</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">512 points</span> by <a href="http://news.ycombinator.com/user?id=pg">pg</a> 7 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38839041">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38839041">203 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 6 -->
+        <tr class="athing">
+          <td class="rank">6.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="http://news.ycombinator.com/item?id=38838420" class="storylink">Ask HN: What's the most useful thing you've automated in your personal life?</a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">489 points</span> by <a href="http://news.ycombinator.com/user?id=nelsonminar">nelsonminar</a> 8 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38838420">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38838420">524 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 7 -->
+        <tr class="athing">
+          <td class="rank">7.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://drewdevault.com/2024/the-case-against-electron.html" class="storylink">The Case Against Electron (and what to use instead)</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=drewdevault.com">drewdevault.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">461 points</span> by <a href="http://news.ycombinator.com/user?id=ddevault">ddevault</a> 9 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38836711">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38836711">441 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 8 -->
+        <tr class="athing">
+          <td class="rank">8.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://www.cs.princeton.edu/~felten/paper-llm-reasoning-2024.pdf" class="storylink">Do Large Language Models Really Reason? A Formal Analysis (PDF)</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=cs.princeton.edu">cs.princeton.edu</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">438 points</span> by <a href="http://news.ycombinator.com/user?id=airesearcher">airesearcher</a> 10 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38835102">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38835102">319 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 9 -->
+        <tr class="athing">
+          <td class="rank">9.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://github.com/zed-industries/zed" class="storylink">Zed: A high-performance, multiplayer code editor written in Rust is now open source</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=github.com">github.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">412 points</span> by <a href="http://news.ycombinator.com/user?id=maxbrunsfeld">maxbrunsfeld</a> 11 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38833874">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38833874">267 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 10 -->
+        <tr class="athing">
+          <td class="rank">10.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://cacm.acm.org/magazines/2024/dijkstra-influence" class="storylink">Dijkstra's Influence on Programming Languages, 50 Years Later</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=cacm.acm.org">cacm.acm.org</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">389 points</span> by <a href="http://news.ycombinator.com/user?id=dl">dl</a> 12 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38832011">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38832011">98 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 11 -->
+        <tr class="athing">
+          <td class="rank">11.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://blog.cloudflare.com/workers-ai-ga" class="storylink">Cloudflare Workers AI is now generally available</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=blog.cloudflare.com">blog.cloudflare.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">367 points</span> by <a href="http://news.ycombinator.com/user?id=jgrahamc">jgrahamc</a> 13 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38830983">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38830983">142 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 12 -->
+        <tr class="athing">
+          <td class="rank">12.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://arstechnica.com/science/2024/researchers-discover-new-type-of-superconductor/" class="storylink">Researchers discover room-temperature superconductor candidate in layered nickelate compound</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=arstechnica.com">arstechnica.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">351 points</span> by <a href="http://news.ycombinator.com/user?id=phys_fan">phys_fan</a> 14 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38829441">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38829441">176 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 13 -->
+        <tr class="athing">
+          <td class="rank">13.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://www.filfre.net/2024/05/the-golden-age-of-adventure-games/" class="storylink">The Golden Age of Adventure Games: How Infocom Changed Everything</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=filfre.net">filfre.net</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">334 points</span> by <a href="http://news.ycombinator.com/user?id=jimmydigital">jimmydigital</a> 15 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38828172">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38828172">89 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 14 -->
+        <tr class="athing">
+          <td class="rank">14.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="http://news.ycombinator.com/item?id=38827031" class="storylink">Show HN: I built a terminal emulator that renders at 240fps using Vulkan</a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">318 points</span> by <a href="http://news.ycombinator.com/user?id=gpudev99">gpudev99</a> 16 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38827031">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38827031">231 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 15 -->
+        <tr class="athing">
+          <td class="rank">15.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://www.joelonsoftware.com/2024/the-manager-is-back/" class="storylink">The Manager Is Back: Why Human Oversight Still Matters in the Age of AI</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=joelonsoftware.com">joelonsoftware.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">305 points</span> by <a href="http://news.ycombinator.com/user?id=joelonsoftware">joelonsoftware</a> 17 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38826002">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38826002">182 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 16 -->
+        <tr class="athing">
+          <td class="rank">16.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://www.nature.com/articles/s41586-024-07424-1" class="storylink">AlphaFold 3 predicts structure of all life's molecules</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=nature.com">nature.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">297 points</span> by <a href="http://news.ycombinator.com/user?id=bioml">bioml</a> 18 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38824871">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38824871">144 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 17 -->
+        <tr class="athing">
+          <td class="rank">17.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://tratt.net/laurie/blog/2024/static-typing-wont-save-you.html" class="storylink">Static Typing Won't Save You from Runtime Errors</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=tratt.net">tratt.net</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">281 points</span> by <a href="http://news.ycombinator.com/user?id=laurencetratt">laurencetratt</a> 19 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38823501">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38823501">337 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 18 -->
+        <tr class="athing">
+          <td class="rank">18.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://ffmpeg.org/news.html" class="storylink">FFmpeg 7.0 "Dijkstra" Released</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=ffmpeg.org">ffmpeg.org</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">265 points</span> by <a href="http://news.ycombinator.com/user?id=ffmpegfan">ffmpegfan</a> 20 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38822110">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38822110">113 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 19 -->
+        <tr class="athing">
+          <td class="rank">19.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://explaining-computers.com/cpus/risc-v-future" class="storylink">Why RISC-V is Quietly Winning the CPU Architecture Wars</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=explaining-computers.com">explaining-computers.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">254 points</span> by <a href="http://news.ycombinator.com/user?id=archfan">archfan</a> 21 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38820943">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38820943">159 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 20 -->
+        <tr class="athing">
+          <td class="rank">20.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://www.benkuhn.net/2024/gratitude-for-boring-technology" class="storylink">Gratitude for Boring Technology</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=benkuhn.net">benkuhn.net</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">247 points</span> by <a href="http://news.ycombinator.com/user?id=benkuhn">benkuhn</a> 22 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38819801">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38819801">94 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 21 -->
+        <tr class="athing">
+          <td class="rank">21.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://research.swtch.com/coro" class="storylink">Coroutines for Go</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=research.swtch.com">research.swtch.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">231 points</span> by <a href="http://news.ycombinator.com/user?id=rsc">rsc</a> 23 hours ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38818512">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38818512">128 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 22 -->
+        <tr class="athing">
+          <td class="rank">22.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://marijnhaverbeke.nl/blog/overengineering.html" class="storylink">On Not Over-Engineering Your Side Project</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=marijnhaverbeke.nl">marijnhaverbeke.nl</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">219 points</span> by <a href="http://news.ycombinator.com/user?id=marijnhaverbeke">marijnhaverbeke</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38817201">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38817201">107 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 23 -->
+        <tr class="athing">
+          <td class="rank">23.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://www.youtube.com/watch?v=zduSFxRajkE" class="storylink">Map of Mathematics (2024 update) [video]</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=youtube.com">youtube.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">204 points</span> by <a href="http://news.ycombinator.com/user?id=mathphile">mathphile</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38816044">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38816044">53 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 24 -->
+        <tr class="athing">
+          <td class="rank">24.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://solar.lowtechmagazine.com/2024/04/how-sustainable-is-a-solar-powered-website.html" class="storylink">How Sustainable Is a Solar-Powered Website? (2024)</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=solar.lowtechmagazine.com">solar.lowtechmagazine.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">196 points</span> by <a href="http://news.ycombinator.com/user?id=kris_de_decker">kris_de_decker</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38814882">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38814882">71 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 25 -->
+        <tr class="athing">
+          <td class="rank">25.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://www.lesswrong.com/posts/2024/the-alignment-tax-is-negative" class="storylink">The Alignment Tax Is Negative</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=lesswrong.com">lesswrong.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">183 points</span> by <a href="http://news.ycombinator.com/user?id=eliezer">eliezer</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38813441">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38813441">219 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 26 -->
+        <tr class="athing">
+          <td class="rank">26.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://muratbuffalo.blogspot.com/2024/distributed-systems-mistakes.html" class="storylink">Common Mistakes in Distributed Systems Design (and How to Avoid Them)</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=muratbuffalo.blogspot.com">muratbuffalo.blogspot.com</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">174 points</span> by <a href="http://news.ycombinator.com/user?id=muratd">muratd</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38812301">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38812301">62 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 27 -->
+        <tr class="athing">
+          <td class="rank">27.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://neal.fun/deep-sea/" class="storylink">The Deep Sea – an interactive visualization</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=neal.fun">neal.fun</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">163 points</span> by <a href="http://news.ycombinator.com/user?id=vizlover">vizlover</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38810982">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38810982">38 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 28 -->
+        <tr class="athing">
+          <td class="rank">28.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://cacm.acm.org/practice/the-end-of-programming-as-we-know-it/" class="storylink">The End of Programming as We Know It</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=cacm.acm.org">cacm.acm.org</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">158 points</span> by <a href="http://news.ycombinator.com/user?id=acm_reader">acm_reader</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38809711">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38809711">278 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 29 -->
+        <tr class="athing">
+          <td class="rank">29.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://blog.python.org/2024/python-314-alpha-released.html" class="storylink">Python 3.14 alpha 1 released – includes new free-threaded mode improvements</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=blog.python.org">blog.python.org</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">149 points</span> by <a href="http://news.ycombinator.com/user?id=guido">guido</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38808522">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38808522">116 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <!-- Item 30 -->
+        <tr class="athing">
+          <td class="rank">30.</td>
+          <td class="votelinks"><a href="#"><div class="votearrow"></div></a></td>
+          <td class="title">
+            <a href="https://charity.wtf/2024/oncall-sucks.html" class="storylink">On-Call Doesn't Have to Suck: A Guide for Engineering Managers</a>
+            <span class="sitebit comhead"> (<a href="http://news.ycombinator.com/from?site=charity.wtf">charity.wtf</a>)</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td class="subtext">
+            <span class="score">141 points</span> by <a href="http://news.ycombinator.com/user?id=mipsytipsy">mipsytipsy</a> 1 day ago &nbsp;|&nbsp; <a href="http://news.ycombinator.com/hide?id=38807301">hide</a> &nbsp;|&nbsp; <a href="http://news.ycombinator.com/item?id=38807301">85 comments</a>
+          </td>
+        </tr>
+        <tr class="spacer-row"><td colspan="3"></td></tr>
+
+        <tr>
+          <td colspan="3" class="morelink">
+            <a href="http://news.ycombinator.com/?p=2">More</a>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table width="100%" cellspacing="0" cellpadding="1">
+        <tr>
+          <td>
+            <div class="footer">
+              <a href="http://news.ycombinator.com/newsguidelines.html">Guidelines</a>
+              &nbsp;|&nbsp;
+              <a href="http://news.ycombinator.com/newsfaq.html">FAQ</a>
+              &nbsp;|&nbsp;
+              <a href="https://www.ycombinator.com/lists">Lists</a>
+              &nbsp;|&nbsp;
+              <a href="http://news.ycombinator.com/newsapi.html">API</a>
+              &nbsp;|&nbsp;
+              <a href="http://news.ycombinator.com/security.html">Security</a>
+              &nbsp;|&nbsp;
+              <a href="https://www.ycombinator.com/legal/">Legal</a>
+              &nbsp;|&nbsp;
+              <a href="https://www.ycombinator.com/apply/">Apply to YC</a>
+              &nbsp;|&nbsp;
+              <a href="mailto:hn@ycombinator.com">Contact</a>
+              <br><br>
+              Search:&nbsp;<input type="text" size="17" style="font-size:9pt;">
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</center>
+</body>
+</html>

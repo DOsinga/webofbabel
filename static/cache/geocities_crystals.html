@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>~*~ Crystalline Visions ~*~ Magic Crystals & Metaphysical Healing ~*~</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+<style>
+  body {
+    background-color: #0a0015;
+    background-image: 
+      radial-gradient(ellipse at 20% 50%, #1a0030 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, #000d30 0%, transparent 50%);
+    color: #e8d5ff;
+    font-family: "Times New Roman", serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite alternate;
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.2; }
+    100% { opacity: 1; }
+  }
+
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .header-table {
+    width: 100%;
+    background: linear-gradient(135deg, #1a003a, #000d30, #1a003a);
+    border: 3px ridge #9966cc;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  h1.site-title {
+    font-size: 2.2em;
+    color: #cc99ff;
+    text-shadow: 0 0 10px #9933ff, 0 0 20px #6600cc, 2px 2px 0 #330066;
+    margin: 5px 0;
+    letter-spacing: 3px;
+  }
+
+  .subtitle {
+    color: #aaddff;
+    font-style: italic;
+    font-size: 0.95em;
+    letter-spacing: 1px;
+  }
+
+  .blink {
+    animation: blinker 1.2s step-start infinite;
+    color: #ffcc00;
+    font-size: 0.85em;
+  }
+  @keyframes blinker { 50% { opacity: 0; } }
+
+  .rainbow-text {
+    background: linear-gradient(90deg, #ff6666, #ffaa00, #ffff00, #66ff66, #66ccff, #cc66ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+  }
+
+  .nav-bar {
+    background: linear-gradient(to right, #330066, #000d30, #330066);
+    border: 2px ridge #6633cc;
+    padding: 6px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .nav-bar a {
+    color: #ffcc99;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 0.9em;
+    font-family: Arial, sans-serif;
+    text-shadow: 0 0 5px #ff9933;
+  }
+  .nav-bar a:hover { color: #ffffff; text-decoration: underline; }
+
+  .main-layout {
+    display: table;
+    width: 100%;
+    border-spacing: 8px;
+  }
+
+  .sidebar {
+    display: table-cell;
+    width: 200px;
+    vertical-align: top;
+  }
+
+  .main-content {
+    display: table-cell;
+    vertical-align: top;
+    padding-left: 10px;
+  }
+
+  .box {
+    background: linear-gradient(160deg, #0d0025, #00102b);
+    border: 2px ridge #9966cc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .box h3 {
+    color: #cc99ff;
+    margin: 0 0 8px 0;
+    font-size: 1em;
+    text-align: center;
+    border-bottom: 1px solid #9966cc;
+    padding-bottom: 5px;
+    text-shadow: 0 0 6px #9933ff;
+  }
+
+  .box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .box ul li {
+    padding: 3px 0;
+    font-size: 0.85em;
+    border-bottom: 1px dotted #441166;
+  }
+
+  .box ul li::before {
+    content: "✦ ";
+    color: #cc99ff;
+  }
+
+  .box a {
+    color: #aaddff;
+    text-decoration: none;
+  }
+  .box a:hover { color: #ffffff; text-decoration: underline; }
+
+  .crystal-card {
+    background: linear-gradient(135deg, #0d0025, #001030);
+    border: 2px ridge #6699cc;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .crystal-card h2 {
+    color: #aaddff;
+    font-size: 1.3em;
+    margin: 0 0 8px 0;
+    text-shadow: 0 0 8px #3366ff;
+  }
+
+  .crystal-card p {
+    font-size: 0.88em;
+    line-height: 1.6;
+    color: #ccbbee;
+    margin: 5px 0;
+  }
+
+  .crystal-emoji {
+    font-size: 2em;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+
+  .divider {
+    text-align: center;
+    color: #9966cc;
+    font-size: 1.2em;
+    margin: 8px 0;
+    letter-spacing: 4px;
+  }
+
+  .visitor-counter {
+    background: #000;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    font-size: 1.1em;
+    padding: 4px 8px;
+    border: 1px solid #00aa00;
+    display: inline-block;
+    letter-spacing: 3px;
+  }
+
+  .guestbook-link {
+    display: block;
+    text-align: center;
+    margin: 8px 0;
+    padding: 6px;
+    background: linear-gradient(to right, #330044, #001133);
+    border: 1px solid #9966cc;
+    color: #ffccff;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-family: Arial, sans-serif;
+  }
+  .guestbook-link:hover { background: linear-gradient(to right, #550066, #002255); }
+
+  .moon-phase-box {
+    text-align: center;
+    font-size: 3em;
+    padding: 5px;
+  }
+
+  .prophecy-box {
+    background: linear-gradient(135deg, #1a0010, #000d20);
+    border: 2px ridge #cc3366;
+    padding: 12px;
+    margin-bottom: 12px;
+    font-style: italic;
+    font-size: 0.85em;
+    color: #ffaabb;
+  }
+
+  .prophecy-box .prophecy-title {
+    color: #ff6699;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1em;
+    text-shadow: 0 0 8px #cc0033;
+  }
+
+  .warning-box {
+    background: linear-gradient(135deg, #1a1000, #100500);
+    border: 2px dashed #cc6600;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 0.8em;
+    color: #ffaa55;
+    font-family: Arial, sans-serif;
+  }
+
+  .marquee-wrapper {
+    background: #000;
+    border-top: 1px solid #6633cc;
+    border-bottom: 1px solid #6633cc;
+    overflow: hidden;
+    padding: 4px 0;
+    margin: 8px 0;
+  }
+
+  .marquee-inner {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 22s linear infinite;
+    color: #cc99ff;
+    font-size: 0.85em;
+    font-family: Arial, sans-serif;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .crystal-shop-item {
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+    vertical-align: top;
+    margin: 5px;
+    padding: 8px;
+    background: #0a001a;
+    border: 1px solid #663399;
+    font-size: 0.8em;
+  }
+
+  .crystal-icon-big { font-size: 2.5em; display: block; }
+
+  .price-tag {
+    color: #ffcc00;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+  }
+
+  .add-to-cart {
+    background: #330066;
+    color: #ffffff;
+    border: 1px solid #9966cc;
+    padding: 3px 8px;
+    font-size: 0.75em;
+    cursor: pointer;
+    margin-top: 4px;
+    font-family: Arial, sans-serif;
+  }
+
+  .add-to-cart:hover { background: #550099; }
+
+  .daily-reading {
+    background: linear-gradient(135deg, #001020, #0d0025);
+    border: 2px ridge #336699;
+    padding: 12px;
+    margin-bottom: 12px;
+    font-size: 0.88em;
+  }
+
+  .daily-reading h2 {
+    color: #66aaff;
+    text-align: center;
+    font-size: 1.1em;
+    margin: 0 0 8px 0;
+    text-shadow: 0 0 8px #0066cc;
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 0.75em;
+    color: #664488;
+    border-top: 2px ridge #9966cc;
+    font-family: Arial, sans-serif;
+    margin-top: 15px;
+  }
+
+  footer a { color: #9966cc; }
+
+  .glitter {
+    display: inline-block;
+    animation: colorshift 3s infinite;
+  }
+
+  @keyframes colorshift {
+    0% { color: #ff99ff; }
+    25% { color: #99ffff; }
+    50% { color: #ffff99; }
+    75% { color: #ff9999; }
+    100% { color: #ff99ff; }
+  }
+
+  .under-construction {
+    display: inline-block;
+    font-size: 0.75em;
+    color: #ffaa00;
+    font-family: Arial, sans-serif;
+    background: #1a0a00;
+    border: 1px dashed #ffaa00;
+    padding: 2px 6px;
+    margin-left: 5px;
+  }
+
+  .newpost-badge {
+    background: #cc0000;
+    color: white;
+    font-size: 0.65em;
+    padding: 1px 4px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    vertical-align: super;
+    margin-left: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Starfield -->
+<div class="stars" id="starfield"></div>
+
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <div class="header-table">
+    <div style="font-size:2.5em; letter-spacing:6px;">💎 ✨ 🔮 ✨ 💎</div>
+    <h1 class="site-title">~*~ Crystalline Visions ~*~</h1>
+    <div class="subtitle">✦ Sacred Stones · Metaphysical Healing · Cosmic Guidance ✦</div>
+    <br>
+    <span class="rainbow-text">~ Welcome, Starseed. The crystals have been waiting for you. ~</span>
+    <br><br>
+    <span class="blink">⚠ NEW: Mercury is in retrograde — protect your energy NOW ⚠</span>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrapper">
+    <div class="marquee-inner">
+      ✦ FREE shipping on orders over $40 ✦ &nbsp;&nbsp; NEW: Watermelon Tourmaline just arrived! ✦ &nbsp;&nbsp; 
+      Full Moon Ritual Kit now in stock ✦ &nbsp;&nbsp; Crystal of the Month: LABRADORITE 🌈 ✦ &nbsp;&nbsp;
+      "The stones remember what history forgets" — Moonwhisper ✦ &nbsp;&nbsp;
+      ✦ June Portal Energies are STRONG right now — harness them! ✦ &nbsp;&nbsp;
+      All orders come with a hand-written intention slip ✦ &nbsp;&nbsp;
+      Amethyst Dream Clusters BACK IN STOCK ✦
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav-bar">
+    <a href="http://www.geocities.com/~magic_crystals/shop.html">🛒 Crystal Shop</a>
+    <a href="http://www.geocities.com/~magic_crystals/healing.html">✋ Healing Guide</a>
+    <a href="http://www.geocities.com/~magic_crystals/readings.html">🔮 Readings</a>
+    <a href="http://www.geocities.com/~magic_crystals/chakras.html">🌈 Chakras</a>
+    <a href="http://www.geocities.com/~magic_crystals/moonphases.html">🌙 Moon Phases</a>
+    <a href="http://www.geocities.com/~magic_crystals/about.html">💜 About Celeste</a>
+    <a href="http://www.geocities.com/~magic_crystals/links.html">🔗 Links</a>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="main-layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <div class="box">
+        <h3>🌙 Current Moon</h3>
+        <div class="moon-phase-box">🌖</div>
+        <div style="text-align:center; font-size:0.8em; color:#aaaacc;">
+          Waning Gibbous<br>
+          <span style="color:#ffddaa;">Release &amp; Let Go</span><br><br>
+          <span style="font-size:0.75em; color:#887799;">
+            Good time to cleanse crystals under moonlight tonight. 
+            Set out your black tourmaline.
+          </span>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>✦ Navigation ✦</h3>
+        <ul>
+          <li><a href="http://www.geocities.com/~magic_crystals/shop.html">Crystal Shop</a></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/amethyst.html">Amethyst Corner</a></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/selenite.html">Selenite Wands</a></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/obsidian.html">Obsidian &amp; Protection</a></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/rose-quartz.html">Rose Quartz Love</a></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/citrine.html">Citrine Abundance</a></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/readings.html">Tarot Readings</a> <span class="newpost-badge">NEW</span></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/rituals.html">Moon Rituals</a></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/journal.html">Celeste's Journal</a></li>
+          <li><a href="http://www.geocities.com/~magic_crystals/guestbook.html">Guestbook</a></li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h3>📅 Upcoming Events</h3>
+        <div style="font-size:0.78em; color:#bbccee; line-height:1.8;">
+          <strong style="color:#ffccaa;">Jun 21</strong> — Summer Solstice<br>
+          <span style="color:#887799; font-size:0.9em;">Charge your crystals at noon!</span><br>
+          <strong style="color:#ffccaa;">Jun 24</strong> — Full Moon in Capricorn<br>
+          <span style="color:#887799; font-size:0.9em;">Manifestation ritual LIVE</span><br>
+          <strong style="color:#ffccaa;">Jul 4</strong> — Earth at Aphelion<br>
+          <span style="color:#887799; font-size:0.9em;">Distant from sun — go inward</span><br>
+          <strong style="color:#ffccaa;">Jul 9</strong> — Mercury Direct! 🎉<br>
+          <span style="color:#887799; font-size:0.9em;">Back-up everything now though</span>
+        </div>
+        <div style="margin-top:8px; text-align:center;">
+          <a href="http://www.geocities.com/~magic_crystals/calendar.html" style="color:#aaddff; font-size:0.8em;">View Full Crystal Calendar →</a>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>💌 Mailing List</h3>
+        <div style="font-size:0.78em; color:#ccbbee; text-align:center;">
+          Get moon alerts &amp; crystal wisdom straight to your inbox!<br><br>
+          <input type="email" placeholder="youremail@aol.com" style="width:90%; background:#0a001a; border:1px solid #9966cc; color:#ffffff; padding:3px; font-size:0.85em; font-family:Arial,sans-serif;"><br><br>
+          <button style="background:#550099; color:#fff; border:1px solid #cc99ff; padding:4px 12px; cursor:pointer; font-family:Arial,sans-serif; font-size:0.8em;">✨ Subscribe ✨</button>
+          <br><br>
+          <span style="color:#665588; font-size:0.85em;">I will NEVER sell your email. Blessed be. 🙏</span>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>🌐 Visitor Count</h3>
+        <div style="text-align:center; padding:5px;">
+          <div class="visitor-counter">004819</div>
+          <br>
+          <span style="font-size:0.75em; color:#665588; font-family:Arial,sans-serif;">since Mar 1998</span>
+        </div>
+      </div>
+
+      <a class="guestbook-link" href="http://www.geocities.com/~magic_crystals/guestbook.html">
+        📖 Sign My Guestbook! 📖<br>
+        <span style="font-size:0.8em; color:#9999cc;">27 entries so far ✨</span>
+      </a>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+      <!-- Welcome message -->
+      <div class="crystal-card">
+        <h2>💜 Welcome to Crystalline Visions!</h2>
+        <p>
+          <span class="crystal-emoji">🔮</span>
+          Blessed greetings, dear traveler! I am <strong style="color:#ffccff;">Celeste Moonshadow</strong>, 
+          and I have been working with crystals, stones, and earth energies for over <strong>eleven years</strong>. 
+          This site is my little corner of the web dedicated to the ancient wisdom of crystal healing, 
+          moon magic, and metaphysical living.
+        </p>
+        <p>
+          Whether you're a seasoned lightworker or just beginning to hear the call of the stones, 
+          you are welcome here. The universe guided you to this page for a reason. 
+          <span class="glitter">Trust the synchronicity.</span>
+        </p>
+        <p style="font-size:0.8em; color:#998aaa;">
+          ✦ Last updated: June 18th &nbsp;·&nbsp; 
+          Best viewed in Netscape Navigator 4.0 at 800×600 &nbsp;·&nbsp; 
+          <span style="color:#ffaa55;">IE users may experience sparkle issues</span>
+        </p>
+      </div>
+
+      <!-- Odd energy bleed-through note -->
+      <div class="prophecy-box">
+        <span class="prophecy-title">📜 Channel Received — June 18th</span>
+        "The stones have shown me a strange vision this week. A great battle on a muddy field in Belgium — 
+        cannon smoke and the screaming of horses. History pivoting on a single wet afternoon. 
+        A general who believed his destiny was iron-clad, unmoved — and yet the rains came, 
+        and the eagles fell. The obsidian does not lie: <em>even the mightiest empires 
+        shatter when they ignore the omens.</em> I felt this strongly during my morning meditation. 
+        Carry your black tourmaline if you are making any big decisions right now."
+        <div style="text-align:right; margin-top:6px; color:#cc6688; font-size:0.85em;">— Celeste ✨</div>
+      </div>
+
+      <!-- Daily Crystal Reading -->
+      <div class="daily-reading">
+        <h2>🌟 Today's Crystal Reading</h2>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:160px;">
+            <div style="font-size:2em; text-align:center;">💙</div>
+            <strong style="color:#66aaff; display:block; text-align:center; margin-bottom:5px;">Blue Kyanite</strong>
+            <p style="margin:0; color:#aabbdd;">
+              Today's stone urges you to <strong>cut the cords</strong> that no longer serve you. 
+              Kyanite does not hold negative energy — it transmutes it. 
+              Are you checking your devices too often? 
+              Are you giving your attention to loud voices that drain you?
+              The kyanite says: <em>go quiet. go inward.</em>
+            </p>
+          </div>
+          <div style="flex:1; min-width:160px;">
+            <div style="font-size:2em; text-align:center;">🟡</div>
+            <strong style="color:#ffdd55; display:block; text-align:center; margin-bottom:5px;">Golden Rutilated Quartz</strong>
+            <p style="margin:0; color:#ddcc88;">
+              The golden threads in this stone mirror the neural pathways 
+              of inspired thought. Ideas are coming to you rapidly — 
+              <em>write them down before Mercury retrograde scrambles them.</em> 
+              Back up your work. 
+              Don't send important communications until after July 9th.
+            </p>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:10px;">
+          <a href="http://www.geocities.com/~magic_crystals/readings.html" style="color:#aaddff; font-size:0.85em;">
+            → Get Your Full Personalized Crystal Reading ←
+          </a>
+        </div>
+      </div>
+
+      <div class="divider">✦ ✧ ✦ ✧ ✦ ✧ ✦</div>
+
+      <!-- Crystals Feature -->
+      <div class="crystal-card">
+        <h2>💎 Crystal of the Month: LABRADORITE</h2>
+        <p>
+          <span style="font-size:2.5em; float:left; margin-right:10px;">🌈</span>
+          Oh my goodness, <strong style="color:#aaddff;">labradorite</strong> has been 
+          speaking to me SO loudly this month. If you haven't worked with this stone yet, 
+          PLEASE listen to the universe calling you to it. 
+        </p>
+        <p>
+          Labradorite is the stone of <strong>transformation, protection, and awakening intuition</strong>. 
+          Its iridescent flash — called <em>labradorescence</em> — is said to be a piece of the northern lights 
+          trapped inside the earth. The Inuit people believed these stones were pieces of the 
+          frozen fire of the aurora borealis.
+        </p>
+        <p>
+          <strong>Properties:</strong> Strengthens psychic abilities · Protects the aura from energy vampires · 
+          Helps you see through illusion and propaganda · Especially powerful for those who feel 
+          overwhelmed by the noise of the modern world (so — all of us, right now 😅)
+        </p>
+        <p>
+          <strong style="color:#ffccaa;">Celeste's tip:</strong> Hold your labradorite when you're scrolling 
+          through news or social media. It creates an energetic buffer between your auric field and 
+          the chaotic frequencies of the internet. Honestly I cannot go online without mine anymore.
+        </p>
+        <div style="text-align:center; margin-top:8px;">
+          <a href="http://www.geocities.com/~magic_crystals/shop.html#labradorite" 
+             style="background:#330066; color:#cc99ff; padding:6px 16px; border:1px solid #9966cc; text-decoration:none; font-family:Arial,sans-serif; font-size:0.85em;">
+            🛒 Shop Labradorite →
+          </a>
+        </div>
+      </div>
+
+      <!-- Warning box with bleed-through energy -->
+      <div class="warning-box">
+        ⚠️ <strong>RETROGRADE ALERT — Mercury Retrograde ends July 9th</strong><br>
+        Do NOT sign contracts, launch projects, or make big purchases without protection crystals. 
+        Keep a piece of <strong>hematite</strong> near your computer and <strong>fluorite</strong> near your phone. 
+        Back up all your files. I lost an entire website in the '99 retrograde. Never again.
+        For serious practitioners: schedule important decisions using my 
+        <a href="http://www.geocities.com/~magic_crystals/calendar.html">Cosmic Calendar</a> to avoid 
+        void-of-course moon periods too.
+      </div>
+
+      <!-- Mini shop -->
+      <div class="crystal-card">
+        <h2>🛒 Shop — New Arrivals</h2>
+        <div style="text-align:center;">
+
+          <div class="crystal-shop-item">
+            <span class="crystal-icon-big">💜</span>
+            <strong style="color:#cc99ff;">Amethyst Cluster</strong><br>
+            <span style="color:#aaaacc;">150–200g raw</span><br>
+            <span class="price-tag">$18.00</span><br>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+
+          <div class="crystal-shop-item">
+            <span class="crystal-icon-big">🖤</span>
+            <strong style="color:#cc99ff;">Black Tourmaline</strong><br>
+            <span style="color:#aaaacc;">Protection stone</span><br>
+            <span class="price-tag">$12.00</span><br>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+
+          <div class="crystal-shop-item">
+            <span class="crystal-icon-big">🌈</span>
+            <strong style="color:#cc99ff;">Labradorite Palm</strong><br>
+            <span style="color:#aaaacc;">Polished, ~80g</span><br>
+            <span class="price-tag">$24.00</span><br>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+
+          <div class="crystal-shop-item">
+            <span class="crystal-icon-big">🤍</span>
+            <strong style="color:#cc99ff;">Selenite Wand</strong><br>
+            <span style="color:#aaaacc;">15cm, cleansing</span><br>
+            <span class="price-tag">$14.00</span><br>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+
+          <div class="crystal-shop-item">
+            <span class="crystal-icon-big">🟤</span>
+            <strong style="color:#cc99ff;">Tiger's Eye Set</strong><br>
+            <span style="color:#aaaacc;">3 tumbled stones</span><br>
+            <span class="price-tag">$9.00</span><br>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+
+          <div class="crystal-shop-item">
+            <span class="crystal-icon-big">💗</span>
+            <strong style="color:#cc99ff;">Rose Quartz Heart</strong><br>
+            <span style="color:#aaaacc;">Carved, ~60g</span><br>
+            <span class="price-tag">$16.00</span><br>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+
+        </div>
+        <div style="text-align:center; margin-top:10px;">
+          <a href="http://www.geocities.com/~magic_crystals/shop.html" style="color:#aaddff; font-size:0.9em;">
+            → View Full Shop (47 items) ←
+          </a>
+        </div>
+      </div>
+
+      <div class="divider">✦ ✧ ✦ ✧ ✦ ✧ ✦</div>
+
+      <!-- Journal entry -->
+      <div class="crystal-card">
+        <h2>📓 From Celeste's Journal — June 18th</h2>
+        <p>
+          Woke up at 3:33 AM again. The veil is thin right now — I've been tracking this on my <a href="http://www.geocities.com/~magic_crystals/calendar.html" style="color:#aaddff;">energy calendar</a> 
+          and there is definitely a pattern forming around this date every year. 
+        </p>
+        <p>
+          I've been meditating with a large piece of <strong>Nuummite</strong> (the sorcerer's stone) and 
+          receiving these very historical images — battles, smoke, a man in a grey coat on a white horse 
+          looking very certain of himself and then... not. The stone kept showing me the same scene: 
+          an eagle crest pressed into mud. Make of that what you will. 
+          I'm choosing to interpret it as a message about <em>hubris and the limits of earthly power.</em>
+        </p>
+        <p>
+          On a lighter note: my etsy shop orders have been WILD this week. 
+          I think a lot of people are feeling the chaos energies and reaching for stones. 
+          That's good. That's the right instinct. Sold out of all my shungite within two days 
+          — restocking next week.
+        </p>
+        <p>
+          Also — I keep seeing the word "WATERLOO" in my automatic writing sessions and I'm not 
+          sure if that's a place, a metaphor, or a song. Might be an ABBA thing honestly lol. 
+          Anyway the crystals are busy 😂✨
+        </p>
+        <div style="text-align:right; margin-top:6px; color:#cc99ff; font-style:italic; font-size:0.9em;">
+          with love &amp; moonlight, ~Celeste 💜
+        </div>
+      </div>
+
+      <!-- Friends & links -->
+      <div class="crystal-card">
+        <h2>🔗 Sister Sites &amp; Friends</h2>
+        <div style="font-size:0.85em; line-height:2; color:#aabbcc;">
+          ✦ <a href="http://www.geocities.com/~moongoddess_tarot" style="color:#ffccff;">Moongoddess Tarot Readings</a> — my friend Rhiannon's amazing tarot site<br>
+          ✦ <a href="http://www.geocities.com/~herbalwitch99" style="color:#ffccff;">The Herbal Witch</a> — herbs, tinctures &amp; crystal-infused potions<br>
+          ✦ <a href="http://www.geocities.com/~starseedawakening" style="color:#ffccff;">Starseed Awakening</a> — for those who feel they don't belong on this planet<br>
+          ✦ <a href="http://www.geocities.com/~AstralTravelersHaven" style="color:#ffccff;">Astral Travelers Haven</a> — OBE techniques &amp; lucid dreaming<br>
+          ✦ <a href="http://www.geocities.com/~chakrabalancing2000" style="color:#ffccff;">Chakra Balancing 2000</a> <span class="under-construction">🚧 Under Construction</span><br>
+          ✦ <a href="http://www.geocities.com/~pagansofthewest" style="color:#ffccff;">Pagans of the West Coast Ring</a> — webring of 63 sister sites<br>
+        </div>
+      </div>
+
+    </div><!-- end main-content -->
+  </div><!-- end main-layout -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="divider">💎 ✨ 🔮 ✨ 💎</div>
+    <p>
+      ~*~ Crystalline Visions ~*~ created with love by <strong>Celeste Moonshadow</strong><br>
+      📧 <a href="mailto:celeste_moonshine@hotmail.com">celeste_moonshine@hotmail.com</a> &nbsp;|&nbsp; 
+      📬 <a href="http://www.geocities.com/~magic_crystals/guestbook.html">Sign the Guestbook</a> &nbsp;|&nbsp;
+      🔗 <a href="http://www.geocities.com/~magic_crystals/links.html">Links Exchange</a>
+    </p>
+    <p style="color:#443355;">
+      © 1998–1999 Crystalline Visions. All content is protected by universal copyright law AND karmic law.<br>
+      Please ask before using my images. Taking without asking sends very bad energy your way. Seriously. 🙏<br>
+      <span style="font-size:0.85em; color:#332244;">
+        This site is hosted by <a href="http://www.geocities.com" style="color:#664488;">GeoCities</a>. 
+        Member of the <a href="http://www.geocities.com/~pagansofthewest" style="color:#664488;">Pagans of the West Webring</a>.
+      </span>
+    </p>
+    <p style="font-size:0.75em; color:#2a1a33;">
+      ✦ The information on this site is for spiritual guidance only and does not replace medical advice. 
+      Always consult a doctor for health concerns. ✦
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  // Generate stars
+  const starfield = document.getElementById('starfield');
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      top: ${Math.random() * 100}%;
+      left: ${Math.random() * 100}%;
+      animation-delay: ${Math.random() * 3}s;
+      animation-duration: ${1.5 + Math.random() * 3}s;
+      opacity: ${Math.random() * 0.7 + 0.2};
+    `;
+    starfield.appendChild(star);
+  }
+
+  // Add to cart button behavior
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.textContent = '✓ Added!';
+      this.style.background = '#004400';
+      this.style.borderColor = '#00cc00';
+      setTimeout(() => {
+        this.textContent = 'Add to Cart';
+        this.style.background = '#330066';
+        this.style.borderColor = '#9966cc';
+      }, 2000);
+    });
+  });
+</script>
+
+</body>
+</html>

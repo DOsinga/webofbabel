@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luminary AI Photo Editor 4+</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23a855f7'/><stop offset='100%25' stop-color='%236366f1'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text y='.9em' font-size='75' x='12'>✦</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    font-size: 14px;
+  }
+
+  /* TOP NAV */
+  .top-nav {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid #d2d2d7;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .top-nav-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    height: 44px;
+    gap: 24px;
+    font-size: 12px;
+    color: #424245;
+  }
+  .top-nav-inner a {
+    color: #424245;
+    text-decoration: none;
+  }
+  .top-nav-inner a:hover { color: #0066cc; }
+  .apple-logo { font-size: 18px; color: #1d1d1f; }
+  .nav-sep { color: #d2d2d7; }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    background: #fff;
+    border-bottom: 1px solid #d2d2d7;
+    padding: 10px 20px;
+  }
+  .breadcrumb-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #6e6e73;
+  }
+  .breadcrumb-inner a { color: #0066cc; text-decoration: none; }
+  .breadcrumb-inner a:hover { text-decoration: underline; }
+  .bc-arrow { color: #c7c7cc; }
+
+  /* MAIN CONTAINER */
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
+
+  /* APP HEADER */
+  .app-header {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 32px;
+    align-items: flex-start;
+  }
+  .app-icon {
+    width: 128px;
+    height: 128px;
+    border-radius: 28px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #3b82f6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    box-shadow: 0 8px 30px rgba(99,102,241,0.35);
+    position: relative;
+    overflow: hidden;
+  }
+  .app-icon::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 80px; height: 80px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+  }
+  .app-icon-star { font-size: 56px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
+  .app-meta { flex: 1; }
+  .app-name {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1d1d1f;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .app-subtitle {
+    font-size: 16px;
+    color: #6e6e73;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .app-dev-link {
+    font-size: 13px;
+    color: #0066cc;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .app-dev-link:hover { text-decoration: underline; }
+
+  .app-badges {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .badge-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1d1d1f;
+  }
+  .badge-label {
+    font-size: 10px;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-sep {
+    width: 1px;
+    height: 36px;
+    background: #d2d2d7;
+  }
+
+  .stars-display { color: #ff9f0a; font-size: 16px; letter-spacing: 1px; }
+
+  .get-btn {
+    display: inline-block;
+    background: #0066cc;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 24px;
+    border-radius: 980px;
+    text-decoration: none;
+    margin-right: 12px;
+    transition: background 0.2s;
+  }
+  .get-btn:hover { background: #0051a8; }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    color: #0066cc;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid #d2d2d7; margin: 28px 0; }
+
+  /* SCREENSHOTS */
+  .section-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 16px;
+  }
+  .screenshots-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+  }
+  .screenshots-scroll::-webkit-scrollbar { display: none; }
+  .screenshot-frame {
+    flex-shrink: 0;
+    width: 200px;
+    height: 430px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #1a1a2e;
+    border: 1px solid #d2d2d7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+  .ss1 { background: linear-gradient(160deg, #0f0c29, #302b63, #24243e); }
+  .ss2 { background: linear-gradient(160deg, #1a1a2e, #16213e, #0f3460); }
+  .ss3 { background: linear-gradient(160deg, #2d1b69, #11998e, #38ef7d); }
+  .ss4 { background: linear-gradient(160deg, #0f2027, #203a43, #2c5364); }
+  .ss5 { background: linear-gradient(160deg, #3a1c71, #d76d77, #ffaf7b); }
+  .ss-content {
+    text-align: center;
+    padding: 20px;
+    color: #fff;
+  }
+  .ss-ui-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    padding: 14px 12px;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .ss-ui-dot {
+    width: 30px; height: 4px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 2px;
+  }
+  .ss-ui-dot.active { background: #a855f7; }
+  .ss-phone-notch {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 26px;
+    background: #000;
+    border-radius: 0 0 16px 16px;
+    z-index: 2;
+  }
+  .ss-fake-img {
+    width: 160px;
+    height: 200px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ss-fake-img-inner {
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+  }
+  .ss-overlay-tag {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: rgba(168,85,247,0.85);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .ss-caption {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+  }
+  .ss-caption strong { color: #fff; font-size: 14px; display: block; margin-bottom: 4px; }
+
+  /* TWO COL LAYOUT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* DESCRIPTION */
+  .description {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #1d1d1f;
+  }
+  .description p { margin-bottom: 12px; }
+  .description ul {
+    margin: 12px 0 12px 20px;
+  }
+  .description ul li { margin-bottom: 6px; }
+  .description h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 16px 0 8px;
+  }
+  .show-more {
+    color: #0066cc;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin-top: 4px;
+  }
+  .show-more:hover { text-decoration: underline; }
+
+  /* WHAT'S NEW */
+  .whats-new-version {
+    font-size: 12px;
+    color: #6e6e73;
+    margin-bottom: 8px;
+  }
+
+  /* RATINGS */
+  .ratings-block {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .big-rating {
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .big-number {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    color: #1d1d1f;
+  }
+  .big-stars { color: #ff9f0a; font-size: 18px; margin: 4px 0; }
+  .big-count { font-size: 11px; color: #6e6e73; }
+
+  .rating-bars { flex: 1; }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+  .bar-label { font-size: 11px; color: #6e6e73; width: 8px; text-align: right; }
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: #e5e5ea;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: #6e6e73;
+    border-radius: 3px;
+  }
+
+  /* REVIEWS */
+  .review-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .review-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+  .review-title { font-size: 14px; font-weight: 700; }
+  .review-stars { color: #ff9f0a; font-size: 12px; }
+  .review-meta { font-size: 11px; color: #6e6e73; margin-bottom: 8px; }
+  .review-body { font-size: 13px; line-height: 1.6; color: #1d1d1f; }
+
+  /* RIGHT SIDEBAR */
+  .sidebar-section { margin-bottom: 24px; }
+  .sidebar-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #d2d2d7;
+  }
+  .sidebar-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 13px;
+  }
+  .sidebar-row:last-child { border-bottom: none; }
+  .sidebar-key { color: #6e6e73; }
+  .sidebar-val { color: #1d1d1f; font-weight: 500; text-align: right; }
+
+  .age-badge {
+    display: inline-block;
+    border: 2px solid #6e6e73;
+    color: #6e6e73;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 5px;
+  }
+
+  /* SIMILAR APPS */
+  .similar-app {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f2f2f2;
+    text-decoration: none;
+    color: inherit;
+  }
+  .similar-app:last-child { border-bottom: none; }
+  .similar-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .similar-meta { flex: 1; }
+  .similar-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .similar-cat { font-size: 11px; color: #6e6e73; }
+  .similar-get { color: #0066cc; font-size: 12px; font-weight: 600; background: #e8f0ff; padding: 4px 14px; border-radius: 980px; flex-shrink: 0; }
+
+  /* PRIVACY */
+  .privacy-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .privacy-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f5f7;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .privacy-icon { font-size: 20px; }
+  .privacy-type-label { font-size: 12px; font-weight: 600; color: #1d1d1f; }
+  .privacy-type-sub { font-size: 11px; color: #6e6e73; }
+
+  /* FOOTER */
+  footer {
+    background: #f5f5f7;
+    border-top: 1px solid #d2d2d7;
+    margin-top: 48px;
+    padding: 24px 20px;
+    font-size: 12px;
+    color: #6e6e73;
+    text-align: center;
+  }
+  footer a { color: #6e6e73; text-decoration: none; margin: 0 8px; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    .two-col { grid-template-columns: 1fr; }
+    .app-header { flex-direction: column; }
+    .app-icon { width: 96px; height: 96px; font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <span class="apple-logo">&#63743;</span>
+    <span class="nav-sep">|</span>
+    <a href="https://www.apple.com/store">Store</a>
+    <a href="https://www.apple.com/mac">Mac</a>
+    <a href="https://www.apple.com/ipad">iPad</a>
+    <a href="https://www.apple.com/iphone">iPhone</a>
+    <a href="https://apps.apple.com">App Store</a>
+    <a href="https://support.apple.com">Support</a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="https://apps.apple.com/us">App Store</a>
+    <span class="bc-arrow">›</span>
+    <a href="https://apps.apple.com/us/genre/ios-photo-video/id6008">Photo &amp; Video</a>
+    <span class="bc-arrow">›</span>
+    <span>Luminary AI Photo Editor</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+  <!-- APP HEADER -->
+  <div class="app-header">
+    <div class="app-icon">
+      <div class="app-icon-star">✦</div>
+    </div>
+    <div class="app-meta">
+      <div class="app-name">Luminary AI Photo Editor</div>
+      <div class="app-subtitle">Sky, Portrait &amp; Magic Retouch</div>
+      <a class="app-dev-link" href="https://apps.apple.com/us/developer/luminary-labs-inc/id1591756870">Luminary Labs, Inc.</a>
+
+      <div class="app-badges">
+        <div class="badge-item">
+          <div class="badge-value"><span class="stars-display">★★★★★</span></div>
+          <div class="badge-label">4.8 · 62.4K Ratings</div>
+        </div>
+        <div class="badge-sep"></div>
+        <div class="badge-item">
+          <div class="badge-value">4+</div>
+          <div class="badge-label">Age</div>
+        </div>
+        <div class="badge-sep"></div>
+        <div class="badge-item">
+          <div class="badge-value">#3</div>
+          <div class="badge-label">Photo &amp; Video</div>
+        </div>
+        <div class="badge-sep"></div>
+        <div class="badge-item">
+          <div class="badge-value">Free</div>
+          <div class="badge-label">In-App Purchases</div>
+        </div>
+      </div>
+
+      <a href="https://apps.apple.com/us/app/luminary-ai-photo-editor/id1591756870" class="get-btn">Get</a>
+      <button class="share-btn" title="Share">⬆</button>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SCREENSHOTS -->
+  <div class="section-title">Preview</div>
+  <div class="screenshots-scroll">
+
+    <div class="screenshot-frame ss1">
+      <div class="ss-phone-notch"></div>
+      <div class="ss-content">
+        <div class="ss-fake-img">
+          <div class="ss-fake-img-inner">🌅</div>
+          <div class="ss-overlay-tag">AI Sky</div>
+        </div>
+        <div class="ss-caption"><strong>Replace Any Sky</strong>Drag to swap skies with one tap using AI</div>
+      </div>
+      <div class="ss-ui-bar">
+        <div class="ss-ui-dot active"></div>
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot"></div>
+      </div>
+    </div>
+
+    <div class="screenshot-frame ss2">
+      <div class="ss-phone-notch"></div>
+      <div class="ss-content">
+        <div class="ss-fake-img">
+          <div class="ss-fake-img-inner">🤳</div>
+          <div class="ss-overlay-tag">Portrait AI</div>
+        </div>
+        <div class="ss-caption"><strong>AI Portrait Magic</strong>Perfect skin, eyes &amp; lighting instantly</div>
+      </div>
+      <div class="ss-ui-bar">
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot active"></div>
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot"></div>
+      </div>
+    </div>
+
+    <div class="screenshot-frame ss3">
+      <div class="ss-phone-notch"></div>
+      <div class="ss-content">
+        <div class="ss-fake-img">
+          <div class="ss-fake-img-inner">🌿</div>
+          <div class="ss-overlay-tag">Relight</div>
+        </div>
+        <div class="ss-caption"><strong>AI Relighting</strong>Studio-quality light in any scene</div>
+      </div>
+      <div class="ss-ui-bar">
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot active"></div>
+        <div class="ss-ui-dot"></div>
+      </div>
+    </div>
+
+    <div class="screenshot-frame ss4">
+      <div class="ss-phone-notch"></div>
+      <div class="ss-content">
+        <div class="ss-fake-img">
+          <div class="ss-fake-img-inner">🏙️</div>
+          <div class="ss-overlay-tag">Erase</div>
+        </div>
+        <div class="ss-caption"><strong>Magic Eraser</strong>Remove objects &amp; people seamlessly</div>
+      </div>
+      <div class="ss-ui-bar">
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot active"></div>
+      </div>
+    </div>
+
+    <div class="screenshot-frame ss5">
+      <div class="ss-phone-notch"></div>
+      <div class="ss-content">
+        <div class="ss-fake-img">
+          <div class="ss-fake-img-inner">🎨</div>
+          <div class="ss-overlay-tag">Presets</div>
+        </div>
+        <div class="ss-caption"><strong>200+ AI Presets</strong>Cinematic looks crafted by photographers</div>
+      </div>
+      <div class="ss-ui-bar">
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot active"></div>
+        <div class="ss-ui-dot"></div>
+        <div class="ss-ui-dot"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="divider">
+
+  <!-- TWO COLUMN -->
+  <div class="two-col">
+
+    <!-- LEFT -->
+    <div>
+
+      <!-- DESCRIPTION -->
+      <div class="section-title">Description</div>
+      <div class="description">
+        <p><strong>Luminary AI Photo Editor</strong> is the world's most advanced AI-powered photo editing app, bringing professional-grade tools directly to your iPhone and iPad. Whether you're a hobbyist or a seasoned photographer, Luminary's intelligent suite of tools makes every photo extraordinary — no desktop software required.</p>
+
+        <h4>✦ AI SKY REPLACEMENT</h4>
+        <p>Swap out any sky in seconds. Choose from 80+ dramatic, sunlit, or stormy sky options and watch our AI seamlessly blend it into your scene — adjusting for ground reflections, lighting, and color temperature automatically.</p>
+
+        <h4>✦ AI PORTRAIT RETOUCH</h4>
+        <p>Look your best every time. Our facial recognition AI detects and enhances skin texture, eyes, teeth, and hair with one slider. Natural results, every time — never over-processed.</p>
+
+        <h4>✦ AI RELIGHT</h4>
+        <p>Simulate professional studio lighting with our revolutionary Relighting tool. Place a virtual light source anywhere in your photo and watch it naturally illuminate faces and surfaces.</p>
+
+        <h4>✦ MAGIC ERASER</h4>
+        <p>Remove any unwanted object, person, or blemish with our intelligent content-aware eraser. Just paint over what you want gone — Luminary AI fills in the background perfectly.</p>
+
+        <h4>✦ 200+ AI PRESETS</h4>
+        <ul>
+          <li>Cinematic film simulations</li>
+          <li>Moody landscapes &amp; travel edits</li>
+          <li>Portrait-optimized golden hour looks</li>
+          <li>Black &amp; white fine art styles</li>
+          <li>Vintage &amp; analog grain filters</li>
+        </ul>
+
+        <h4>✦ PRO EDITING TOOLS</h4>
+        <ul>
+          <li>RAW file support (ProRAW compatible)</li>
+          <li>Advanced masking: AI subject, sky, brush, gradient</li>
+          <li>Curves, HSL, tone mapping, split toning</li>
+          <li>Noise reduction &amp; sharpening powered by AI</li>
+          <li>Geometry &amp; perspective correction</li>
+          <li>Non-destructive editing workflow</li>
+        </ul>
+
+        <p>Luminary AI Photo Editor offers a free tier with core editing features. Unlock the full suite with <strong>Luminary AI Pro</strong> — available as a monthly or annual subscription.</p>
+
+        <p><em>Subscription auto-renews unless cancelled at least 24 hours before the period ends. Manage subscriptions in your Apple ID Settings.</em></p>
+      </div>
+
+      <hr class="divider">
+
+      <!-- WHAT'S NEW -->
+      <div class="section-title">What's New</div>
+      <div class="whats-new-version">Version 4.3.1 · 2 days ago</div>
+      <div class="description">
+        <p>We're constantly improving Luminary to give you the best editing experience possible. This update brings:</p>
+        <ul>
+          <li><strong>New: AI Expand</strong> — Extend your photo beyond its edges using generative fill</li>
+          <li>Improved sky replacement blending for overcast scenes</li>
+          <li>Portrait AI now supports glasses detection &amp; glare removal</li>
+          <li>Significantly faster export on iPhone 15 Pro and iPhone 16 series</li>
+          <li>Fixed a crash when importing HEIC files from iCloud Drive</li>
+          <li>Minor performance improvements and bug fixes</li>
+        </ul>
+      </div>
+
+      <hr class="divider">
+
+      <!-- RATINGS -->
+      <div class="section-title">Ratings &amp; Reviews</div>
+
+      <div class="ratings-block">
+        <div class="big-rating">
+          <div class="big-number">4.8</div>
+          <div class="big-stars">★★★★★</div>
+          <div class="big-count">out of 5</div>
+          <div style="font-size:11px;color:#6e6e73;margin-top:4px;">62.4K Ratings</div>
+        </div>
+        <div class="rating-bars">
+          <div class="bar-row">
+            <span class="bar-label">5</span>
+            <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">4</span>
+            <div class="bar-track"><div class="bar-fill" style="width:11%"></div></div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">3</span>
+            <div class="bar-track"><div class="bar-fill" style="width:4%"></div></div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">2</span>
+            <div class="bar-track"><div class="bar-fill" style="width:1%"></div></div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">1</span>
+            <div class="bar-track"><div class="bar-fill" style="width:2%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-title">Absolutely changed how I edit photos</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <div class="review-meta">coastalwanderer_kai · June 12, 2025</div>
+        <div class="review-body">I've tried literally every photo app on the App Store and nothing comes close to Luminary. The sky replacement is witchcraft — I replaced a grey overcast sky with a golden-hour gradient and it looked 100% real. My Instagram engagement went through the roof. The portrait tools are equally impressive, very natural looking. Worth every penny of the Pro subscription.</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-title">The AI Relight feature alone is worth it</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <div class="review-meta">priya.shoots · May 28, 2025</div>
+        <div class="review-body">As a wedding photographer, I often deal with harsh midday light. The AI Relight tool lets me sculpt beautiful soft box lighting in post — right on my phone while delivering to clients. Honestly I'd pay $20/month just for that feature. The fact it does a hundred other things is insane value. Developer support is also really responsive.</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top">
+          <div class="review-title">Impressed by the RAW support</div>
+          <div class="review-stars">★★★★☆</div>
+        </div>
+        <div class="review-meta">NordicLens_Erik · June 3, 2025</div>
+        <div class="review-body">Finally an app that handles ProRAW files properly on iPhone. The noise reduction is excellent — smooth without losing fine detail. My only wish is for a desktop companion app for bigger screens. Still, 4 stars and my go-to mobile editor.</div>
+      </div>
+
+      <a href="https://apps.apple.com/us/app/luminary-ai-photo-editor/id1591756870#reviews" style="color:#0066cc;font-size:13px;text-decoration:none;">See All Ratings and Reviews ›</a>
+
+      <hr class="divider">
+
+      <!-- PRIVACY -->
+      <div class="section-title">App Privacy</div>
+      <div class="privacy-box">
+        <p style="font-size:13px;color:#1d1d1f;margin-bottom:12px;">The developer, <strong>Luminary Labs, Inc.</strong>, indicated that the app's privacy practices may include handling of data as described below.</p>
+        <div class="privacy-type">
+          <span class="privacy-icon">📊</span>
+          <div>
+            <div class="privacy-type-label">Data Used to Track You</div>
+            <div class="privacy-type-sub">Identifiers, Usage Data</div>
+          </div>
+        </div>
+        <div class="privacy-type">
+          <span class="privacy-icon">🔗</span>
+          <div>
+            <div class="privacy-type-label">Data Linked to You</div>
+            <div class="privacy-type-sub">Purchases, Photos, Identifiers, Contact Info</div>
+          </div>
+        </div>
+        <div class="privacy-type">
+          <span class="privacy-icon">🔒</span>
+          <div>
+            <div class="privacy-type-label">Data Not Linked to You</div>
+            <div class="privacy-type-sub">Diagnostics, Usage Data</div>
+          </div>
+        </div>
+        <a href="https://apps.apple.com/us/app/luminary-ai-photo-editor/id1591756870#privacy" style="color:#0066cc;font-size:12px;margin-top:8px;display:inline-block;">See Details ›</a>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Information</div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Seller</span>
+          <span class="sidebar-val">Luminary Labs, Inc.</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Size</span>
+          <span class="sidebar-val">247.6 MB</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Category</span>
+          <span class="sidebar-val"><a href="https://apps.apple.com/us/genre/ios-photo-video/id6008" style="color:#0066cc;text-decoration:none;">Photo &amp; Video</a></span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Compatibility</span>
+          <span class="sidebar-val">iPhone, iPad, Mac</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Languages</span>
+          <span class="sidebar-val">EN, FR, DE, ES, JA, KO, ZH, PT, IT, RU +8</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Age Rating</span>
+          <span class="sidebar-val"><span class="age-badge">4+</span></span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Copyright</span>
+          <span class="sidebar-val">© 2025 Luminary Labs, Inc.</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Price</span>
+          <span class="sidebar-val">Free</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">In-App Purchases</div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Luminary AI Pro (Monthly)</span>
+          <span class="sidebar-val">$5.99</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Luminary AI Pro (Annual)</span>
+          <span class="sidebar-val">$39.99</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Sky Pack — Celestial</span>
+          <span class="sidebar-val">$2.99</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Preset Bundle — Film Noir</span>
+          <span class="sidebar-val">$1.99</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Luminary Lifetime Access</span>
+          <span class="sidebar-val">$79.99</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Developer Links</div>
+        <div class="sidebar-row">
+          <a href="https://www.luminaryapp.io/support" style="color:#0066cc;text-decoration:none;font-size:13px;">App Support</a>
+        </div>
+        <div class="sidebar-row">
+          <a href="https://www.luminaryapp.io/privacy" style="color:#0066cc;text-decoration:none;font-size:13px;">Privacy Policy</a>
+        </div>
+        <div class="sidebar-row">
+          <a href="https://apps.apple.com/us/developer/luminary-labs-inc/id1591756870" style="color:#0066cc;text-decoration:none;font-size:13px;">More Apps by This Developer</a>
+        </div>
+      </div>
+
+      <!-- SIMILAR APPS -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">You Might Also Like</div>
+
+        <a class="similar-app" href="https://apps.apple.com/us/app/darkroom-photo-video-editor/id953286746">
+          <div class="similar-icon" style="background:linear-gradient(135deg,#1a1a2e,#4a0080)">🌑</div>
+          <div class="similar-meta">
+            <div class="similar-name">Darkroom: Photo Editor</div>
+            <div class="similar-cat">Photo &amp; Video</div>
+          </div>
+          <span class="similar-get">Get</span>
+        </a>
+
+        <a class="similar-app" href="https://apps.apple.com/us/app/snapseed/id439438619">
+          <div class="similar-icon" style="background:linear-gradient(135deg,#1db954,#0a7a35)">📷</div>
+          <div class="similar-meta">
+            <div class="similar-name">Snapseed</div>
+            <div class="similar-cat">Photo &amp; Video</div>
+          </div>
+          <span class="similar-get">Get</span>
+        </a>
+
+        <a class="similar-app" href="https://apps.apple.com/us/app/lightroom-photo-video-editor/id878783582">
+          <div class="similar-icon" style="background:linear-gradient(135deg,#001f6e,#31a8ff)">☀️</div>
+          <div class="similar-meta">
+            <div class="similar-name">Lightroom Photo Editor</div>
+            <div class="similar-cat">Photo &amp; Video</div>
+          </div>
+          <span class="similar-get">Get</span>
+        </a>
+
+        <a class="similar-app" href="https://apps.apple.com/us/app/facetune-ai-photo-video-editor/id1149994183">
+          <div class="similar-icon" style="background:linear-gradient(135deg,#ff6b6b,#ffd93d)">✨</div>
+          <div class="similar-meta">
+            <div class="similar-name">Facetune AI</div>
+            <div class="similar-cat">Photo &amp; Video</div>
+          </div>
+          <span class="similar-get">Get</span>
+        </a>
+
+        <a class="similar-app" href="https://apps.apple.com/us/app/vsco-photo-video-editor/id588013838">
+          <div class="similar-icon" style="background:linear-gradient(135deg,#111,#555)">🎞️</div>
+          <div class="similar-meta">
+            <div class="similar-name">VSCO: Photo &amp; Video Editor</div>
+            <div class="similar-cat">Photo &amp; Video</div>
+          </div>
+          <span class="similar-get">Get</span>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom:10px;">
+    <a href="https://www.apple.com/legal/privacy">Privacy Policy</a>
+    <a href="https://www.apple.com/legal/internet-services/itunes/us/terms.html">Terms of Use</a>
+    <a href="https://www.apple.com/legal/internet-services/itunes">Sales and Refunds</a>
+    <a href="https://www.apple.com/choose-country-region">Choose your country or region</a>
+  </p>
+  <p>Copyright © 2025 Apple Inc. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elon Musk (@elonmusk) / X</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='black'/><text y='.9em' font-size='80' fill='white'>𝕏</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background-color: #000;
+    color: #e7e9ea;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: none; }
+
+  /* Left sidebar */
+  .sidebar-left {
+    width: 275px;
+    padding: 0 12px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #2f3336;
+  }
+  .sidebar-logo {
+    padding: 12px;
+    margin-bottom: 4px;
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 900;
+    cursor: pointer;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+  }
+  .sidebar-logo:hover { background: #1d1f23; }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 16px;
+    border-radius: 9999px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: fit-content;
+  }
+  .nav-item:hover { background: #1d1f23; }
+  .nav-item .nav-label { font-size: 20px; font-weight: 400; }
+  .nav-item.active .nav-label { font-weight: 700; }
+  .nav-icon { font-size: 26px; width: 26px; text-align: center; }
+  .post-btn {
+    background: #1d9bf0;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    padding: 16px 24px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+    width: 90%;
+    transition: background 0.2s;
+  }
+  .post-btn:hover { background: #1a8cd8; }
+  .sidebar-account {
+    margin-top: auto;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .sidebar-account:hover { background: #1d1f23; }
+  .acct-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: #333;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .acct-names { flex: 1; }
+  .acct-display { font-weight: 700; font-size: 15px; }
+  .acct-handle { color: #71767b; font-size: 15px; }
+
+  /* Main content */
+  .main {
+    flex: 1;
+    max-width: 600px;
+    border-right: 1px solid #2f3336;
+    min-height: 100vh;
+  }
+  .profile-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(12px);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .back-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.2s;
+  }
+  .back-btn:hover { background: #1d1f23; }
+  .profile-header-info h2 { font-size: 20px; font-weight: 700; line-height: 1.2; }
+  .profile-header-info span { font-size: 13px; color: #71767b; }
+
+  /* Banner */
+  .profile-banner {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #533483 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-banner::after {
+    content: '🚀 🌌 ⚡ 🤖 🔭';
+    position: absolute;
+    font-size: 60px;
+    opacity: 0.15;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    letter-spacing: 20px;
+  }
+  .profile-info-section {
+    padding: 0 16px 16px;
+    position: relative;
+  }
+  .avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-top: -40px;
+    margin-bottom: 12px;
+  }
+  .profile-avatar {
+    width: 133px; height: 133px;
+    border-radius: 50%;
+    border: 4px solid #000;
+    background: linear-gradient(135deg, #1e3a5f, #2d6a4f);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px;
+    overflow: hidden;
+  }
+  .profile-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: -70px;
+    margin-bottom: 12px;
+  }
+  .action-btn {
+    border: 1px solid #536471;
+    background: transparent;
+    color: #e7e9ea;
+    border-radius: 9999px;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .action-btn:hover { background: rgba(255,255,255,0.08); }
+  .follow-btn {
+    background: #e7e9ea;
+    color: #0f1419;
+    border: none;
+    border-radius: 9999px;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .follow-btn:hover { background: #ced0d2; }
+  .profile-name-row { margin-top: 12px; }
+  .profile-display-name {
+    font-size: 20px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .verified-badge {
+    color: #1d9bf0;
+    font-size: 20px;
+  }
+  .gold-badge {
+    font-size: 16px;
+  }
+  .profile-handle { color: #71767b; font-size: 15px; margin-top: 2px; }
+  .profile-bio {
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .profile-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+    color: #71767b;
+    font-size: 15px;
+  }
+  .profile-meta span { display: flex; align-items: center; gap: 4px; }
+  .profile-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+    font-size: 15px;
+  }
+  .stat-item strong { color: #e7e9ea; font-weight: 700; }
+  .stat-item span { color: #71767b; }
+  .stat-item:hover { text-decoration: underline; cursor: pointer; }
+
+  /* Tabs */
+  .profile-tabs {
+    display: flex;
+    border-bottom: 1px solid #2f3336;
+    margin-top: 16px;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 16px 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #71767b;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .tab:hover { background: rgba(255,255,255,0.03); color: #e7e9ea; }
+  .tab.active { color: #e7e9ea; font-weight: 700; }
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 56px; height: 4px;
+    background: #1d9bf0;
+    border-radius: 2px;
+  }
+
+  /* Tweets */
+  .tweet {
+    padding: 16px;
+    border-bottom: 1px solid #2f3336;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    gap: 12px;
+  }
+  .tweet:hover { background: rgba(255,255,255,0.03); }
+  .tweet-avatar {
+    width: 48px; height: 48px; min-width: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a5f, #2d6a4f);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .tweet-body { flex: 1; }
+  .tweet-header { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .tweet-name { font-weight: 700; font-size: 15px; }
+  .tweet-handle { color: #71767b; font-size: 15px; }
+  .tweet-time { color: #71767b; font-size: 15px; }
+  .tweet-text {
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  .tweet-text a { color: #1d9bf0; }
+  .tweet-text a:hover { text-decoration: underline; }
+  .tweet-actions {
+    display: flex;
+    gap: 0;
+    margin-top: 12px;
+    justify-content: space-between;
+    max-width: 400px;
+  }
+  .tweet-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #71767b;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 9999px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .tweet-action:hover { color: #1d9bf0; background: rgba(29,155,240,0.1); }
+  .tweet-action.like:hover { color: #f91880; background: rgba(249,24,128,0.1); }
+  .tweet-action.retweet:hover { color: #00ba7c; background: rgba(0,186,124,0.1); }
+  .tweet-action .action-icon { font-size: 18px; }
+  .tweet-image {
+    margin-top: 12px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #2f3336;
+  }
+  .tweet-image-inner {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 80px;
+  }
+  .pinned-label {
+    font-size: 13px;
+    color: #71767b;
+    margin-bottom: 4px;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .quote-tweet {
+    border: 1px solid #2f3336;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+  }
+  .quote-header { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+  .quote-text { font-size: 14px; margin-top: 4px; color: #e7e9ea; }
+  .label-tag {
+    background: rgba(29,155,240,0.15);
+    color: #1d9bf0;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 6px;
+    display: inline-block;
+  }
+
+  /* Right sidebar */
+  .sidebar-right {
+    width: 350px;
+    padding: 0 16px;
+  }
+  .search-bar {
+    position: sticky;
+    top: 0;
+    padding: 8px 0 16px;
+    background: #000;
+    z-index: 10;
+  }
+  .search-input {
+    width: 100%;
+    background: #202327;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    padding: 12px 16px 12px 44px;
+    color: #e7e9ea;
+    font-size: 15px;
+    outline: none;
+    position: relative;
+  }
+  .search-input:focus { border-color: #1d9bf0; background: #000; }
+  .search-wrap { position: relative; }
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #71767b;
+    font-size: 18px;
+  }
+  .trends-box, .follow-box {
+    background: #16181c;
+    border-radius: 16px;
+    padding: 0;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .box-title {
+    font-size: 20px;
+    font-weight: 900;
+    padding: 16px;
+  }
+  .trend-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-top: 1px solid #2f3336;
+  }
+  .trend-item:hover { background: rgba(255,255,255,0.03); }
+  .trend-category { font-size: 13px; color: #71767b; }
+  .trend-name { font-size: 15px; font-weight: 700; margin: 2px 0; }
+  .trend-count { font-size: 13px; color: #71767b; }
+  .follow-item {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-top: 1px solid #2f3336;
+    transition: background 0.2s;
+  }
+  .follow-item:hover { background: rgba(255,255,255,0.03); }
+  .follow-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: #333;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .follow-info { flex: 1; }
+  .follow-name { font-weight: 700; font-size: 15px; }
+  .follow-handle { color: #71767b; font-size: 13px; }
+  .follow-btn-sm {
+    background: #e7e9ea;
+    color: #0f1419;
+    border: none;
+    border-radius: 9999px;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .show-more {
+    padding: 16px;
+    color: #1d9bf0;
+    cursor: pointer;
+    font-size: 15px;
+    border-top: 1px solid #2f3336;
+    display: block;
+  }
+  .show-more:hover { background: rgba(29,155,240,0.08); }
+  .footer-links {
+    padding: 16px;
+    font-size: 13px;
+    color: #71767b;
+    line-height: 2;
+  }
+  .footer-links a { color: #71767b; margin-right: 12px; }
+  .footer-links a:hover { text-decoration: underline; }
+
+  @media (max-width: 1200px) {
+    .sidebar-right { display: none; }
+  }
+  @media (max-width: 700px) {
+    .sidebar-left { display: none; }
+    .main { max-width: 100%; border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Left Sidebar -->
+<div class="sidebar-left">
+  <a href="https://x.com/home" class="sidebar-logo">𝕏</a>
+  <nav>
+    <a href="https://x.com/home" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="https://x.com/explore" class="nav-item">
+      <span class="nav-icon">🔍</span>
+      <span class="nav-label">Explore</span>
+    </a>
+    <a href="https://x.com/notifications" class="nav-item">
+      <span class="nav-icon">🔔</span>
+      <span class="nav-label">Notifications</span>
+    </a>
+    <a href="https://x.com/messages" class="nav-item">
+      <span class="nav-icon">✉️</span>
+      <span class="nav-label">Messages</span>
+    </a>
+    <a href="https://x.com/i/grok" class="nav-item">
+      <span class="nav-icon">✦</span>
+      <span class="nav-label">Grok</span>
+    </a>
+    <a href="https://x.com/i/lists" class="nav-item">
+      <span class="nav-icon">📋</span>
+      <span class="nav-label">Lists</span>
+    </a>
+    <a href="https://x.com/i/bookmarks" class="nav-item">
+      <span class="nav-icon">🔖</span>
+      <span class="nav-label">Bookmarks</span>
+    </a>
+    <a href="https://x.com/elonmusk" class="nav-item active">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
+    </a>
+    <button class="post-btn">Post</button>
+  </nav>
+  <div class="sidebar-account">
+    <div class="acct-avatar">👤</div>
+    <div class="acct-names">
+      <div class="acct-display">Your Account</div>
+      <div class="acct-handle">@you</div>
+    </div>
+    <span>⋯</span>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+  <div class="profile-header">
+    <a href="https://x.com/home" class="back-btn">←</a>
+    <div class="profile-header-info">
+      <h2>Elon Musk</h2>
+      <span>226.4K posts</span>
+    </div>
+  </div>
+
+  <div class="profile-banner"></div>
+
+  <div class="profile-info-section">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div class="avatar-wrap">
+        <div class="profile-avatar">🧑‍💼</div>
+      </div>
+      <div class="profile-actions" style="margin-top: 12px;">
+        <button class="action-btn">⋯</button>
+        <button class="action-btn">✉</button>
+        <button class="action-btn">🔔</button>
+        <button class="follow-btn">Follow</button>
+      </div>
+    </div>
+
+    <div class="profile-name-row">
+      <div class="profile-display-name">
+        Elon Musk
+        <span class="verified-badge">✓</span>
+        <span class="gold-badge">⭐</span>
+      </div>
+      <div class="profile-handle">@elonmusk</div>
+    </div>
+
+    <div class="profile-bio">
+      The Dogefather ✦ CEO of <a href="https://x.com/X" style="color:#1d9bf0">@X</a> · CEO of <a href="https://x.com/SpaceX" style="color:#1d9bf0">@SpaceX</a> · CEO of <a href="https://x.com/Tesla" style="color:#1d9bf0">@Tesla</a> · Founder of <a href="https://x.com/xAI" style="color:#1d9bf0">@xAI</a> · The Boring Company · Head of DOGE 🦅
+    </div>
+
+    <div class="profile-meta">
+      <span>📍 Mars (soon)</span>
+      <span>🔗 <a href="https://tesla.com" style="color:#1d9bf0">tesla.com</a></span>
+      <span>📅 Joined June 2009</span>
+    </div>
+
+    <div class="profile-stats">
+      <a href="https://x.com/elonmusk/following" class="stat-item">
+        <strong>669</strong> <span>Following</span>
+      </a>
+      <a href="https://x.com/elonmusk/followers" class="stat-item">
+        <strong>207.5M</strong> <span>Followers</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="profile-tabs">
+    <div class="tab active">Posts</div>
+    <div class="tab">Replies</div>
+    <div class="tab">Highlights</div>
+    <div class="tab">Articles</div>
+    <div class="tab">Media</div>
+    <div class="tab">Likes</div>
+  </div>
+
+  <!-- Pinned Tweet -->
+  <div class="tweet">
+    <div class="tweet-avatar">🧑‍💼</div>
+    <div class="tweet-body">
+      <div class="pinned-label">📌 Pinned post</div>
+      <div class="tweet-header">
+        <span class="tweet-name">Elon Musk</span>
+        <span class="verified-badge" style="font-size:15px">✓</span>
+        <span class="tweet-handle">@elonmusk</span>
+        <span class="tweet-time">· Mar 12</span>
+      </div>
+      <div class="tweet-text">X is the everything app.
+
+Finance. Messaging. Video. Audio. News. AI. Dating. Jobs. Payments. Commerce.
+
+We're building it all. The future of the internet is one app. 
+
+That app is <a href="https://x.com">X</a>. 🚀</div>
+      <div class="tweet-actions">
+        <span class="tweet-action"><span class="action-icon">💬</span> 84.2K</span>
+        <span class="tweet-action retweet"><span class="action-icon">🔁</span> 127K</span>
+        <span class="tweet-action like"><span class="action-icon">♡</span> 1.3M</span>
+        <span class="tweet-action"><span class="action-icon">📊</span> 312M</span>
+        <span class="tweet-action"><span class="action-icon">↑</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tweet 1 -->
+  <div class="tweet">
+    <div class="tweet-avatar">🧑‍💼</div>
+    <div class="tweet-body">
+      <div class="tweet-header">
+        <span class="tweet-name">Elon Musk</span>
+        <span class="verified-badge" style="font-size:15px">✓</span>
+        <span class="tweet-handle">@elonmusk</span>
+        <span class="tweet-time">· 2h</span>
+      </div>
+      <div class="tweet-text">Starship Flight 9 is go for launch next week.
+
+Biggest rocket ever built. Most powerful ever flown.
+
+Humanity becoming multiplanetary is no longer science fiction. 🌍→🔴</div>
+      <div class="tweet-image">
+        <div class="tweet-image-inner">🚀</div>
+      </div>
+      <div class="tweet-actions">
+        <span class="tweet-action"><span class="action-icon">💬</span> 42.1K</span>
+        <span class="tweet-action retweet"><span class="action-icon">🔁</span> 98.4K</span>
+        <span class="tweet-action like"><span class="action-icon">♡</span> 847K</span>
+        <span class="tweet-action"><span class="action-icon">📊</span> 98.2M</span>
+        <span class="tweet-action"><span class="action-icon">↑</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tweet 2 -->
+  <div class="tweet">
+    <div class="tweet-avatar">🧑‍💼</div>
+    <div class="tweet-body">
+      <div class="tweet-header">
+        <span class="tweet-name">Elon Musk</span>
+        <span class="verified-badge" style="font-size:15px">✓</span>
+        <span class="tweet-handle">@elonmusk</span>
+        <span class="tweet-time">· 5h</span>
+      </div>
+      <div class="tweet-text">Grok 3 is the most intelligent AI on Earth by every benchmark that matters.
+
+And it's only getting started. <a href="https://x.com/xAI" style="color:#1d9bf0">@xAI</a> is moving at insane speed.
+
+Free tier available now on <a href="https://x.com">X</a>.</div>
+      <div class="tweet-actions">
+        <span class="tweet-action"><span class="action-icon">💬</span> 29.7K</span>
+        <span class="tweet-action retweet"><span class="action-icon">🔁</span> 61.2K</span>
+        <span class="tweet-action like"><span class="action-icon">♡</span> 542K</span>
+        <span class="tweet-action"><span class="action-icon">📊</span> 67.4M</span>
+        <span class="tweet-action"><span class="action-icon">↑</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tweet 3 -->
+  <div class="tweet">
+    <div class="tweet-avatar">🧑‍💼</div>
+    <div class="tweet-body">
+      <div class="tweet-header">
+        <span class="tweet-name">Elon Musk</span>
+        <span class="verified-badge" style="font-size:15px">✓</span>
+        <span class="tweet-handle">@elonmusk</span>
+        <span class="tweet-time">· 8h</span>
+      </div>
+      <div class="tweet-text">lol</div>
+      <div class="tweet-actions">
+        <span class="tweet-action"><span class="action-icon">💬</span> 18.4K</span>
+        <span class="tweet-action retweet"><span class="action-icon">🔁</span> 44.8K</span>
+        <span class="tweet-action like"><span class="action-icon">♡</span> 721K</span>
+        <span class="tweet-action"><span class="action-icon">📊</span> 145M</span>
+        <span class="tweet-action"><span class="action-icon">↑</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tweet 4 - Quote tweet -->
+  <div class="tweet">
+    <div class="tweet-avatar">🧑‍💼</div>
+    <div class="tweet-body">
+      <div class="tweet-header">
+        <span class="tweet-name">Elon Musk</span>
+        <span class="verified-badge" style="font-size:15px">✓</span>
+        <span class="tweet-handle">@elonmusk</span>
+        <span class="tweet-time">· 11h</span>
+      </div>
+      <div class="tweet-text">True. Optimus will be the most valuable product in Tesla's history. Possibly in all of human history.</div>
+      <div class="quote-tweet">
+        <div class="quote-header">
+          <strong>Tesla</strong>
+          <span class="verified-badge" style="font-size:13px">✓</span>
+          <span style="color:#71767b; font-size:13px">@Tesla · 12h</span>
+        </div>
+        <div class="quote-text">Optimus robot production is ramping fast. 1 million units by 2026. The future of labor is here. 🤖</div>
+      </div>
+      <div class="tweet-actions">
+        <span class="tweet-action"><span class="action-icon">💬</span> 11.2K</span>
+        <span class="tweet-action retweet"><span class="action-icon">🔁</span> 38.9K</span>
+        <span class="tweet-action like"><span class="action-icon">♡</span> 398K</span>
+        <span class="tweet-action"><span class="action-icon">📊</span> 44.1M</span>
+        <span class="tweet-action"><span class="action-icon">↑</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tweet 5 -->
+  <div class="tweet">
+    <div class="tweet-avatar">🧑‍💼</div>
+    <div class="tweet-body">
+      <div class="tweet-header">
+        <span class="tweet-name">Elon Musk</span>
+        <span class="verified-badge" style="font-size:15px">✓</span>
+        <span class="tweet-handle">@elonmusk</span>
+        <span class="tweet-time">· 1d</span>
+      </div>
+      <div class="tweet-text">The government has wasted so much money it's genuinely criminal.
+
+DOGE has identified $2.7 trillion in potential savings so far. We're just getting started.
+
+Every dollar saved is a dollar not stolen from your children's future. 🦅</div>
+      <div class="tweet-actions">
+        <span class="tweet-action"><span class="action-icon">💬</span> 67.4K</span>
+        <span class="tweet-action retweet"><span class="action-icon">🔁</span> 89.1K</span>
+        <span class="tweet-action like"><span class="action-icon">♡</span> 624K</span>
+        <span class="tweet-action"><span class="action-icon">📊</span> 189M</span>
+        <span class="tweet-action"><span class="action-icon">↑</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tweet 6 -->
+  <div class="tweet">
+    <div class="tweet-avatar">🧑‍💼</div>
+    <div class="tweet-body">
+      <div class="tweet-header">
+        <span class="tweet-name">Elon Musk</span>
+        <span class="verified-badge" style="font-size:15px">✓</span>
+        <span class="tweet-handle">@elonmusk</span>
+        <span class="tweet-time">· 1d</span>
+      </div>
+      <div class="tweet-text">Dogecoin is the people's crypto 🐕
+
+To the moon 🌙</div>
+      <div class="tweet-actions">
+        <span class="tweet-action"><span class="action-icon">💬</span> 22.8K</span>
+        <span class="tweet-action retweet"><span class="action-icon">🔁</span> 55.6K</span>
+        <span class="tweet-action like"><span class="action-icon">♡</span> 913K</span>
+        <span class="tweet-action"><span class="action-icon">📊</span> 201M</span>
+        <span class="tweet-action"><span class="action-icon">↑</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tweet 7 -->
+  <div class="tweet">
+    <div class="tweet-avatar">🧑‍💼</div>
+    <div class="tweet-body">
+      <div class="tweet-header">
+        <span class="tweet-name">Elon Musk</span>
+        <span class="verified-badge" style="font-size:15px">✓</span>
+        <span class="tweet-handle">@elonmusk</span>
+        <span class="tweet-time">· 2d</span>
+      </div>
+      <div class="tweet-text">Free speech is the bedrock of democracy.
+
+That's why I bought Twitter — now X.
+
+The legacy media's monopoly on information is over. Deal with it.</div>
+      <div class="tweet-actions">
+        <span class="tweet-action"><span class="action-icon">💬</span> 88.2K</span>
+        <span class="tweet-action retweet"><span class="action-icon">🔁</span> 112K</span>
+        <span class="tweet-action like"><span class="action-icon">♡</span> 1.1M</span>
+        <span class="tweet-action"><span class="action-icon">📊</span> 287M</span>
+        <span class="tweet-action"><span class="action-icon">↑</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Right Sidebar -->
+<div class="sidebar-right">
+  <div class="search-bar">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Search">
+    </div>
+  </div>
+
+  <div class="trends-box">
+    <div class="box-title">What's happening</div>
+    <div class="trend-item">
+      <div class="trend-category">Technology · Trending</div>
+      <div class="trend-name">#Starship</div>
+      <div class="trend-count">284K posts</div>
+    </div>
+    <div class="trend-item">
+      <div class="trend-category">Finance · Trending</div>
+      <div class="trend-name">$DOGE</div>
+      <div class="trend-count">189K posts</div>
+    </div>
+    <div class="trend-item">
+      <div class="trend-category">AI · Trending</div>
+      <div class="trend-name">Grok 3</div>
+      <div class="trend-count">127K posts</div>
+    </div>
+    <div class="trend-item">
+      <div class="trend-category">Politics · Trending</div>
+      <div class="trend-name">DOGE</div>
+      <div class="trend-count">412K posts</div>
+    </div>
+    <div class="trend-item">
+      <div class="trend-category">Space · Trending</div>
+      <div class="trend-name">#Mars2026</div>
+      <div class="trend-count">88.4K posts</div>
+    </div>
+    <a href="https://x.com/explore/tabs/trending" class="show-more">Show more</a>
+  </div>
+
+  <div class="follow-box">
+    <div class="box-title">Who to follow</div>
+    <a href="https://x.com/SpaceX" class="follow-item">
+      <div class="follow-avatar">🚀</div>
+      <div class="follow-info">
+        <div class="follow-name">SpaceX <span style="color:#1d9bf0; font-size:13px">✓</span></div>
+        <div class="follow-handle">@SpaceX</div>
+      </div>
+      <button class="follow-btn-sm">Follow</button>
+    </a>
+    <a href="https://x.com/Tesla" class="follow-item">
+      <div class="follow-avatar">⚡</div>
+      <div class="follow-info">
+        <div class="follow-name">Tesla <span style="color:#1d9bf0; font-size:13px">✓</span></div>
+        <div class="follow-handle">@Tesla</div>
+      </div>
+      <button class="follow-btn-sm">Follow</button>
+    </a>
+    <a href="https://x.com/xAI" class="follow-item">
+      <div class="follow-avatar">🤖</div>
+      <div class="follow-info">
+        <div class="follow-name">xAI <span style="color:#1d9bf0; font-size:13px">✓</span></div>
+        <div class="follow-handle">@xAI</div>
+      </div>
+      <button class="follow-btn-sm">Follow</button>
+    </a>
+    <a href="https://x.com/explore" class="show-more">Show more</a>
+  </div>
+
+  <div class="footer-links">
+    <a href="https://x.com/tos">Terms of Service</a>
+    <a href="https://x.com/privacy">Privacy Policy</a>
+    <a href="https://x.com/settings/cookies">Cookie Policy</a>
+    <a href="https://x.com/i/accessibility">Accessibility</a>
+    <a href="https://ads.x.com">Ads info</a>
+    <a href="https://about.x.com">More ···</a>
+    <br>
+    <span>© 2025 X Corp.</span>
+  </div>
+</div>
+
+</body>
+</html>

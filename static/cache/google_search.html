@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>the library of babel - Google Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="origin">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23fff'/%3E%3Cpath d='M14 18h12v28H14z' fill='%234285f4'/%3E%3Cpath d='M26 18h12v28H26z' fill='%23ea4335'/%3E%3Cpath d='M38 18h12v28H38z' fill='%23fbbc05'/%3E%3Ccircle cx='50' cy='46' r='8' fill='%2334a853'/%3E%3C/svg%3E">
+  <style>
+    :root{
+      --blue:#1a0dab;
+      --visited:#681da8;
+      --green:#188038;
+      --text:#202124;
+      --muted:#5f6368;
+      --border:#dfe1e5;
+      --bg:#fff;
+      --hover:#f8f9fa;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font:14px/1.45 Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:#fff;
+    }
+    a{color:var(--blue); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .topbar{
+      padding:16px 24px 0 24px;
+      border-bottom:1px solid #ebebeb;
+    }
+    .toprow{
+      display:flex;
+      align-items:center;
+      gap:20px;
+    }
+    .logo{
+      font-size:34px;
+      line-height:1;
+      font-family:Arial, Helvetica, sans-serif;
+      white-space:nowrap;
+      margin-right:8px;
+      user-select:none;
+    }
+    .logo span:nth-child(1){color:#4285f4}
+    .logo span:nth-child(2){color:#ea4335}
+    .logo span:nth-child(3){color:#fbbc05}
+    .logo span:nth-child(4){color:#4285f4}
+    .logo span:nth-child(5){color:#34a853}
+    .logo span:nth-child(6){color:#ea4335}
+    .searchbox{
+      flex:1;
+      max-width:720px;
+      position:relative;
+    }
+    .searchbox input{
+      width:100%;
+      height:46px;
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:0 110px 0 18px;
+      font-size:16px;
+      outline:none;
+      box-shadow:0 1px 6px rgba(32,33,36,.12);
+    }
+    .search-actions{
+      position:absolute;
+      right:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#9aa0a6;
+      font-size:18px;
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .account{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .avatar{
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      background:#5f6368;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+    }
+    .tabs{
+      display:flex;
+      gap:22px;
+      margin-left:150px;
+      margin-top:14px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tab{
+      padding:0 0 12px 0;
+      border-bottom:3px solid transparent;
+    }
+    .tab.active{
+      color:#1a73e8;
+      border-color:#1a73e8;
+      font-weight:bold;
+    }
+    .page{
+      display:flex;
+      align-items:flex-start;
+      gap:36px;
+      margin-left:150px;
+      padding:14px 24px 40px 0;
+      max-width:1200px;
+    }
+    .main{
+      width:652px;
+    }
+    .sidebar{
+      width:360px;
+    }
+    .result-stats{
+      color:var(--muted);
+      font-size:14px;
+      margin:6px 0 18px 0;
+    }
+    .result{
+      margin:0 0 28px 0;
+    }
+    .cite{
+      font-size:14px;
+      color:#202124;
+      margin-bottom:2px;
+    }
+    .cite .url{
+      color:var(--green);
+    }
+    .result h3{
+      margin:0 0 3px 0;
+      font-size:20px;
+      line-height:1.3;
+      font-weight:normal;
+    }
+    .snippet{
+      color:#4d5156;
+      font-size:14px;
+    }
+    .sitelinks{
+      margin-top:7px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6px 18px;
+      max-width:520px;
+    }
+    .sitelinks a{
+      font-size:14px;
+    }
+    .inline-links{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .inline-links a{margin-right:12px}
+    .card{
+      border:1px solid #ebebeb;
+      border-radius:8px;
+      padding:16px;
+      margin-bottom:18px;
+      background:#fff;
+    }
+    .knowledge h2{
+      margin:0 0 4px 0;
+      font-size:28px;
+      font-weight:normal;
+    }
+    .knowledge .subtitle{
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+    .knowledge p{
+      margin:0 0 10px 0;
+      color:#4d5156;
+    }
+    .mini-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:10px;
+    }
+    .chip{
+      display:block;
+      border:1px solid #ebebeb;
+      border-radius:20px;
+      padding:8px 12px;
+      color:#1a73e8;
+      background:#fafafa;
+      font-size:13px;
+    }
+    .people-also .q{
+      padding:12px 0;
+      border-top:1px solid #ebebeb;
+      font-size:16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .people-also .q:first-child{border-top:none}
+    .related{
+      margin-top:26px;
+    }
+    .related h3{
+      font-size:22px;
+      font-weight:normal;
+      margin:0 0 14px 0;
+    }
+    .related-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px 24px;
+    }
+    .related-grid a{
+      display:block;
+      padding:8px 0;
+      font-size:16px;
+    }
+    .pagination{
+      margin:34px 0 0 0;
+      text-align:center;
+      color:#4285f4;
+    }
+    .gline{
+      font-size:30px;
+      letter-spacing:1px;
+      user-select:none;
+      margin-bottom:8px;
+    }
+    .gline .r{color:#ea4335}
+    .gline .y{color:#fbbc05}
+    .gline .g{color:#34a853}
+    .gline .b{color:#4285f4}
+    .pagination a{
+      margin:0 8px;
+      font-size:14px;
+    }
+    .footer{
+      margin-top:40px;
+      background:#f2f2f2;
+      border-top:1px solid #dadce0;
+      color:#70757a;
+      font-size:14px;
+    }
+    .footer .inner{
+      margin-left:150px;
+      padding:14px 24px 14px 0;
+    }
+    .footer a{
+      color:#70757a;
+      margin-right:24px;
+    }
+    .newsbox .item{
+      margin-bottom:12px;
+    }
+    .newsbox .item:last-child{margin-bottom:0}
+    .newsbox .src{
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:2px;
+    }
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="toprow">
+      <a class="logo" href="http://www.google.com/">
+        <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+      </a>
+      <div class="searchbox">
+        <input type="text" value="the library of babel" aria-label="Search">
+        <div class="search-actions">
+          <span title="Clear">×</span>
+          <span title="Search by voice">🎤</span>
+          <span title="Search">🔍</span>
+        </div>
+      </div>
+      <div class="account">
+        <a href="http://www.google.com/preferences?hl=en">Settings</a>
+        <a href="http://mail.google.com/">Gmail</a>
+        <a href="http://images.google.com/">Images</a>
+        <div class="avatar">A</div>
+      </div>
+    </div>
+    <div class="tabs">
+      <div class="tab active">All</div>
+      <div class="tab"><a href="http://www.google.com/search?tbm=isch&q=the+library+of+babel">Images</a></div>
+      <div class="tab"><a href="http://www.google.com/search?tbm=nws&q=the+library+of+babel">News</a></div>
+      <div class="tab"><a href="http://www.google.com/search?tbm=vid&q=the+library+of+babel">Videos</a></div>
+      <div class="tab"><a href="http://maps.google.com/?q=the+library+of+babel">Maps</a></div>
+      <div class="tab"><a href="http://www.google.com/search?tbm=bks&q=the+library+of+babel">Books</a></div>
+      <div class="tab"><a href="http://www.google.com/advanced_search?q=the+library+of+babel">Tools</a></div>
+    </div>
+  </div>
+
+  <div class="page">
+    <main class="main">
+      <div class="result-stats">About 1,480,000 results (0.32 seconds)</div>
+
+      <div class="result">
+        <div class="cite">The Library of Babel · <span class="url">libraryofbabel.info</span></div>
+        <h3><a href="http://libraryofbabel.info/">The Library of Babel</a></h3>
+        <div class="snippet">
+          A universal library containing every possible page of 3200 characters. Browse hexagons, search for exact text, and explore an endless combinatorial archive inspired by Jorge Luis Borges.
+        </div>
+        <div class="sitelinks">
+          <a href="http://libraryofbabel.info/Browse.cgi">Browse</a>
+          <a href="http://libraryofbabel.info/Search.cgi">Search</a>
+          <a href="http://libraryofbabel.info/About.html">About the Project</a>
+          <a href="http://libraryofbabel.info/ReferenceHex.html">Reference Hex</a>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="cite">Wikipedia · <span class="url">en.wikipedia.org</span></div>
+        <h3><a href="http://en.wikipedia.org/wiki/The_Library_of_Babel">The Library of Babel - Wikipedia</a></h3>
+        <div class="snippet">
+          "The Library of Babel" is a short story by Argentine author and librarian Jorge Luis Borges. The universe is described as a vast library composed of hexagonal galleries containing books with every possible arrangement of letters.
+        </div>
+        <div class="inline-links">
+          <a href="http://en.wikipedia.org/wiki/Jorge_Luis_Borges">Jorge Luis Borges</a>
+          <a href="http://en.wikipedia.org/wiki/Ficciones">Ficciones</a>
+          <a href="http://en.wikipedia.org/wiki/Combinatorics">Combinatorics</a>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="cite">The New Yorker · <span class="url">www.newyorker.com</span></div>
+        <h3><a href="http://www.newyorker.com/books/page-turner/in-the-library-of-babel">In the Library of Babel</a></h3>
+        <div class="snippet">
+          A reflection on Borges's impossible architecture, infinite books, and the modern internet's resemblance to a total library where meaning and noise coexist.
+        </div>
+      </div>
+
+      <div class="card people-also">
+        <h3 style="font-size:22px;font-weight:normal;margin:0 0 6px 0;color:#202124;">People also ask</h3>
+        <div class="q"><span>Is the Library of Babel real?</span><span class="muted">▾</span></div>
+        <div class="q"><span>What is the main idea of The Library of Babel?</span><span class="muted">▾</span></div>
+        <div class="q"><span>How many books are in the Library of Babel?</span><span class="muted">▾</span></div>
+        <div class="q"><span>Did Borges invent infinity libraries?</span><span class="muted">▾</span></div>
+      </div>
+
+      <div class="result">
+        <div class="cite">The Paris Review · <span class="url">www.theparisreview.org</span></div>
+        <h3><a href="http://www.theparisreview.org/blog/2015/01/15/borges-library-of-babel/">Borges's Library of Babel and the Dream of Total Knowledge</a></h3>
+        <div class="snippet">
+          On librarians, mystics, and mathematicians who have read Borges as prophecy, satire, and cosmology. Includes notes on translation and the story's afterlife online.
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="cite">Open Culture · <span class="url">www.openculture.com</span></div>
+        <h3><a href="http://www.openculture.com/2015/03/the-infinite-library-of-babel-online.html">Explore the Infinite Library of Babel Online</a></h3>
+        <div class="snippet">
+          Browse a web-based simulation of Borges's total library: every page exists, but almost none are meaningful. An unexpectedly mesmerizing literary toy.
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="cite">Internet Archive · <span class="url">archive.org</span></div>
+        <h3><a href="http://archive.org/details/TheLibraryOfBabel">The Library of Babel : Jorge Luis Borges : Free Download &amp; Streaming</a></h3>
+        <div class="snippet">
+          Digitized editions, translations, readings, and related criticism. Community-uploaded materials covering Borges, labyrinths, mirrors, and metaphysical fiction.
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="cite">Brain Pickings · <span class="url">www.brainpickings.org</span></div>
+        <h3><a href="http://www.brainpickings.org/2012/03/22/borges-library-of-babel/">Borges on Infinity, Language, and the Library of Babel</a></h3>
+        <div class="snippet">
+          Illustrated quotes and analysis tracing the story's philosophical questions about order, chaos, authorship, and the search for the vindication of one's life.
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="cite">Stanford Encyclopedia of Philosophy · <span class="url">plato.stanford.edu</span></div>
+        <h3><a href="http://plato.stanford.edu/entries/borges/">Borges, Infinity, and The Library of Babel</a></h3>
+        <div class="snippet">
+          Scholarly discussion of Borges's fictional metaphysics, skeptical paradoxes, and the literary uses of infinite totalities.
+        </div>
+      </div>
+
+      <div class="related">
+        <h3>Searches related to the library of babel</h3>
+        <div class="related-grid">
+          <a href="http://www.google.com/search?q=library+of+babel+search">library of babel search</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel+summary">the library of babel summary</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel+pdf">the library of babel pdf</a>
+          <a href="http://www.google.com/search?q=jorge+luis+borges+library+of+babel">jorge luis borges library of babel</a>
+          <a href="http://www.google.com/search?q=library+of+babel+generator">library of babel generator</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel+analysis">the library of babel analysis</a>
+          <a href="http://www.google.com/search?q=library+of+babel+hexagon">library of babel hexagon</a>
+          <a href="http://www.google.com/search?q=borges+infinite+library">borges infinite library</a>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <div class="gline">
+          <span class="b">G</span><span class="r">o</span><span class="y">o</span><span class="b">o</span><span class="b">o</span><span class="b">o</span><span class="b">o</span><span class="b">o</span><span class="b">o</span><span class="g">g</span><span class="r">l</span><span class="b">e</span>
+        </div>
+        <div>
+          <span style="color:#202124;margin-right:14px;">1</span>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=10">2</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=20">3</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=30">4</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=40">5</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=50">6</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=60">7</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=70">8</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=80">9</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=90">10</a>
+          <a href="http://www.google.com/search?q=the+library+of+babel&start=10" style="margin-left:18px;">Next</a>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="card knowledge">
+        <h2>The Library of Babel</h2>
+        <div class="subtitle">Short story by Jorge Luis Borges</div>
+        <p>
+          First published in Spanish in 1941, <em>The Library of Babel</em> imagines the universe as an immense library made of identical hexagonal rooms containing books with every possible combination of characters.
+        </p>
+        <p><strong>Author:</strong> <a href="http://www.google.com/search?q=Jorge+Luis+Borges">Jorge Luis Borges</a></p>
+        <p><strong>Collected in:</strong> <a href="http://www.google.com/search?q=The+Garden+of+Forking+Paths">The Garden of Forking Paths</a>, <a href="http://www.google.com/search?q=Ficciones">Ficciones</a></p>
+        <p><strong>Themes:</strong> infinity, meaning, authorship, chance, total knowledge</p>
+        <div class="mini-grid">
+          <a class="chip" href="http://www.google.com/search?q=the+library+of+babel+summary">Summary</a>
+          <a class="chip" href="http://www.google.com/search?q=the+library+of+babel+analysis">Analysis</a>
+          <a class="chip" href="http://www.google.com/search?q=the+library+of+babel+quotes">Quotes</a>
+          <a class="chip" href="http://www.google.com/search?q=the+library+of+babel+pdf">Full text</a>
+        </div>
+      </div>
+
+      <div class="card newsbox">
+        <h3 style="font-size:20px;font-weight:normal;margin:0 0 12px 0;">Top stories</h3>
+        <div class="item">
+          <div class="src">Literary Review · 2 days ago</div>
+          <a href="http://www.literaryreview.example.org/features/why-borges-still-haunts-the-internet">Why Borges still haunts the internet</a>
+        </div>
+        <div class="item">
+          <div class="src">Atlas of Ideas · 5 days ago</div>
+          <a href="http://www.atlasofideas.example.com/essays/hexagons-and-hypertext">Hexagons and hypertext: the architecture of endless reading</a>
+        </div>
+        <div class="item">
+          <div class="src">University Press Blog · 1 week ago</div>
+          <a href="http://pressblog.example.edu/babel-digital-humanities-project">New digital humanities project maps imagined rooms of Babel</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size:20px;font-weight:normal;margin:0 0 10px 0;">See results about</h3>
+        <p style="margin:0 0 10px 0;">
+          <a href="http://www.google.com/search?q=library+of+babel+website"><strong>The Library of Babel</strong></a><br>
+          <span class="muted">Interactive website and text generator</span>
+        </p>
+        <p style="margin:0;">
+          <a href="http://www.google.com/search?q=the+library+of+babel+short+story"><strong>"The Library of Babel"</strong></a><br>
+          <span class="muted">Short story by Jorge Luis Borges</span>
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="footer">
+    <div class="inner">
+      <div style="margin-bottom:10px;">United States</div>
+      <div>
+        <a href="http://www.google.com/intl/en/ads/">Advertising</a>
+        <a href="http://www.google.com/services/">Business</a>
+        <a href="http://www.google.com/intl/en/about.html">About</a>
+        <a href="http://www.google.com/intl/en/policies/privacy/">Privacy</a>
+        <a href="http://www.google.com/intl/en/policies/terms/">Terms</a>
+        <a href="http://www.google.com/preferences?hl=en">Settings</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

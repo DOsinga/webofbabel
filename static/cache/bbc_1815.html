@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BBC News – Europe – 18 June 1815</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23bb1919'/><text x='50' y='72' font-size='60' text-anchor='middle' fill='white' font-family='serif'>BBC</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Times New Roman', serif; background: #f5f0e8; color: #1a1a1a; }
+
+  /* Header */
+  #header { background: #bb1919; padding: 0; }
+  #header-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; }
+  .bbc-logo { display: flex; gap: 4px; }
+  .bbc-box { background: white; color: #bb1919; font-weight: bold; font-size: 22px; font-family: Arial, sans-serif; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+  .header-right { color: white; font-size: 12px; font-family: Arial, sans-serif; text-align: right; }
+  .header-right span { display: block; }
+
+  /* Nav */
+  #nav { background: #1a1a1a; }
+  #nav-inner { max-width: 1000px; margin: 0 auto; display: flex; gap: 0; font-family: Arial, sans-serif; font-size: 13px; }
+  #nav a { color: #fff; text-decoration: none; padding: 8px 14px; display: inline-block; }
+  #nav a:hover { background: #444; }
+  #nav a.active { background: #bb1919; }
+
+  /* Breaking banner */
+  #breaking { background: #bb1919; color: white; text-align: center; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; padding: 6px; letter-spacing: 0.5px; }
+
+  /* Main layout */
+  #main { max-width: 1000px; margin: 0 auto; padding: 16px 12px; display: flex; gap: 20px; }
+  #content { flex: 1; }
+  #sidebar { width: 240px; flex-shrink: 0; }
+
+  /* Section heading */
+  .section-label { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; color: #bb1919; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #bb1919; padding-bottom: 4px; margin-bottom: 12px; }
+
+  /* Lead story */
+  .lead-story { border-bottom: 1px solid #ccc; padding-bottom: 18px; margin-bottom: 18px; }
+  .lead-story h1 { font-family: 'Times New Roman', serif; font-size: 32px; line-height: 1.15; color: #111; margin-bottom: 8px; }
+  .lead-story .standfirst { font-size: 15px; color: #333; margin-bottom: 10px; line-height: 1.5; }
+  .lead-story .byline { font-family: Arial, sans-serif; font-size: 11px; color: #666; margin-bottom: 10px; }
+  .lead-story .lead-image { width: 100%; height: 280px; background: #3a3020; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; overflow: hidden; position: relative; }
+  .lead-image-caption { font-family: Arial, sans-serif; font-size: 11px; color: #555; margin-top: 4px; margin-bottom: 10px; }
+
+  /* Battle illustration (SVG-based) */
+  .battle-scene { width: 100%; height: 280px; background: linear-gradient(180deg, #8faacc 0%, #b0bfd0 40%, #7a6b4a 40%, #6b5c35 100%); position: relative; overflow: hidden; }
+
+  /* Story list */
+  .story-list { list-style: none; }
+  .story-list li { border-bottom: 1px solid #ddd; padding: 12px 0; display: flex; gap: 12px; }
+  .story-list li:last-child { border-bottom: none; }
+  .story-thumb { width: 80px; height: 60px; flex-shrink: 0; background: #ccc; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #666; }
+  .story-text h2 { font-size: 16px; line-height: 1.25; margin-bottom: 4px; }
+  .story-text h2 a { color: #111; text-decoration: none; }
+  .story-text h2 a:hover { color: #bb1919; text-decoration: underline; }
+  .story-text p { font-size: 12px; color: #444; line-height: 1.4; font-family: Arial, sans-serif; }
+
+  /* Sidebar */
+  .sidebar-box { background: #fff; border: 1px solid #ccc; margin-bottom: 16px; padding: 12px; }
+  .sidebar-box h3 { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #bb1919; padding-bottom: 5px; margin-bottom: 10px; color: #bb1919; }
+  .sidebar-box ul { list-style: none; }
+  .sidebar-box ul li { border-bottom: 1px solid #eee; padding: 6px 0; font-size: 12px; font-family: Arial, sans-serif; }
+  .sidebar-box ul li a { color: #111; text-decoration: none; }
+  .sidebar-box ul li a:hover { color: #bb1919; text-decoration: underline; }
+  .sidebar-box ul li:last-child { border-bottom: none; }
+
+  /* Weather box */
+  .weather-box { background: #1a4a8a; color: white; border: none; }
+  .weather-box h3 { color: #aac8ff; border-bottom-color: #aac8ff; }
+  .weather-table { width: 100%; font-size: 11px; font-family: Arial, sans-serif; }
+  .weather-table td { padding: 3px 2px; }
+  .weather-table .temp { font-weight: bold; }
+
+  /* Quote box */
+  .quote-box { background: #f0ebe0; border-left: 4px solid #bb1919; padding: 12px; margin: 16px 0; font-style: italic; font-size: 15px; color: #333; line-height: 1.5; }
+  .quote-attr { font-size: 12px; font-family: Arial, sans-serif; color: #666; font-style: normal; margin-top: 6px; }
+
+  /* Footer */
+  #footer { background: #1a1a1a; color: #aaa; font-family: Arial, sans-serif; font-size: 11px; padding: 16px 12px; margin-top: 30px; }
+  #footer-inner { max-width: 1000px; margin: 0 auto; }
+  #footer a { color: #ccc; text-decoration: none; margin-right: 14px; }
+  #footer a:hover { text-decoration: underline; }
+  .footer-links { margin-bottom: 8px; }
+  .footer-copy { color: #777; }
+
+  .datestamp { font-family: Arial, sans-serif; font-size: 11px; color: #666; margin-bottom: 16px; border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+
+  /* Thumb colours */
+  .thumb-blue { background: #2a4a7a; }
+  .thumb-green { background: #2a5a2a; }
+  .thumb-brown { background: #5a3a1a; }
+  .thumb-grey { background: #4a4a4a; }
+  .thumb-gold { background: #7a6a1a; }
+
+  /* SVG scene decorations */
+  .smoke { fill: #aaa; opacity: 0.5; }
+  .cannon { fill: #333; }
+  .flag-fr { fill: #002395; }
+  .flag-uk { fill: #cf142b; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div id="header">
+  <div id="header-inner">
+    <div class="bbc-logo">
+      <div class="bbc-box">B</div>
+      <div class="bbc-box">B</div>
+      <div class="bbc-box">C</div>
+    </div>
+    <div class="header-right">
+      <span style="font-size:16px; font-weight:bold;">NEWS</span>
+      <span>Sunday, 18 June 1815</span>
+      <span>Edition: Europe</span>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<div id="nav">
+  <div id="nav-inner">
+    <a href="https://news.bbc.co.uk/1815/06/18/">Home</a>
+    <a href="https://news.bbc.co.uk/1815/06/18/uk">Britain</a>
+    <a href="https://news.bbc.co.uk/1815/06/18/europe" class="active">Europe</a>
+    <a href="https://news.bbc.co.uk/1815/06/18/world">World</a>
+    <a href="https://news.bbc.co.uk/1815/06/18/politics">Politics</a>
+    <a href="https://news.bbc.co.uk/1815/06/18/military">Military</a>
+    <a href="https://news.bbc.co.uk/1815/06/18/science">Science &amp; Nature</a>
+    <a href="https://news.bbc.co.uk/1815/06/18/arts">Arts</a>
+  </div>
+</div>
+
+<!-- Breaking Banner -->
+<div id="breaking">
+  &#9658;&nbsp; BREAKING: MAJOR ENGAGEMENT UNDERWAY NEAR BRUSSELS — WELLINGTON AND BLÜCHER FACE NAPOLEON AT WATERLOO &nbsp;&#9658;&nbsp; DISPATCHES EXPECTED THIS EVENING &nbsp;&#9658;&nbsp; FUNDS FALL SHARPLY ON THE EXCHANGE
+</div>
+
+<!-- Main Content -->
+<div id="main">
+  <div id="content">
+    <div class="datestamp">Europe | Sunday 18 June 1815 | Last updated: 11:42 GMT</div>
+    <div class="section-label">Europe — Top Stories</div>
+
+    <!-- Lead Story -->
+    <div class="lead-story">
+      <h1>Napoleon meets Wellington on fields of Waterloo — the fate of Europe in the balance</h1>
+      <p class="standfirst">The Imperial French Army, led by Emperor Napoleon Bonaparte, has engaged the Duke of Wellington's Allied forces and Field Marshal Blücher's Prussian army at a small Belgian village south of Brussels. Observers say the battle is the most consequential since Leipzig.</p>
+      <p class="byline">By our Continental Correspondent, William Hazlitt-Forster &nbsp;|&nbsp; Near Quatre Bras, Belgium &nbsp;|&nbsp; 18 June 1815, 09:15 GMT</p>
+
+      <!-- Battle scene illustration -->
+      <div class="lead-image">
+        <svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+          <!-- Sky -->
+          <rect width="680" height="160" fill="url(#sky)"/>
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8faacc"/>
+              <stop offset="100%" stop-color="#c0cedf"/>
+            </linearGradient>
+            <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#7a6b4a"/>
+              <stop offset="100%" stop-color="#5a4a28"/>
+            </linearGradient>
+          </defs>
+          <!-- Ground -->
+          <rect y="155" width="680" height="125" fill="url(#ground)"/>
+          <!-- Smoke clouds -->
+          <ellipse cx="200" cy="130" rx="60" ry="30" fill="#bbb" opacity="0.55"/>
+          <ellipse cx="240" cy="115" rx="45" ry="22" fill="#ccc" opacity="0.45"/>
+          <ellipse cx="450" cy="125" rx="70" ry="35" fill="#aaa" opacity="0.5"/>
+          <ellipse cx="500" cy="110" rx="50" ry="20" fill="#bbb" opacity="0.4"/>
+          <!-- Distant tree line -->
+          <rect x="0" y="120" width="680" height="35" fill="#3d4a2a" opacity="0.3"/>
+          <!-- Sun -->
+          <circle cx="600" cy="35" r="22" fill="#e8d060" opacity="0.7"/>
+          <!-- Allied soldiers (right side, red coats) -->
+          <g fill="#8b1a1a">
+            <rect x="380" y="165" width="8" height="22"/>
+            <circle cx="384" cy="162" r="6"/>
+            <rect x="398" y="165" width="8" height="22"/>
+            <circle cx="402" cy="162" r="6"/>
+            <rect x="416" y="165" width="8" height="22"/>
+            <circle cx="420" cy="162" r="6"/>
+            <rect x="434" y="165" width="8" height="22"/>
+            <circle cx="438" cy="162" r="6"/>
+            <rect x="452" y="165" width="8" height="22"/>
+            <circle cx="456" cy="162" r="6"/>
+            <rect x="470" y="165" width="8" height="22"/>
+            <circle cx="474" cy="162" r="6"/>
+            <rect x="488" y="165" width="8" height="22"/>
+            <circle cx="492" cy="162" r="6"/>
+            <rect x="506" y="165" width="8" height="22"/>
+            <circle cx="510" cy="162" r="6"/>
+            <rect x="524" y="165" width="8" height="22"/>
+            <circle cx="528" cy="162" r="6"/>
+            <rect x="542" y="165" width="8" height="22"/>
+            <circle cx="546" cy="162" r="6"/>
+            <rect x="560" y="165" width="8" height="22"/>
+            <circle cx="564" cy="162" r="6"/>
+            <rect x="578" y="165" width="8" height="22"/>
+            <circle cx="582" cy="162" r="6"/>
+          </g>
+          <!-- French soldiers (left side, blue coats) -->
+          <g fill="#002395">
+            <rect x="80" y="165" width="8" height="22"/>
+            <circle cx="84" cy="162" r="6"/>
+            <rect x="98" y="165" width="8" height="22"/>
+            <circle cx="102" cy="162" r="6"/>
+            <rect x="116" y="165" width="8" height="22"/>
+            <circle cx="120" cy="162" r="6"/>
+            <rect x="134" y="165" width="8" height="22"/>
+            <circle cx="138" cy="162" r="6"/>
+            <rect x="152" y="165" width="8" height="22"/>
+            <circle cx="156" cy="162" r="6"/>
+            <rect x="170" y="165" width="8" height="22"/>
+            <circle cx="174" cy="162" r="6"/>
+            <rect x="188" y="165" width="8" height="22"/>
+            <circle cx="192" cy="162" r="6"/>
+            <rect x="206" y="165" width="8" height="22"/>
+            <circle cx="210" cy="162" r="6"/>
+            <rect x="224" y="165" width="8" height="22"/>
+            <circle cx="228" cy="162" r="6"/>
+            <rect x="242" y="165" width="8" height="22"/>
+            <circle cx="246" cy="162" r="6"/>
+            <rect x="260" y="165" width="8" height="22"/>
+            <circle cx="264" cy="162" r="6"/>
+          </g>
+          <!-- Cannon (French side) -->
+          <rect x="290" y="175" width="50" height="12" rx="4" fill="#333"/>
+          <rect x="288" y="182" width="12" height="8" rx="2" fill="#555"/>
+          <circle cx="295" cy="192" r="7" fill="#444"/>
+          <circle cx="330" cy="192" r="7" fill="#444"/>
+          <!-- Cannon (Allied side) -->
+          <rect x="355" y="175" width="50" height="12" rx="4" fill="#333"/>
+          <rect x="395" y="182" width="12" height="8" rx="2" fill="#555"/>
+          <circle cx="358" cy="192" r="7" fill="#444"/>
+          <circle cx="393" cy="192" r="7" fill="#444"/>
+          <!-- Flags -->
+          <rect x="348" y="130" width="3" height="40" fill="#888"/>
+          <rect x="351" y="130" width="22" height="14" fill="#002395"/>
+          <rect x="351" y="130" width="7" height="14" fill="#fff"/>
+          <rect x="364" y="130" width="9" height="14" fill="#e63030"/>
+          <rect x="340" y="130" width="3" height="40" fill="#888"/>
+          <rect x="317" y="130" width="22" height="14" fill="#cf142b"/>
+          <line x1="320" y1="130" x2="339" y2="144" stroke="#fff" stroke-width="1.5"/>
+          <line x1="320" y1="144" x2="339" y2="130" stroke="#fff" stroke-width="1.5"/>
+          <!-- Caption strip -->
+          <rect y="250" width="680" height="30" fill="rgba(0,0,0,0.55)"/>
+          <text x="12" y="270" fill="white" font-size="12" font-family="Arial, sans-serif">Artist's depiction: French Imperial Guard advances on Allied lines at La Haye Sainte farm, morning of 18 June 1815</text>
+        </svg>
+      </div>
+      <p class="lead-image-caption">Artist's impression of the morning engagement south of Brussels. The battle is expected to decide the future of the Napoleonic Wars. (BBC Illustration)</p>
+
+      <p style="font-size:15px; line-height:1.7; margin-bottom:10px;">
+        Dawn broke this Sunday morning over the sodden fields of Belgium to reveal two of the great armies of Europe arrayed for what both sides believe will be a decisive engagement. The Emperor Napoleon, who returned to power barely one hundred days ago following his escape from the island of Elba, has marched his reconstituted Grande Armée northward with characteristic speed, aiming to defeat the Allied and Prussian forces before they can combine their full strength.
+      </p>
+      <p style="font-size:15px; line-height:1.7; margin-bottom:10px;">
+        Arthur Wellesley, the Duke of Wellington, commanding a multinational Allied force numbering some 68,000 men, has positioned his troops along the ridge of Mont-Saint-Jean, near the hamlet of Waterloo in the Duchy of Brabant. Field Marshal Gebhard Leberecht von Blücher's Prussian army, though badly mauled at Ligny two days prior, is reported to be marching to the Duke's assistance.
+      </p>
+
+      <div class="quote-box">
+        "I have the greatest confidence that we shall succeed, though the affair will be a damned near-run thing, I can tell you."
+        <div class="quote-attr">— Arthur Wellesley, Duke of Wellington, reported by aide-de-camp this morning</div>
+      </div>
+
+      <p style="font-size:15px; line-height:1.7; margin-bottom:10px;">
+        Fighting is understood to have begun in earnest around half past eleven in the morning, with a French assault upon the fortified farm of Hougoumont on the Allied right flank. The sound of heavy cannon fire has been reported by residents of Brussels, some twelve miles to the north, where considerable anxiety prevails. Many citizens have fled northward along the Brussels–Antwerp road.
+      </p>
+      <p style="font-size:15px; line-height:1.7;">
+        Our correspondent reports that morale among Wellington's troops, which includes British, Dutch, Belgian and German contingents, appears resolute, though the previous day's hard marching in torrential rain has left many men fatigued. Napoleon is expected to deploy his celebrated Imperial Guard should the initial assaults prove insufficient to break the Allied line.
+      </p>
+
+      <div style="margin-top:14px;">
+        <a href="https://news.bbc.co.uk/1815/06/18/europe/battle-of-waterloo-full-report" style="color:#bb1919; font-family:Arial,sans-serif; font-size:13px; font-weight:bold;">&#9658; Full dispatches: The Battle of Waterloo — as it happens</a>
+      </div>
+    </div>
+
+    <!-- Other stories -->
+    <div class="section-label">More Europe Stories</div>
+    <ul class="story-list">
+
+      <li>
+        <div class="story-thumb thumb-blue" style="display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg" width="80" height="60">
+            <rect width="80" height="60" fill="#1a3a6a"/>
+            <rect x="10" y="10" width="60" height="40" fill="#2a5a9a" rx="2"/>
+            <text x="40" y="38" font-size="22" text-anchor="middle" fill="gold" font-family="serif">N</text>
+          </svg>
+        </div>
+        <div class="story-text">
+          <h2><a href="https://news.bbc.co.uk/1815/06/18/europe/napoleon-returns-elba">Napoleon's Hundred Days: How the Emperor rebuilt his army in weeks</a></h2>
+          <p>Since landing on the French coast in March, Napoleon has assembled a force of some 72,000 veterans with astonishing swiftness, confounding his enemies in the courts of Vienna.</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="story-thumb thumb-green" style="display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg" width="80" height="60">
+            <rect width="80" height="60" fill="#1a4a2a"/>
+            <polygon points="20,50 40,10 60,50" fill="#2a7a3a"/>
+            <rect x="28" y="45" width="24" height="8" fill="#3a5a2a"/>
+          </svg>
+        </div>
+        <div class="story-text">
+          <h2><a href="https://news.bbc.co.uk/1815/06/18/europe/congress-vienna-reaction">Congress of Vienna powers vow to crush Bonapartist threat</a></h2>
+          <p>The assembled monarchs and statesmen at Vienna, who had been deliberating the post-war European settlement, suspended proceedings to mobilise against what they termed "the common enemy of public order."</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="story-thumb thumb-brown" style="display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg" width="80" height="60">
+            <rect width="80" height="60" fill="#3a2a10"/>
+            <ellipse cx="40" cy="40" rx="30" ry="12" fill="#5a4020"/>
+            <ellipse cx="40" cy="35" rx="22" ry="8" fill="#7a5a2a"/>
+            <rect x="36" y="10" width="8" height="28" fill="#6a4a18"/>
+          </svg>
+        </div>
+        <div class="story-text">
+          <h2><a href="https://news.bbc.co.uk/1815/06/18/europe/brussels-civilians-flee">Panic in Brussels: Citizens flee south as cannon fire heard</a></h2>
+          <p>The Duchess of Richmond's celebrated ball, held only two nights ago, gave way to scenes of confusion as officers received orders and galloped to their regiments. Civilians are reported clogging the roads northward.</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="story-thumb thumb-grey" style="display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg" width="80" height="60">
+            <rect width="80" height="60" fill="#333"/>
+            <rect x="15" y="35" width="50" height="10" rx="3" fill="#555"/>
+            <circle cx="22" cy="48" r="5" fill="#444"/>
+            <circle cx="58" cy="48" r="5" fill="#444"/>
+            <rect x="8" y="30" width="14" height="8" rx="2" fill="#666"/>
+          </svg>
+        </div>
+        <div class="story-text">
+          <h2><a href="https://news.bbc.co.uk/1815/06/18/europe/artillery-waterloo-analysis">Analysis: How Napoleon's massed artillery may shape the outcome</a></h2>
+          <p>Military correspondent Major (Ret'd) Thomas Erskine examines whether France's formidable cannon batteries can silence the Allied guns and open the road for infantry assault.</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="story-thumb thumb-gold" style="display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg" width="80" height="60">
+            <rect width="80" height="60" fill="#5a4a10"/>
+            <circle cx="40" cy="28" r="14" fill="#b8960a" opacity="0.8"/>
+            <text x="40" y="33" font-size="14" text-anchor="middle" fill="#fff" font-family="serif">£</text>
+            <path d="M 10 48 Q 40 36 70 48" stroke="#d4aa20" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <div class="story-text">
+          <h2><a href="https://news.bbc.co.uk/1815/06/18/europe/london-markets-napoleon">London markets: Funds plunge as news of battle reaches the Exchange</a></h2>
+          <p>Consols fell sharply this morning amid uncertainty over the day's outcome. Nathan Mayer Rothschild is reported to have sent riders to the coast in anticipation of early intelligence from the front.</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="story-thumb" style="background:#2a4a5a;display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg" width="80" height="60">
+            <rect width="80" height="60" fill="#1a3040"/>
+            <rect x="15" y="15" width="50" height="32" rx="2" fill="#2a5a70"/>
+            <line x1="15" y1="25" x2="65" y2="25" stroke="#4a8aaa" stroke-width="1"/>
+            <line x1="15" y1="33" x2="65" y2="33" stroke="#4a8aaa" stroke-width="1"/>
+            <line x1="15" y1="41" x2="65" y2="41" stroke="#4a8aaa" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="story-text">
+          <h2><a href="https://news.bbc.co.uk/1815/06/18/europe/blucher-prussians-march">Blücher's Prussians: Battered but marching — can they reach Waterloo in time?</a></h2>
+          <p>Despite heavy casualties sustained at Ligny on 16 June, Field Marshal Blücher has reportedly rallied his troops and pledged to march to Wellington's support, potentially arriving on the battlefield this afternoon.</p>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+
+    <div class="sidebar-box">
+      <h3>Related Links</h3>
+      <ul>
+        <li><a href="https://news.bbc.co.uk/1815/06/16/europe/battle-of-ligny">Battle of Ligny: Prussians defeated, 16 June</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/06/16/europe/battle-of-quatre-bras">Quatre Bras: Wellington holds, 16 June</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/03/20/europe/napoleon-enters-paris">Napoleon enters Paris: 20 March 1815</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/06/12/europe/napoleon-leaves-paris">Emperor departs Paris to join his army</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/06/18/europe/order-of-battle">Order of Battle: Forces at Waterloo</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/06/18/europe/hougoumont-assault">Hougoumont: The first great assault</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-box">
+      <h3>Key Figures</h3>
+      <ul>
+        <li><a href="https://news.bbc.co.uk/1815/profiles/napoleon-bonaparte">Napoleon Bonaparte — Emperor of France</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/profiles/duke-of-wellington">Duke of Wellington — Allied Commander</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/profiles/blucher">Field Marshal Blücher — Prussia</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/profiles/ney">Marshal Ney — Commander, Left Wing</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/profiles/prince-of-orange">Prince of Orange — Netherlands Corps</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-box weather-box">
+      <h3>Weather: Belgium</h3>
+      <table class="weather-table">
+        <tr><td>Brussels</td><td class="temp">14°C</td><td>Overcast</td></tr>
+        <tr><td>Waterloo</td><td class="temp">13°C</td><td>Heavy Cloud</td></tr>
+        <tr><td>Ghent</td><td class="temp">15°C</td><td>Showers</td></tr>
+        <tr><td>Liège</td><td class="temp">13°C</td><td>Overcast</td></tr>
+        <tr><td>Paris</td><td class="temp">17°C</td><td>Partly Cloudy</td></tr>
+      </table>
+      <div style="font-size:10px; color:#aac8ff; margin-top:6px;">Heavy overnight rains have rendered the ground extremely muddy, potentially hampering French cavalry and artillery movement.</div>
+    </div>
+
+    <div class="sidebar-box">
+      <h3>Also in Europe</h3>
+      <ul>
+        <li><a href="https://news.bbc.co.uk/1815/06/18/europe/spain-restoration">Ferdinand VII tightens grip on Spain</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/06/18/europe/italy-austrian-occupation">Austrian forces consolidate in northern Italy</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/06/18/europe/german-states-mobilise">German states mobilise reserve forces</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/06/18/europe/paris-royalists">Paris royalists await news from Belgium</a></li>
+        <li><a href="https://news.bbc.co.uk/1815/06/18/europe/dutch-netherlands-independence">Netherlands: New kingdom's first great test</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-box" style="background:#fff8e8; border-color:#c8a820;">
+      <h3 style="border-bottom-color:#c8a820; color:#7a6010;">Special Report</h3>
+      <p style="font-family:Arial,sans-serif; font-size:12px; line-height:1.5; color:#333;">
+        <strong>The Hundred Days:</strong> From Elba to Waterloo — BBC News traces Napoleon's remarkable return to power and the Coalition's response.
+      </p>
+      <a href="https://news.bbc.co.uk/1815/special/hundred-days" style="font-family:Arial,sans-serif; font-size:12px; color:#bb1919; font-weight:bold;">&#9658; Read the full special report</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div id="footer">
+  <div id="footer-inner">
+    <div class="footer-links">
+      <a href="https://news.bbc.co.uk/1815/06/18/">Home</a>
+      <a href="https://news.bbc.co.uk/1815/06/18/uk">Britain</a>
+      <a href="https://news.bbc.co.uk/1815/06/18/europe">Europe</a>
+      <a href="https://news.bbc.co.uk/1815/06/18/world">World</a>
+      <a href="https://news.bbc.co.uk/1815/about">About BBC News</a>
+      <a href="https://news.bbc.co.uk/1815/contact">Contact / Send Dispatches</a>
+      <a href="https://news.bbc.co.uk/1815/corrections">Corrections & Clarifications</a>
+      <a href="https://news.bbc.co.uk/1815/terms">Terms of Use</a>
+    </div>
+    <div class="footer-copy">
+      &copy; MDCCCXV BBC. The BBC is not responsible for the content of external dispatches. Reports from the front may be subject to delay by weather, horse fatigue, or enemy action. The BBC's editorial standards require corroboration from at least two independent sources before declaring the outcome of any engagement.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

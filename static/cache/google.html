@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>G</text></svg>">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: arial, sans-serif;
+      background: #fff;
+      color: #202124;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    /* TOP NAV */
+    #top-nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 12px 16px;
+      gap: 12px;
+    }
+    #top-nav a {
+      font-size: 13px;
+      color: #202124;
+      text-decoration: none;
+    }
+    #top-nav a:hover { text-decoration: underline; }
+    #top-nav .gmail-link { margin-right: 4px; }
+    #top-nav .images-link {}
+    #top-nav .apps-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    #top-nav .apps-btn:hover { background: #f1f3f4; }
+    #top-nav .apps-btn svg { width: 20px; height: 20px; }
+    #top-nav .sign-in-btn {
+      background: #1a73e8;
+      color: #fff !important;
+      border-radius: 4px;
+      padding: 9px 23px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none !important;
+    }
+    #top-nav .sign-in-btn:hover {
+      background: #1765cc;
+      text-decoration: none !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    /* MAIN CENTER */
+    #main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 100px;
+    }
+
+    /* LOGO */
+    #logo {
+      margin-bottom: 28px;
+    }
+    #logo svg {
+      width: 272px;
+      height: 92px;
+    }
+
+    /* SEARCH BOX */
+    #search-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    #search-wrapper {
+      position: relative;
+      width: 480px;
+      max-width: 90vw;
+    }
+    #search-input {
+      width: 100%;
+      height: 44px;
+      border: 1px solid #dfe1e5;
+      border-radius: 24px;
+      padding: 0 48px 0 48px;
+      font-size: 16px;
+      color: #202124;
+      outline: none;
+      background: #fff;
+      caret-color: #202124;
+      transition: box-shadow 0.2s;
+    }
+    #search-input:hover, #search-input:focus {
+      box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+      border-color: rgba(223,225,229,0);
+    }
+    .search-icon-left {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .search-icon-right {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+    #search-btns {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .search-btn {
+      background: #f8f9fa;
+      border: 1px solid #f8f9fa;
+      border-radius: 4px;
+      color: #3c4043;
+      font-size: 14px;
+      padding: 0 16px;
+      height: 36px;
+      cursor: pointer;
+      min-width: 54px;
+    }
+    .search-btn:hover {
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      background: #f8f9fa;
+      border: 1px solid #dadce0;
+      color: #202124;
+    }
+
+    /* LANGUAGE OFFER */
+    #lang-offer {
+      margin-top: 28px;
+      font-size: 13px;
+      color: #202124;
+    }
+    #lang-offer a {
+      color: #1a0dab;
+      text-decoration: none;
+      margin-left: 4px;
+    }
+    #lang-offer a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: #f2f2f2;
+      border-top: 1px solid #e4e4e4;
+      color: #70757a;
+      font-size: 14px;
+    }
+    .footer-country {
+      text-align: center;
+      padding: 15px 0 14px;
+      border-bottom: 1px solid #e4e4e4;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 30px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-links-group {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: #70757a;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav id="top-nav">
+    <a href="http://mail.google.com" class="gmail-link">Gmail</a>
+    <a href="http://images.google.com" class="images-link">Images</a>
+    <div class="apps-btn" title="Google apps">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#5f6368" d="M6 8c1.1 0 2-.9 2-2S7.1 4 6 4 4 4.9 4 6s.9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM6 14c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM6 20c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+      </svg>
+    </div>
+    <a href="http://accounts.google.com/signin" class="sign-in-btn">Sign in</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main id="main">
+    <!-- LOGO -->
+    <div id="logo">
+      <!-- Google logo SVG hand-crafted -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" aria-label="Google">
+        <!-- G -->
+        <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
+        <!-- O -->
+        <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
+        <!-- o -->
+        <!-- G letter path -->
+        <path d="M52.1 31.42v9.5h22.73c-.68 5.24-2.51 9.09-5.28 11.8-3.37 3.37-8.63 7.06-17.45 7.06-13.91 0-24.79-11.21-24.79-25.12S38.19 9.54 52.1 9.54c7.5 0 12.98 2.94 17.02 6.72l6.72-6.72C70.36 4.06 63.06 0 52.1 0 30.64 0 12.55 17.48 12.55 38.66s18.09 38.66 39.55 38.66c11.61 0 20.35-3.81 27.16-10.88 7.01-7.01 9.21-16.87 9.21-24.84 0-2.47-.19-4.74-.56-6.18H52.1z" fill="#4285F4"/>
+        <!-- g -->
+        <path d="M209.6 25.78h-9.4v3.8h-.27c-1.6-1.93-4.67-4.58-10.23-4.58-9.74 0-18.62 8.55-18.62 21.96 0 13.32 8.88 21.87 18.62 21.87 5.56 0 8.63-2.65 10.23-4.67h.27v2.96c0 8.39-4.49 12.86-11.72 12.86-5.9 0-9.55-4.23-11.05-7.8l-8.46 3.52c2.42 5.81 8.81 12.97 19.51 12.97 11.34 0 20.93-6.68 20.93-22.96V25.78zm-8.96 21.18c0 7.81-5.23 13.53-12.1 13.53-6.96 0-12.79-5.81-12.79-13.53 0-7.81 5.83-13.44 12.79-13.44 6.87 0 12.1 5.72 12.1 13.44z" fill="#4285F4"/>
+        <!-- l -->
+        <path d="M225 2.06h-9.74v66.9H225V2.06z" fill="#34A853"/>
+        <!-- e -->
+        <path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.84-18.48 9.84-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.93-22.18 11.52 0 17.16 9.16 19.01 14.13l1.01 2.52-29.65 12.28c2.27 4.45 5.81 6.72 10.71 6.72 4.91 0 8.32-2.44 10.92-6.17zm-23.27-8.03l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/>
+      </svg>
+    </div>
+
+    <!-- SEARCH FORM -->
+    <form id="search-form" action="http://www.google.com/search" method="GET">
+      <div id="search-wrapper">
+        <!-- Left search icon -->
+        <span class="search-icon-left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#9aa0a6" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </span>
+        <input id="search-input" type="text" name="q" autocomplete="off" aria-label="Search" />
+        <!-- Right mic icon -->
+        <span class="search-icon-right" title="Search by voice">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#4285f4" d="M12 15c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3z"/>
+            <path fill="#4285f4" d="M17 12c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-2.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+        </span>
+      </div>
+      <div id="search-btns">
+        <button class="search-btn" type="submit">Google Search</button>
+        <button class="search-btn" type="button" onclick="window.location='http://www.google.com/search?q=&btnI=1'">I'm Feeling Lucky</button>
+      </div>
+    </form>
+
+    <!-- LANGUAGE OFFER -->
+    <div id="lang-offer">
+      Google offered in:
+      <a href="http://www.google.com/setprefs?hl=es">Español</a>
+      <a href="http://www.google.com/setprefs?hl=fr">Français</a>
+      <a href="http://www.google.com/setprefs?hl=de">Deutsch</a>
+      <a href="http://www.google.com/setprefs?hl=ja">日本語</a>
+      <a href="http://www.google.com/setprefs?hl=zh-CN">中文</a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-country">United States</div>
+    <div class="footer-links">
+      <div class="footer-links-group">
+        <a href="http://about.google/">About</a>
+        <a href="http://www.google.com/intl/en/ads/">Advertising</a>
+        <a href="http://www.google.com/services/">Business</a>
+        <a href="http://www.google.com/search?q=how+search+works">How Search works</a>
+      </div>
+      <div class="footer-links-group">
+        <a href="http://www.google.com/intl/en/policies/privacy/">Privacy</a>
+        <a href="http://www.google.com/intl/en/policies/terms/">Terms</a>
+        <a href="http://www.google.com/preferences">Settings</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

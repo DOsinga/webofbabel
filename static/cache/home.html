@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head><style>
+  body { font-family: Georgia, "Times New Roman", serif; max-width: 640px; margin: 40px auto; padding: 0 20px; background: #f5f0e8; color: #333; line-height: 1.7; }
+  h1 { color: #000080; font-size: 28px; margin-bottom: 4px; }
+  h2 { color: #000080; font-size: 16px; margin-top: 24px; margin-bottom: 8px; }
+  .subtitle { font-style: italic; color: #666; margin-bottom: 16px; }
+  .quote { border-left: 3px solid #000080; padding-left: 12px; margin: 16px 0; font-style: italic; color: #555; }
+  hr { border: none; border-top: 1px solid #ccc; margin: 20px 0; }
+  a { color: #000080; }
+  code { background: #e0ddd5; padding: 1px 4px; font-size: 12px; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  .bookmarks-note { background: #fff; border: 1px solid #ddd; padding: 10px 14px; margin: 12px 0; font-size: 13px; }
+</style></head>
+<body>
+  <h1>The Web of Babel</h1>
+  <div class="subtitle">A browser for an internet imagined by an AI</div>
+
+  <div class="quote">
+    "The certainty that everything has already been written annuls us, or renders us phantasmal."
+      <br>&mdash; Jorge Luis Borges, <em>
+      <a href="https://sites.evergreen.edu/politicalshakespeares/wp-content/uploads/sites/226/2015/12/Borges-The-Library-of-Babel.pdf">
+          The Library of Babel</a>
+      </em>
+  </div>
+
+  <p>In Borges' story, the Library of Babel contains every possible book. Every possible book has a unique
+  location in the library. You know the location, you know the book.</p>
+
+  <p><b>The Web of Babel</b> is the same idea, applied to the Web through the magic of large language
+      models. Given an LLM, every possible web page can be generated &mdash; in a lossy way. All
+      we need to know is where in the Web of Babel that web page can be found. And since web pages have
+      addresses known as URLs, we already know.</p>
+
+  <p>So this browser lets you visit the mind of an LLM by web address. Just type a URL in the location
+      bar. You can visit <a href="http://www.lonelyplanet.com/europe/berlin">Lonely Planet's guide to Berlin</a>
+      and get decent advice. Or check for the latest tech news on
+      <a href="http://news.ycombinator.com">Hacker News</a> &mdash; click any of the posts and it will show
+      what the AI thinks the underlying article looks like. The Web of Babel of course comes with a working
+      <a href="http://www.google.com">Google search engine</a> to search for anything you'd want. Geocities
+      might have been taken down, but it still exists <a href="http://www.geocities.com/~magic_crystals">
+      here for all your crystal needs</a>. You can browse past news sites from before they &mdash; or indeed the
+      web &mdash; were a thing, like this <a href="http://news.bbc.co.uk/1815/06/18/europe">BBC report of
+      the battle of Waterloo</a>. You can of course also <a href="https://douwe.com/projects/webofbabel">
+      visit this page itself</a> on the Web of Babel and see what an AI thinks it should look like.
+  </p>
+  <h2>Getting started</h2>
+  <p>Click <b>Options</b> in the menu bar to configure your AI provider. You'll need an API key from
+  one of the supported providers:</p>
+  <ul>
+    <li><b>Google Gemini</b> &mdash; free API key at <a href="https://aistudio.google.com/api-keys" target="_blank">aistudio.google.com</a></li>
+    <li><b>OpenRouter</b> &mdash; many <a href="https://openrouter.ai/collections/free-models" target="_blank">free models</a> available</li>
+    <li><b>Anthropic</b> or <b>OpenAI</b> &mdash; requires a paid API key</li>
+    <li><b>Ollama</b> &mdash; run models locally, no key needed</li>
+  </ul>
+
+  <h2>Bookmarks</h2>
+  <div class="bookmarks-note">
+    The <b>Bookmarks</b> menu comes with a few pre-generated pages you can browse immediately,
+    even without an API key. These are cached snapshots. Click the <b>cached</b> badge in the
+    location bar to regenerate any page fresh. You can bookmark any page you visit, and its
+    content will be saved so you can revisit it instantly.
+  </div>
+
+  <h2>Tips</h2>
+  <ul>
+    <li>Follow links and watch the hallucination compound</li>
+    <li><b>View Source</b> shows the raw generated HTML</li>
+    <li><b>Save Page</b> downloads the current page as an HTML file</li>
+    <li>The <b>Back</b> button shows cached pages instantly</li>
+    <li>Try real URLs, historical URLs, or completely made-up ones</li>
+  </ul>
+
+  <hr>
+  <p style="font-size: 12px; color: #888;">The Web of Babel is a project by
+  <a href="http://douwe.com">Douwe Osinga</a>.</p>
+</body>
+</html>

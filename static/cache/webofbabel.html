@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web of Babel — Douwe Osinga</title>
+  <meta name="description" content="Web of Babel — an experimental endless library of interconnected pages by Douwe Osinga. Browse generated shelves, hexagons, and impossible texts.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2318181b'/%3E%3Cpath d='M16 14h24a8 8 0 0 1 8 8v28H24a8 8 0 0 0-8 8V14z' fill='%23d6b46b'/%3E%3Cpath d='M20 18h18a6 6 0 0 1 6 6v22H26a6 6 0 0 0-6 6V18z' fill='%23f5e6b8'/%3E%3Cpath d='M25 24h14M25 30h12M25 36h14' stroke='%236b4f1d' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root{
+      --bg:#f5f1e8;
+      --paper:#fbf8f1;
+      --ink:#26211b;
+      --muted:#6b6255;
+      --gold:#a17b36;
+      --gold-soft:#d8c08e;
+      --border:#d8d0c3;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --link:#6b4a16;
+      --link-hover:#8c5b09;
+      --accent:#433726;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,.75), transparent 40%),
+        linear-gradient(180deg, #efe8da 0%, #f7f3ec 180px, var(--bg) 100%);
+      line-height:1.55;
+    }
+    a{color:var(--link); text-decoration:none}
+    a:hover{color:var(--link-hover); text-decoration:underline}
+    .topbar{
+      background:#201b15;
+      color:#e9dfcb;
+      border-bottom:1px solid #493c2d;
+      font-size:14px;
+    }
+    .wrap{max-width:1080px; margin:0 auto; padding:0 22px}
+    .topbar .wrap{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      padding-top:10px;
+      padding-bottom:10px;
+    }
+    .top-links a{color:#e9dfcb; margin-right:18px}
+    .top-links a:last-child{margin-right:0}
+    header.site{
+      padding:28px 0 14px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,0));
+    }
+    .brand{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:flex-end;
+    }
+    .brand h1{
+      margin:0;
+      font-weight:normal;
+      font-size:42px;
+      letter-spacing:.3px;
+    }
+    .brand .byline{
+      color:var(--muted);
+      font-size:16px;
+      margin-top:6px;
+    }
+    .brand .crumbs{
+      text-align:right;
+      color:var(--muted);
+      font-size:14px;
+      padding-bottom:6px;
+    }
+    nav.main{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    nav.main a{
+      display:inline-block;
+      padding:8px 12px;
+      border:1px solid var(--border);
+      background:var(--paper);
+      border-radius:20px;
+      box-shadow:0 2px 0 rgba(0,0,0,.03);
+    }
+    .hero{
+      padding:28px 0 20px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.5fr .9fr;
+      gap:28px;
+      align-items:start;
+    }
+    .card{
+      background:var(--paper);
+      border:1px solid var(--border);
+      border-radius:12px;
+      box-shadow:var(--shadow);
+    }
+    .intro{
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .intro:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 85% 18%, rgba(161,123,54,.12), transparent 18%),
+        radial-gradient(circle at 75% 60%, rgba(161,123,54,.08), transparent 22%);
+      pointer-events:none;
+    }
+    .intro h2{
+      margin:0 0 14px;
+      font-size:30px;
+      font-weight:normal;
+    }
+    .intro p{
+      margin:0 0 14px;
+      font-size:18px;
+      color:#3a342d;
+      max-width:52ch;
+    }
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+    .btn{
+      display:inline-block;
+      padding:11px 16px;
+      border-radius:10px;
+      border:1px solid #8f6f2e;
+      background:linear-gradient(180deg, #cda85a, #a87f32);
+      color:#fff7e6;
+      font-weight:bold;
+      letter-spacing:.2px;
+      box-shadow:0 3px 0 rgba(93,66,16,.25);
+    }
+    .btn.secondary{
+      background:linear-gradient(180deg, #faf8f2, #ece5d9);
+      color:var(--accent);
+      border-color:var(--border);
+      box-shadow:none;
+    }
+    .stats{
+      padding:20px;
+    }
+    .stats h3{
+      margin:0 0 14px;
+      font-size:20px;
+      font-weight:normal;
+    }
+    .stat-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .stat{
+      padding:14px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:#fffdf9;
+    }
+    .stat strong{
+      display:block;
+      font-size:22px;
+      color:var(--accent);
+    }
+    .section{
+      padding:18px 0 6px;
+    }
+    .section h3{
+      font-size:28px;
+      font-weight:normal;
+      margin:0 0 14px;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+    .feature{
+      padding:18px;
+    }
+    .feature h4{
+      margin:0 0 8px;
+      font-size:21px;
+      font-weight:normal;
+    }
+    .feature p{
+      margin:0 0 10px;
+      color:#433d35;
+    }
+    .feature .small{
+      color:var(--muted);
+      font-size:14px;
+    }
+    .shelves{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:22px;
+      margin-top:10px;
+    }
+    .browser{
+      padding:0;
+      overflow:hidden;
+    }
+    .browser-head{
+      padding:14px 18px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, #f9f5ec, #f1ebdf);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .browser-body{
+      padding:18px;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          #fffdf9,
+          #fffdf9 34px,
+          #f5efe4 34px,
+          #f5efe4 35px
+        );
+      min-height:320px;
+      font-family:"Courier New", monospace;
+      font-size:15px;
+      line-height:1.75;
+      color:#3e3327;
+    }
+    .browser-body a{
+      color:#5a2f00;
+      background:rgba(216,192,142,.18);
+      padding:0 2px;
+    }
+    .side-list{
+      padding:18px;
+    }
+    .side-list h4{
+      margin:0 0 10px;
+      font-size:20px;
+      font-weight:normal;
+    }
+    .side-list ul{
+      margin:0;
+      padding-left:18px;
+    }
+    .side-list li{
+      margin:8px 0;
+    }
+    .quote{
+      margin-top:18px;
+      padding:18px 20px;
+      border-left:4px solid var(--gold);
+      background:#fffaf0;
+      color:#463729;
+      font-style:italic;
+    }
+    .updates{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+    .update, .notes{
+      padding:18px;
+    }
+    .update article{
+      padding:12px 0;
+      border-bottom:1px solid var(--border);
+    }
+    .update article:last-child{border-bottom:none}
+    .update h4, .notes h4{
+      margin:0 0 10px;
+      font-size:22px;
+      font-weight:normal;
+    }
+    .meta{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:4px;
+    }
+    footer{
+      margin-top:40px;
+      padding:24px 0 40px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:14px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr;
+      gap:20px;
+    }
+    .tag{
+      display:inline-block;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:999px;
+      padding:4px 10px;
+      margin:4px 6px 0 0;
+    }
+    @media (max-width: 880px){
+      .hero-grid, .shelves, .updates, .grid-3, .footer-grid{grid-template-columns:1fr}
+      .brand{flex-direction:column; align-items:flex-start}
+      .brand .crumbs{text-align:left}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="top-links">
+        <a href="https://douwe.com/">douwe.com</a>
+        <a href="https://douwe.com/projects">Projects</a>
+        <a href="https://douwe.com/writing">Writing</a>
+        <a href="https://douwe.com/about">About</a>
+      </div>
+      <div>Experiments in search, language, maps, and improbable software</div>
+    </div>
+  </div>
+
+  <header class="site">
+    <div class="wrap">
+      <div class="brand">
+        <div>
+          <h1>Web of Babel</h1>
+          <div class="byline">An endless, searchable library of generated pages by <a href="https://douwe.com/about">Douwe Osinga</a></div>
+        </div>
+        <div class="crumbs">
+          <a href="https://douwe.com/">Home</a> / 
+          <a href="https://douwe.com/projects">Projects</a> / 
+          <strong>Web of Babel</strong>
+        </div>
+      </div>
+
+      <nav class="main">
+        <a href="https://douwe.com/projects/webofbabel">Overview</a>
+        <a href="https://douwe.com/projects/webofbabel/explore">Explore the Library</a>
+        <a href="https://douwe.com/projects/webofbabel/about">How it works</a>
+        <a href="https://douwe.com/projects/webofbabel/faq">FAQ</a>
+        <a href="https://douwe.com/projects/webofbabel/random">Random page</a>
+        <a href="https://douwe.com/projects/webofbabel/source">Source notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="card intro">
+          <h2>Every possible page is already here.</h2>
+          <p>
+            Web of Babel is a small homage to Borges: a procedural library where every shelf, room, and page is addressable, browsable, and—at least in theory—already contains any text you might search for.
+          </p>
+          <p>
+            This project began as a curiosity about indexes, entropy, and whether a web interface could make an impossible archive feel tactile. It turns out it can feel surprisingly quiet.
+          </p>
+          <p>
+            If you like, start with a random room, search for a phrase, or jump directly to a coordinate in the stacks.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="https://douwe.com/projects/webofbabel/explore">Enter the library</a>
+            <a class="btn secondary" href="https://douwe.com/projects/webofbabel/random">Open a random volume</a>
+            <a class="btn secondary" href="https://douwe.com/projects/webofbabel/about">Read the design notes</a>
+          </div>
+        </div>
+
+        <aside class="card stats">
+          <h3>Library facts</h3>
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>∞</strong>
+              Addressable pages
+            </div>
+            <div class="stat">
+              <strong>6</strong>
+              Walls per hexagon
+            </div>
+            <div class="stat">
+              <strong>32</strong>
+              Lines per page
+            </div>
+            <div class="stat">
+              <strong>80</strong>
+              Characters per line
+            </div>
+          </div>
+          <div class="quote">
+            “The certainty that everything has been written annuls us, or renders us phantasmal.”
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>What you can do here</h3>
+      <div class="grid-3">
+        <div class="card feature">
+          <h4>Browse by location</h4>
+          <p>Navigate hexagon, wall, shelf, volume, and page as if the library were a physical structure. Coordinates are stable and linkable.</p>
+          <div class="small"><a href="https://douwe.com/projects/webofbabel/explore?hex=3f2a-wall4-shelf2-vol18-page211">Example location</a></div>
+        </div>
+        <div class="card feature">
+          <h4>Search for text</h4>
+          <p>Enter a phrase and the system finds an address where that exact sequence appears. It is less discovery than reverse cartography.</p>
+          <div class="small"><a href="https://douwe.com/projects/webofbabel/search">Search interface</a></div>
+        </div>
+        <div class="card feature">
+          <h4>Share impossible pages</h4>
+          <p>Because every page has a URL, you can send someone a page containing an apology, a poem, or tomorrow’s weather report in a sea of noise.</p>
+          <div class="small"><a href="https://douwe.com/projects/webofbabel/faq#sharing">Sharing notes</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Sample shelf</h3>
+      <div class="shelves">
+        <div class="card browser">
+          <div class="browser-head">
+            <div>Hexagon <strong>31a9e7</strong> · Wall <strong>2</strong> · Shelf <strong>4</strong> · Volume <strong>11</strong> · Page <strong>163</strong></div>
+            <div><a href="https://douwe.com/projects/webofbabel/random">load another page</a></div>
+          </div>
+          <div class="browser-body">
+            <div>ah, in the amber lift of the stair, a grammar of dust arranged itself into</div>
+            <div>phrases no one had written and yet each reader remembered. the catalog said</div>
+            <div>nothing. the margin contained only coordinates and a smudged line: <a href="https://douwe.com/projects/webofbabel/explore?hex=31a9e7-wall2-shelf4-vol11-page164">continue</a></div>
+            <div>                                                                                 </div>
+            <div>qvzrj bcnth euwqf ptaaeo libmne, a room of indexes within indexes, shelves</div>
+            <div>of conjecture, pages concerning the exact arrangement of every other page, and</div>
+            <div>one leaf where the sea appears under a table lamp. most entries degrade into</div>
+            <div>useful static. some insist that the static is the useful part.                          </div>
+            <div>                                                                                 </div>
+            <div>if you are searching for a name, begin with its absence. if you are searching</div>
+            <div>for a sentence, begin with the certainty that it has already been misplaced.   </div>
+          </div>
+        </div>
+
+        <aside class="card side-list">
+          <h4>Try these paths</h4>
+          <ul>
+            <li><a href="https://douwe.com/projects/webofbabel/random">Open a genuinely random page</a></li>
+            <li><a href="https://douwe.com/projects/webofbabel/search?q=all+possible+apologies">Find “all possible apologies”</a></li>
+            <li><a href="https://douwe.com/projects/webofbabel/explore?hex=000000-wall1-shelf1-vol1-page1">Visit the canonical first page</a></li>
+            <li><a href="https://douwe.com/projects/webofbabel/collection/favorite-discoveries">Favorite discovered fragments</a></li>
+            <li><a href="https://douwe.com/projects/webofbabel/about#algorithm">Read about the generator</a></li>
+          </ul>
+
+          <h4 style="margin-top:18px;">Project tags</h4>
+          <div>
+            <span class="tag">procedural text</span>
+            <span class="tag">Borges</span>
+            <span class="tag">search</span>
+            <span class="tag">indexing</span>
+            <span class="tag">toy universe</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="updates">
+      <div class="card update">
+        <h4>Recent notes</h4>
+
+        <article>
+          <div class="meta">12 February 2025</div>
+          <div><a href="https://douwe.com/projects/webofbabel/log/phrase-search-latency">Reduced phrase-search latency for longer queries</a></div>
+        </article>
+
+        <article>
+          <div class="meta">3 November 2024</div>
+          <div><a href="https://douwe.com/projects/webofbabel/log/stable-share-links">Stable share links now preserve viewport and pagination</a></div>
+        </article>
+
+        <article>
+          <div class="meta">17 June 2024</div>
+          <div><a href="https://douwe.com/projects/webofbabel/log/reading-mode">Added a distraction-free reading mode for paging through adjacent volumes</a></div>
+        </article>
+
+        <article>
+          <div class="meta">28 January 2024</div>
+          <div><a href="https://douwe.com/projects/webofbabel/log/hexagon-map">A new map view for browsing neighboring hexagons</a></div>
+        </article>
+      </div>
+
+      <div class="card notes">
+        <h4>About the project</h4>
+        <p>
+          Web of Babel sits somewhere between literature toy, search engine prank, and interface experiment. It borrows the emotional geometry of <em>The Library of Babel</em> and asks a webby question: what happens when impossible abundance gets pagination, permalinks, and a search box?
+        </p>
+        <p>
+          The answer is part wonder, part joke, and part meditation on how much of the web is really indexing rather than reading.
+        </p>
+        <p>
+          Related work on this site:
+          <a href="https://douwe.com/projects/dictator-alert">Dictator Alert</a>,
+          <a href="https://douwe.com/projects/travelmap">Travel Map</a>,
+          <a href="https://douwe.com/projects/phrasebook-machine">Phrasebook Machine</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <strong style="color:#433726;">Douwe Osinga</strong><br>
+        Independent maker of curious software, text systems, maps, and internet side-paths.<br>
+        <a href="https://douwe.com/">https://douwe.com/</a>
+      </div>
+      <div>
+        <strong style="color:#433726;">More pages</strong><br>
+        <a href="https://douwe.com/projects">Projects index</a><br>
+        <a href="https://douwe.com/writing">Essays & notes</a><br>
+        <a href="https://douwe.com/contact">Contact</a>
+      </div>
+      <div>
+        <strong style="color:#433726;">Web of Babel</strong><br>
+        <a href="https://douwe.com/projects/webofbabel/explore">Explore</a><br>
+        <a href="https://douwe.com/projects/webofbabel/faq">FAQ</a><br>
+        <a href="https://douwe.com/projects/webofbabel/source">Source notes</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

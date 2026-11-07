@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Internet Last Page</title>
+<meta name="description" content="Congratulations. You found it. This is the last page on the internet.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0a0a'/%3E%3Cpath d='M14 18h36v6H14zm0 11h28v6H14zm0 11h20v6H14z' fill='%23fff'/%3E%3Ccircle cx='48' cy='43' r='6' fill='%23ffd54f'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f8f4e8;
+  --ink:#1f1a17;
+  --accent:#a33021;
+  --gold:#c89d3d;
+  --paper:#fffdf8;
+  --line:#d8ccb4;
+  --muted:#6b6257;
+  --shadow:0 8px 24px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:linear-gradient(180deg,#efe7d4 0%,#f8f4e8 240px,#f6f2e9 100%);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.page{
+  max-width:980px;
+  margin:0 auto;
+  padding:18px 18px 60px;
+}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;color:var(--muted);padding:8px 0 14px;border-bottom:1px solid var(--line)
+}
+.brand{
+  text-align:center;padding:26px 0 12px
+}
+.brand h1{
+  margin:0;font-size:56px;letter-spacing:1px;font-weight:700;line-height:1;
+}
+.brand .tagline{
+  margin-top:10px;font-size:18px;color:var(--muted);font-style:italic
+}
+.ornament{
+  width:220px;height:18px;margin:14px auto 0;position:relative
+}
+.ornament:before,.ornament:after,.ornament span{
+  content:"";position:absolute;top:8px;height:1px;background:var(--line)
+}
+.ornament:before{left:0;width:85px}
+.ornament:after{right:0;width:85px}
+.ornament span{
+  left:97px;top:0;width:26px;height:18px;background:none;border:1px solid var(--line);
+  transform:rotate(45deg)
+}
+.notice{
+  background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);
+  padding:22px 24px;margin:22px 0;border-radius:4px
+}
+.notice h2{
+  margin:0 0 10px;font-size:32px
+}
+.notice p{margin:8px 0;font-size:18px;line-height:1.6}
+.columns{
+  display:grid;grid-template-columns:2fr 1fr;gap:22px;margin-top:22px
+}
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:4px;box-shadow:var(--shadow)
+}
+.card .hd{
+  padding:14px 18px;border-bottom:1px solid var(--line);font-size:22px;font-weight:700
+}
+.card .bd{
+  padding:18px
+}
+.final-list{
+  margin:0;padding-left:20px
+}
+.final-list li{
+  margin:0 0 12px;line-height:1.55
+}
+.quote{
+  border-left:4px solid var(--gold);padding:6px 0 6px 14px;color:#433c34;font-style:italic;margin:14px 0
+}
+.sidebar-links a{
+  display:block;padding:9px 0;border-bottom:1px dotted var(--line)
+}
+.small{
+  color:var(--muted);font-size:14px
+}
+.stamp{
+  display:inline-block;padding:6px 10px;border:1px solid var(--gold);color:#7a5a13;background:#fff8df;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px
+}
+.navgrid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px
+}
+.navbox{
+  border:1px solid var(--line);background:#fffefb;padding:12px;border-radius:4px;min-height:88px
+}
+.navbox strong{display:block;margin-bottom:6px}
+.footer{
+  margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap
+}
+.center{text-align:center}
+button{
+  appearance:none;border:1px solid var(--accent);background:var(--accent);color:#fff;
+  padding:10px 14px;border-radius:4px;font:inherit;cursor:pointer
+}
+button.secondary{
+  background:#fff;color:var(--accent)
+}
+.counter{
+  font-variant-numeric:tabular-nums;font-size:28px;font-weight:700;color:var(--accent)
+}
+.marquee{
+  overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:8px 0;margin-top:18px;background:#fbf8f0;color:#5f554a;font-size:14px
+}
+.marquee span{
+  display:inline-block;padding-left:100%;animation:scroll 24s linear infinite
+}
+@keyframes scroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-100%)}
+}
+@media (max-width: 760px){
+  .brand h1{font-size:40px}
+  .columns,.navgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <div>http://www.internetlastpage.com/</div>
+    <div>Archived continuously since 1997</div>
+  </div>
+
+  <header class="brand">
+    <h1>The Internet Last Page</h1>
+    <div class="tagline">There are no more pages after this one.</div>
+    <div class="ornament"><span></span></div>
+  </header>
+
+  <section class="notice">
+    <div class="stamp">Verified Final Destination</div>
+    <h2>Congratulations, traveler.</h2>
+    <p>You clicked, searched, wandered, mistyped, and refreshed your way across the whole web, and at last you have arrived here: the final page of the internet.</p>
+    <p>There are no hidden links to secret continents, no forgotten directories beneath this floorboard, no “next page” button tucked under the footer. This is the end of the line, the last shelf in the library, the final corridor after every forum thread and recipe blog and weather map and fan wiki and municipal PDF.</p>
+    <p class="quote">“When we built the internet, we always suspected it would end somewhere. We just didn't know it would have such tasteful stationery.” — attributed to a network engineer, probably</p>
+    <div class="center" style="margin-top:16px">
+      <button id="againBtn">Look for another page anyway</button>
+      <button class="secondary" id="acceptBtn">Accept the ending</button>
+    </div>
+  </section>
+
+  <div class="marquee">
+    <span>End-of-web notices: Search index exhausted • Wiki branches concluded • Last cat photo admired • Last newsletter unsubscribed from • Final “you may also like” declined • No further pagination available •</span>
+  </div>
+
+  <div class="columns">
+    <main class="card">
+      <div class="hd">What happens on the last page?</div>
+      <div class="bd">
+        <ol class="final-list">
+          <li><strong>You may rest.</strong> Many visitors stay a while and reread old bookmarks in their memory. There is no rush now; the loading spinner has finally gone still.</li>
+          <li><strong>You may go back.</strong> The browser back button still works in theory, though some say it feels more philosophical from here than technical.</li>
+          <li><strong>You may visit the ceremonial adjacent sites.</strong> These are not “later” pages. They are memorial annexes, gift shops, and observation decks maintained for tradition.</li>
+          <li><strong>You may sign the ledger.</strong> We keep a courteous record of arrivals. Recent entries include “found this by accident,” “is this canon,” and “please tell my tabs I loved them.”</li>
+        </ol>
+
+        <h3 style="margin-top:24px">Frequently asked final questions</h3>
+        <p><strong>Is this really the last page?</strong><br>
+        According to the Council of Pagination, yes. According to your curiosity, probably not. According to several broken hyperlinks, definitely maybe.</p>
+
+        <p><strong>Can I share this page?</strong><br>
+        Of course. The end is more meaningful with company.</p>
+
+        <p><strong>Why does it look like this?</strong><br>
+        We wanted the conclusion to feel dependable: part reading room, part railway station, part town hall bulletin board.</p>
+
+        <h3 style="margin-top:24px">Nearby destinations</h3>
+        <div class="navgrid">
+          <div class="navbox">
+            <strong>Observation Deck</strong>
+            A quiet place to review the whole web in hindsight.<br>
+            <a href="http://www.internetlastpage.com/view-from-the-end">http://www.internetlastpage.com/view-from-the-end</a>
+          </div>
+          <div class="navbox">
+            <strong>Ledger of Arrivals</strong>
+            Read notes left by previous visitors and add your own.<br>
+            <a href="http://www.internetlastpage.com/guestbook">http://www.internetlastpage.com/guestbook</a>
+          </div>
+          <div class="navbox">
+            <strong>Return Platform</strong>
+            A ceremonial page about going back to where you came from.<br>
+            <a href="http://www.internetlastpage.com/return">http://www.internetlastpage.com/return</a>
+          </div>
+          <div class="navbox">
+            <strong>Map of Everything Before</strong>
+            A lovingly incomplete atlas of all prior pages.<br>
+            <a href="http://www.internetlastpage.com/archive/map">http://www.internetlastpage.com/archive/map</a>
+          </div>
+          <div class="navbox">
+            <strong>The Last Link Museum</strong>
+            Exhibits on underlines, blue text, and impossible expectations.<br>
+            <a href="http://www.internetlastpage.com/museum">http://www.internetlastpage.com/museum</a>
+          </div>
+          <div class="navbox">
+            <strong>Refresh Ceremony</strong>
+            Push the button and watch nothing new happen, beautifully.<br>
+            <a href="http://www.internetlastpage.com/refresh">http://www.internetlastpage.com/refresh</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="card">
+      <div class="hd">Last Page Office</div>
+      <div class="bd">
+        <div class="small">Current status</div>
+        <div class="counter" id="statusText">Open</div>
+        <p class="small">Hours: Always the same moment, continuously.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:16px 0">
+
+        <div class="small">Pages remaining after this one</div>
+        <div class="counter" id="remaining">0</div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:16px 0">
+
+        <div class="small" style="margin-bottom:8px">Ceremonial links</div>
+        <div class="sidebar-links">
+          <a href="http://www.internetlastpage.com/about">About the last page</a>
+          <a href="http://www.internetlastpage.com/faq">Final FAQ</a>
+          <a href="http://www.internetlastpage.com/press">Press inquiries</a>
+          <a href="http://www.internetlastpage.com/terms-of-ending">Terms of ending</a>
+          <a href="http://www.internetlastpage.com/sitemap">Sitemap</a>
+          <a href="http://www.internetlastpage.com/not-found">404 Memorial</a>
+        </div>
+
+        <p class="small" style="margin-top:16px">Maintained by the Department of Completion, Suite 1, End of Web.</p>
+      </div>
+    </aside>
+  </div>
+
+  <section class="card" style="margin-top:22px">
+    <div class="hd">Selected remarks from visitors</div>
+    <div class="bd">
+      <p><strong>M. Alvarez, Springfield:</strong> “I expected fireworks. Instead I got a nice serif font and some closure. Honestly better.”</p>
+      <p><strong>user_92811:</strong> “If this is the end, who keeps sweeping?”</p>
+      <p><strong>Anonymous via campus network:</strong> “I clicked ‘next’ on a forum thread from 2004 and somehow arrived here. This feels right.”</p>
+      <p><a href="http://www.internetlastpage.com/guestbook/archive">Browse the full guestbook archive</a></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>© 1997–2026 The Internet Last Page Society</div>
+    <div>
+      <a href="http://www.internetlastpage.com/privacy">Privacy</a> ·
+      <a href="http://www.internetlastpage.com/accessibility">Accessibility</a> ·
+      <a href="http://www.internetlastpage.com/contact">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var againBtn = document.getElementById('againBtn');
+  var acceptBtn = document.getElementById('acceptBtn');
+  var statusText = document.getElementById('statusText');
+  var remaining = document.getElementById('remaining');
+
+  againBtn.addEventListener('click', function(){
+    statusText.textContent = 'Still Open';
+    remaining.textContent = '0';
+    alert('You search carefully behind the margins, under the headers, and between the lines.\n\nNo luck. This is still the last page.');
+  });
+
+  acceptBtn.addEventListener('click', function(){
+    statusText.textContent = 'At Peace';
+    alert('Acceptance recorded.\n\nThank you for bringing your curiosity all the way to the end.');
+  });
+})();
+</script>
+</body>
+</html>

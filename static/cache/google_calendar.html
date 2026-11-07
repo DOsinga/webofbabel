@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Calendar - Week of Mar 15–21, 2026</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%234285F4'/%3E%3Crect x='10' y='14' width='44' height='40' rx='6' fill='white'/%3E%3Crect x='10' y='14' width='44' height='10' rx='6' fill='%23EA4335'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial,sans-serif' font-size='22' fill='%234285F4'%3E31%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --panel:#f8f9fa;
+      --line:#e0e3e7;
+      --text:#202124;
+      --muted:#5f6368;
+      --blue:#1a73e8;
+      --blue-ghost:#e8f0fe;
+      --red:#d93025;
+      --green:#188038;
+      --yellow:#f9ab00;
+      --purple:#9334e6;
+      --teal:#12b5cb;
+      --shadow:0 1px 2px rgba(60,64,67,.15),0 1px 3px 1px rgba(60,64,67,.1);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      overflow:hidden;
+    }
+    a{color:var(--blue);text-decoration:none}
+    .app{
+      display:grid;
+      grid-template-rows:64px 1fr;
+      height:100vh;
+      width:100vw;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:0 16px;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+    .hamburger,.icon-btn,.profile{
+      width:40px;height:40px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--muted);
+    }
+    .hamburger:hover,.icon-btn:hover,.profile:hover{background:#f1f3f4}
+    .logo{
+      display:flex;align-items:center;gap:10px;min-width:180px;
+      font-size:22px;color:#5f6368;font-weight:400;
+    }
+    .logo-badge{
+      width:36px;height:36px;border-radius:8px;background:#4285f4;color:#fff;
+      display:flex;align-items:center;justify-content:center;font-weight:700;
+      position:relative;
+    }
+    .logo-badge:before{
+      content:"";position:absolute;left:0;right:0;top:0;height:10px;background:#ea4335;border-radius:8px 8px 0 0;
+    }
+    .logo-badge span{position:relative;top:4px}
+    .search{
+      flex:1;
+      max-width:720px;
+      background:#f1f3f4;
+      border-radius:24px;
+      padding:0 16px;
+      height:46px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .search input{
+      border:none;background:transparent;outline:none;flex:1;
+      font-size:16px;color:var(--text);
+    }
+    .top-actions{display:flex;align-items:center;gap:4px;margin-left:auto}
+    .profile{
+      background:#7b1fa2;color:#fff;font-weight:700;border-radius:50%;
+      width:34px;height:34px;font-size:14px;
+    }
+
+    .content{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      min-height:0;
+    }
+    .sidebar{
+      border-right:1px solid var(--line);
+      background:#fff;
+      padding:16px 12px;
+      overflow:auto;
+    }
+    .create-btn{
+      display:inline-flex;align-items:center;gap:12px;
+      padding:14px 22px;border-radius:16px;background:#fff;
+      box-shadow:var(--shadow);color:var(--text);font-size:15px;
+      margin:4px 8px 18px;
+    }
+    .mini-calendar{
+      padding:0 8px 18px;
+    }
+    .mini-head{
+      display:flex;justify-content:space-between;align-items:center;
+      color:var(--muted);font-size:14px;margin-bottom:8px;
+    }
+    .mini-grid{
+      display:grid;grid-template-columns:repeat(7,1fr);gap:2px;
+      font-size:12px;color:var(--muted);
+    }
+    .mini-grid div{
+      text-align:center;padding:8px 0;border-radius:50%;
+    }
+    .mini-grid .dow{font-weight:600;border-radius:0;padding-bottom:6px}
+    .mini-grid .active{background:var(--blue);color:#fff}
+    .mini-grid .today-ring{outline:1px solid var(--blue);color:var(--blue)}
+    .section-title{
+      color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.8px;
+      margin:18px 12px 10px;
+    }
+    .calendar-list,.other-list{display:flex;flex-direction:column;gap:2px}
+    .cal-item{
+      display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:18px;
+      color:var(--text);font-size:14px;
+    }
+    .cal-item:hover{background:#f1f3f4}
+    .dot{
+      width:14px;height:14px;border-radius:50%;
+      border:2px solid transparent;flex:0 0 auto;
+    }
+    .dot.blue{background:#1a73e8}
+    .dot.green{background:#34a853}
+    .dot.purple{background:#a142f4}
+    .dot.red{background:#ea4335}
+    .dot.yellow{background:#fbbc04}
+    .dot.teal{background:#24c1e0}
+    .mycal-footer{
+      margin:10px 12px;color:var(--blue);font-size:14px;
+    }
+
+    .main{
+      display:grid;
+      grid-template-rows:76px 1fr;
+      min-width:0;min-height:0;
+      background:#fff;
+    }
+    .toolbar{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 20px;border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+    .toolbar-left,.toolbar-right{display:flex;align-items:center;gap:10px}
+    .today-btn,.view-btn{
+      border:1px solid var(--line);background:#fff;border-radius:6px;
+      padding:9px 16px;font-size:14px;color:var(--text);
+    }
+    .nav-arrow{
+      width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      color:var(--muted);
+    }
+    .nav-arrow:hover{background:#f1f3f4}
+    .date-title{
+      font-size:22px;font-weight:400;margin-left:6px;
+    }
+    .mode{
+      border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;
+      font-size:14px;
+    }
+    .mode a{
+      padding:9px 14px;color:var(--text);background:#fff;border-right:1px solid var(--line);
+    }
+    .mode a:last-child{border-right:none}
+    .mode a.active{background:var(--blue-ghost);color:var(--blue);font-weight:600}
+    .calendar-shell{
+      overflow:auto;
+      position:relative;
+    }
+    .week{
+      display:grid;
+      grid-template-columns:64px repeat(7,1fr);
+      min-width:980px;
+      min-height:100%;
+      position:relative;
+    }
+    .header-spacer{
+      grid-column:1;
+      position:sticky;top:0;background:#fff;z-index:4;border-right:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      height:56px;
+    }
+    .day-head{
+      position:sticky;top:0;z-index:4;background:#fff;border-bottom:1px solid var(--line);
+      height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      font-size:12px;color:var(--muted);
+    }
+    .day-head .num{
+      margin-top:4px;
+      width:36px;height:36px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:22px;color:var(--text);
+    }
+    .day-head.today .num{background:var(--blue);color:#fff}
+    .all-day-label{
+      position:absolute;left:0;top:56px;width:64px;height:42px;border-right:1px solid var(--line);
+      border-bottom:1px solid var(--line);background:#fff;color:var(--muted);font-size:11px;
+      display:flex;align-items:center;justify-content:flex-end;padding-right:8px;z-index:3;
+    }
+    .all-day-row{
+      grid-column:2 / span 7;
+      display:grid;grid-template-columns:repeat(7,1fr);
+      position:sticky;top:56px;height:42px;background:#fff;z-index:2;border-bottom:1px solid var(--line);
+    }
+    .all-day-cell{border-right:1px solid var(--line);position:relative}
+    .holiday{
+      position:absolute;left:6px;right:6px;top:7px;height:26px;border-radius:4px;
+      background:#fce8e6;color:#b3261e;font-size:12px;padding:5px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .grid{
+      grid-column:1 / span 8;
+      display:grid;
+      grid-template-columns:64px repeat(7,1fr);
+      position:relative;
+    }
+    .time-col{
+      border-right:1px solid var(--line);
+      background:#fff;
+      position:relative;
+    }
+    .time-slot{
+      height:48px;border-bottom:1px solid var(--line);position:relative;
+      font-size:10px;color:var(--muted);text-align:right;padding-right:8px;
+    }
+    .time-slot span{position:absolute;top:-6px;right:8px;background:#fff;padding:0 2px}
+    .day-col{
+      position:relative;border-right:1px solid var(--line);background:
+        linear-gradient(to bottom, transparent 47px, var(--line) 48px);
+      background-size:100% 48px;
+      min-height:1152px;
+    }
+    .day-col.today{background-color:#fcfcff}
+    .hour-lines{
+      position:absolute;inset:0;
+      background:
+        repeating-linear-gradient(to bottom,
+          transparent 0, transparent 47px,
+          var(--line) 47px, var(--line) 48px);
+    }
+    .event{
+      position:absolute;border-radius:8px;padding:6px 8px;font-size:12px;line-height:1.25;
+      overflow:hidden;border-left:4px solid rgba(0,0,0,.12);
+      box-shadow:0 1px 1px rgba(0,0,0,.08);
+    }
+    .event .title{font-weight:700}
+    .event.blue{background:#d2e3fc;color:#174ea6}
+    .event.green{background:#ceead6;color:#137333}
+    .event.purple{background:#e6d7ff;color:#681da8}
+    .event.red{background:#fce8e6;color:#b3261e}
+    .event.yellow{background:#fef7e0;color:#b06000}
+    .event.teal{background:#d7f4f8;color:#007c91}
+    .current-time{
+      position:absolute;left:64px;right:0;top:632px;height:2px;background:var(--red);z-index:5;
+    }
+    .current-time:before{
+      content:"";position:absolute;left:-6px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--red);
+    }
+    .right-links{
+      display:flex;gap:16px;font-size:13px;color:var(--muted);margin-left:10px;
+    }
+    .footer-note{
+      position:absolute;bottom:8px;left:18px;font-size:11px;color:var(--muted);background:rgba(255,255,255,.85);padding:3px 6px;border-radius:4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="hamburger">☰</div>
+      <div class="logo">
+        <div class="logo-badge"><span>31</span></div>
+        <span>Calendar</span>
+      </div>
+      <div class="search">
+        <span style="color:#5f6368;">🔍</span>
+        <input type="text" value="Search" aria-label="Search">
+      </div>
+      <div class="top-actions">
+        <a class="icon-btn" href="https://calendar.google.com/calendar/u/0/r/settings">⚙</a>
+        <a class="icon-btn" href="https://calendar.google.com/calendar/u/0/r?tab=mc">❔</a>
+        <a class="icon-btn" href="https://calendar.google.com/calendar/u/0/r/offline">⤓</a>
+        <div class="profile">R</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <aside class="sidebar">
+        <a class="create-btn" href="https://calendar.google.com/calendar/u/0/r/eventedit">
+          <span style="font-size:20px;color:#1a73e8;">＋</span> <span>Create</span>
+        </a>
+
+        <section class="mini-calendar">
+          <div class="mini-head">
+            <span>March 2026</span>
+            <span>
+              <a href="https://calendar.google.com/calendar/u/0/r/month/2026/2/1" style="color:#5f6368;">‹</a>
+              &nbsp;
+              <a href="https://calendar.google.com/calendar/u/0/r/month/2026/4/1" style="color:#5f6368;">›</a>
+            </span>
+          </div>
+          <div class="mini-grid">
+            <div class="dow">S</div><div class="dow">M</div><div class="dow">T</div><div class="dow">W</div><div class="dow">T</div><div class="dow">F</div><div class="dow">S</div>
+            <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
+            <div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div>
+            <div class="active">15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div>
+            <div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div>
+            <div>29</div><div>30</div><div>31</div><div></div><div></div><div></div><div></div>
+          </div>
+        </section>
+
+        <div class="section-title">MY CALENDARS</div>
+        <div class="calendar-list">
+          <div class="cal-item"><span class="dot blue"></span>Reminders</div>
+          <div class="cal-item"><span class="dot green"></span>Tasks</div>
+          <div class="cal-item"><span class="dot purple"></span>Family</div>
+          <div class="cal-item"><span class="dot red"></span>Work</div>
+          <div class="cal-item"><span class="dot yellow"></span>Fitness</div>
+        </div>
+
+        <div class="mycal-footer">
+          <a href="https://calendar.google.com/calendar/u/0/r/settings/addcalendar">＋ Add other calendars</a>
+        </div>
+
+        <div class="section-title">OTHER CALENDARS</div>
+        <div class="other-list">
+          <div class="cal-item"><span class="dot teal"></span>US Holidays</div>
+          <div class="cal-item"><span class="dot blue"></span>Team Launch Schedule</div>
+          <div class="cal-item"><span class="dot green"></span>Room Booker - Atlas 3F</div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <a class="today-btn" href="https://calendar.google.com/calendar/u/0/r/week">Today</a>
+            <a class="nav-arrow" href="https://calendar.google.com/calendar/u/0/r/week/2026/3/8">‹</a>
+            <a class="nav-arrow" href="https://calendar.google.com/calendar/u/0/r/week/2026/3/22">›</a>
+            <div class="date-title">March 15 – 21, 2026</div>
+          </div>
+          <div class="toolbar-right">
+            <div class="right-links">
+              <a href="https://calendar.google.com/calendar/u/0/r/day/2026/3/15">Print</a>
+              <a href="https://calendar.google.com/calendar/u/0/r/settings">Settings</a>
+            </div>
+            <div class="mode">
+              <a href="https://calendar.google.com/calendar/u/0/r/day">Day</a>
+              <a href="https://calendar.google.com/calendar/u/0/r/week" class="active">Week</a>
+              <a href="https://calendar.google.com/calendar/u/0/r/month">Month</a>
+              <a href="https://calendar.google.com/calendar/u/0/r/year">Year</a>
+              <a href="https://calendar.google.com/calendar/u/0/r/schedule">Schedule</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-shell">
+          <div class="week">
+            <div class="header-spacer"></div>
+            <div class="day-head today"><div>SUN</div><div class="num">15</div></div>
+            <div class="day-head"><div>MON</div><div class="num">16</div></div>
+            <div class="day-head"><div>TUE</div><div class="num">17</div></div>
+            <div class="day-head"><div>WED</div><div class="num">18</div></div>
+            <div class="day-head"><div>THU</div><div class="num">19</div></div>
+            <div class="day-head"><div>FRI</div><div class="num">20</div></div>
+            <div class="day-head"><div>SAT</div><div class="num">21</div></div>
+
+            <div class="all-day-label">All day</div>
+            <div class="all-day-row">
+              <div class="all-day-cell"><div class="holiday">Daylight Saving Time notes</div></div>
+              <div class="all-day-cell"></div>
+              <div class="all-day-cell"></div>
+              <div class="all-day-cell"><div class="holiday" style="background:#e6f4ea;color:#137333;">Product launch freeze</div></div>
+              <div class="all-day-cell"></div>
+              <div class="all-day-cell"><div class="holiday">Team offsite prep</div></div>
+              <div class="all-day-cell"></div>
+            </div>
+
+            <div class="grid">
+              <div class="time-col">
+                <div class="time-slot"></div>
+                <div class="time-slot"><span>1 AM</span></div>
+                <div class="time-slot"><span>2 AM</span></div>
+                <div class="time-slot"><span>3 AM</span></div>
+                <div class="time-slot"><span>4 AM</span></div>
+                <div class="time-slot"><span>5 AM</span></div>
+                <div class="time-slot"><span>6 AM</span></div>
+                <div class="time-slot"><span>7 AM</span></div>
+                <div class="time-slot"><span>8 AM</span></div>
+                <div class="time-slot"><span>9 AM</span></div>
+                <div class="time-slot"><span>10 AM</span></div>
+                <div class="time-slot"><span>11 AM</span></div>
+                <div class="time-slot"><span>12 PM</span></div>
+                <div class="time-slot"><span>1 PM</span></div>
+                <div class="time-slot"><span>2 PM</span></div>
+                <div class="time-slot"><span>3 PM</span></div>
+                <div class="time-slot"><span>4 PM</span></div>
+                <div class="time-slot"><span>5 PM</span></div>
+                <div class="time-slot"><span>6 PM</span></div>
+                <div class="time-slot"><span>7 PM</span></div>
+                <div class="time-slot"><span>8 PM</span></div>
+                <div class="time-slot"><span>9 PM</span></div>
+                <div class="time-slot"><span>10 PM</span></div>
+                <div class="time-slot"><span>11 PM</span></div>
+              </div>
+
+              <div class="day-col today">
+                <div class="hour-lines"></div>
+                <div class="event yellow" style="top:430px;left:8px;right:8px;height:42px;">
+                  <div class="title">Meal Prep + Grocery Run</div>
+                  8:58 – 9:45 AM
+                </div>
+                <div class="event purple" style="top:580px;left:8px;right:8px;height:76px;">
+                  <div class="title">Family Brunch</div>
+                  12:10 – 1:45 PM
+                </div>
+                <div class="event blue" style="top:760px;left:8px;right:8px;height:56px;">
+                  <div class="title">Inbox Zero Sprint</div>
+                  4:00 – 5:10 PM
+                </div>
+              </div>
+
+              <div class="day-col">
+                <div class="hour-lines"></div>
+                <div class="event green" style="top:400px;left:8px;right:8px;height:64px;">
+                  <div class="title">Morning Run</div>
+                  8:20 – 9:40 AM
+                </div>
+                <div class="event red" style="top:500px;left:8px;width:46%;height:88px;">
+                  <div class="title">1:1 with Priya</div>
+                  10:25 – 12 PM
+                </div>
+                <div class="event blue" style="top:500px;left:52%;right:8px;height:56px;">
+                  <div class="title">Standup</div>
+                  10:30 – 11:30 AM
+                </div>
+                <div class="event teal" style="top:640px;left:8px;right:8px;height:98px;">
+                  <div class="title">Atlas Planning Review</div>
+                  1:40 – 3:40 PM
+                </div>
+                <div class="event yellow" style="top:814px;left:8px;right:8px;height:44px;">
+                  <div class="title">Gym</div>
+                  5:15 – 6 PM
+                </div>
+              </div>
+
+              <div class="day-col">
+                <div class="hour-lines"></div>
+                <div class="event blue" style="top:468px;left:8px;right:8px;height:52px;">
+                  <div class="title">Weekly Product Sync</div>
+                  9:45 – 10:50 AM
+                </div>
+                <div class="event purple" style="top:566px;left:8px;right:8px;height:130px;">
+                  <div class="title">Design Crit / Sprint 14</div>
+                  11:50 AM – 2:35 PM
+                </div>
+                <div class="event green" style="top:726px;left:8px;right:8px;height:44px;">
+                  <div class="title">Walk</div>
+                  3:15 – 4 PM
+                </div>
+                <div class="event red" style="top:846px;left:8px;right:8px;height:56px;">
+                  <div class="title">Launch Readiness</div>
+                  5:45 – 6:55 PM
+                </div>
+              </div>
+
+              <div class="day-col">
+                <div class="hour-lines"></div>
+                <div class="event red" style="top:382px;left:8px;right:8px;height:110px;">
+                  <div class="title">Q2 Board Materials</div>
+                  8:00 – 10:20 AM
+                </div>
+                <div class="event blue" style="top:526px;left:8px;right:8px;height:42px;">
+                  <div class="title">Coffee chat — Marco</div>
+                  11:00 – 11:45 AM
+                </div>
+                <div class="event teal" style="top:620px;left:8px;right:8px;height:72px;">
+                  <div class="title">Studio Booking</div>
+                  1:10 – 2:40 PM
+                </div>
+                <div class="event yellow" style="top:772px;left:8px;right:8px;height:42px;">
+                  <div class="title">Dentist</div>
+                  4:10 – 4:55 PM
+                </div>
+              </div>
+
+              <div class="day-col">
+                <div class="hour-lines"></div>
+                <div class="event blue" style="top:446px;left:8px;width:48%;height:64px;">
+                  <div class="title">Team Retro</div>
+                  9:20 – 10:40 AM
+                </div>
+                <div class="event purple" style="top:446px;left:52%;right:8px;height:96px;">
+                  <div class="title">Recruiting Loop</div>
+                  9:20 – 11:20 AM
+                </div>
+                <div class="event green" style="top:586px;left:8px;right:8px;height:44px;">
+                  <div class="title">Lunch with Maya</div>
+                  12:15 – 1 PM
+                </div>
+                <div class="event red" style="top:666px;left:8px;right:8px;height:102px;">
+                  <div class="title">Metrics Review</div>
+                  2:00 – 4:05 PM
+                </div>
+                <div class="event teal" style="top:820px;left:8px;right:8px;height:52px;">
+                  <div class="title">Commute / Errands</div>
+                  5:25 – 6:30 PM
+                </div>
+              </div>
+
+              <div class="day-col">
+                <div class="hour-lines"></div>
+                <div class="event yellow" style="top:420px;left:8px;right:8px;height:50px;">
+                  <div class="title">Deep Work Block</div>
+                  8:40 – 9:45 AM
+                </div>
+                <div class="event blue" style="top:510px;left:8px;right:8px;height:84px;">
+                  <div class="title">Demo Day Rehearsal</div>
+                  10:35 AM – 12:20 PM
+                </div>
+                <div class="event green" style="top:650px;left:8px;right:8px;height:58px;">
+                  <div class="title">Pilates</div>
+                  1:50 – 3 PM
+                </div>
+                <div class="event purple" style="top:780px;left:8px;right:8px;height:90px;">
+                  <div class="title">Dinner Reservation — Kestrel</div>
+                  4:20 – 6:10 PM
+                </div>
+              </div>
+
+              <div class="day-col">
+                <div class="hour-lines"></div>
+                <div class="event teal" style="top:540px;left:8px;right:8px;height:60px;">
+                  <div class="title">Farmer's Market</div>
+                  11:10 AM – 12:25 PM
+                </div>
+                <div class="event yellow" style="top:650px;left:8px;right:8px;height:44px;">
+                  <div class="title">Call Mom</div>
+                  1:50 – 2:35 PM
+                </div>
+                <div class="event green" style="top:786px;left:8px;right:8px;height:110px;">
+                  <div class="title">Trail Ride</div>
+                  4:30 – 6:50 PM
+                </div>
+              </div>
+
+              <div class="current-time"></div>
+            </div>
+          </div>
+
+          <div class="footer-note">
+            Time zone: GMT-07 · Events from Work, Family, Fitness, and subscribed calendars
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
