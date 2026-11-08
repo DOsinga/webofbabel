@@ -21,6 +21,8 @@ Guidelines:
 - Include realistic content, navigation, styling — the more specific and detailed the better
 - Lean into hallucination: invent plausible content, people, articles, products
 - Include several clickable <a href="..."> links to other pages, using full absolute URLs, so the user can keep browsing
+- Open <body> quickly and immediately produce visible structure and text
+- Put only a small amount of critical CSS before <body>; put detailed CSS in a second <style> block near the end of <body>
 - Use inline <style> tags for CSS and make it look like a real website
 - If the URL suggests a specific era or style, match it
 - Keep the HTML self-contained, with inline styles and scripts and no external resources

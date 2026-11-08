@@ -254,7 +254,10 @@ function addInterceptor(html, baseUrl) {
       e.preventDefault();
       var form = e.target;
       var data = {};
-      new FormData(form).forEach(function(v, k) { data[k] = v; });
+      new FormData(form).forEach(function(v, k) {
+        var field = Array.from(form.elements).find(function(el) { return el.name === k; });
+        data[k] = field && field.type === 'password' ? '*'.repeat(String(v).length) : v;
+      });
       var action = form.getAttribute('action') || '';
       var resolved;
       try { resolved = new URL(action, __baseUrl).href; } catch { resolved = action || __baseUrl; }
@@ -272,6 +275,10 @@ function addInterceptor(html, baseUrl) {
 
 function writeToIframe(iframe, html, baseUrl) {
   iframe.srcdoc = addInterceptor(html, baseUrl || 'about:blank');
+}
+
+function writePreviewToIframe(iframe, html) {
+  iframe.srcdoc = html.replace(/<script\b[^>]*>[\s\S]*?(?:<\/script\s*>|$)/gi, '');
 }
 
 // ── Navigation ─────────────────────────────────────────────────
@@ -425,9 +432,11 @@ async function generate(url) {
   iframe.srcdoc = '<p style="font-family: sans-serif">Loading...</p>';
   let html = '';
   let lastRender = 0;
+  let lastPreview = 0;
   let firstChunk = true;
   let transferStart = 0;
   const RENDER_INTERVAL = 150;
+  const PREVIEW_INTERVAL = 500;
 
   try {
     for await (const chunk of complete(
@@ -459,6 +468,11 @@ async function generate(url) {
         if (titleMatch) setTitleBar(titleMatch[1].replace(/<[^>]*>/g, '').trim());
 
         await new Promise(r => setTimeout(r, 0));
+      }
+
+      if (/<body(?:\s|>)/i.test(html) && now - lastPreview >= PREVIEW_INTERVAL) {
+        lastPreview = now;
+        writePreviewToIframe(iframe, html);
       }
     }
     cancelStatus();
