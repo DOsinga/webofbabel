@@ -50,7 +50,6 @@ blog: 2026/0504
       <div class="dropdown-list" id="bookmarks-list"></div>
     </div>
   </div>
-  <div class="menu-item" onclick="openConfig()">Options</div>
 </div>
 
 <!-- Location bar + search -->
@@ -75,70 +74,6 @@ blog: 2026/0504
   <div class="status-text" id="status-text">Ready</div>
   <div class="progress-container">
     <div class="progress-bar" id="progress-bar"></div>
-  </div>
-</div>
-
-<!-- Config dialog -->
-<div class="config-overlay" id="config-overlay">
-  <div class="config-dialog">
-    <div class="config-titlebar">
-      <span>Options</span>
-      <div class="close-btn" onclick="closeConfig()">X</div>
-    </div>
-    <div class="config-body">
-      <div class="config-row">
-        <label for="cfg-provider">Provider</label>
-        <select id="cfg-provider" onchange="onProviderChange()">
-          <option value="anthropic">Anthropic</option>
-          <option value="openai">OpenAI</option>
-          <option value="gemini">Google Gemini</option>
-          <option value="openrouter">OpenRouter</option>
-          <option value="ollama">Ollama (local)</option>
-        </select>
-      </div>
-      <div class="config-row">
-        <label for="cfg-model">Model</label>
-        <select id="cfg-model" onchange="onModelSelectChange()"></select>
-      </div>
-      <div class="config-row" id="custom-model-row" style="display:none">
-        <label for="cfg-custom-model">Custom model name</label>
-        <input type="text" id="cfg-custom-model" placeholder="e.g. my-fine-tuned-model">
-      </div>
-      <div class="config-row" id="api-key-row">
-        <label for="cfg-key">API Key</label>
-        <input type="password" id="cfg-key" placeholder="sk-...">
-      </div>
-      <div class="config-row ollama-only" id="ollama-url-row">
-        <label for="cfg-ollama-url">Ollama Base URL</label>
-        <input type="text" id="cfg-ollama-url" placeholder="http://localhost:11434">
-      </div>
-      <div class="config-row provider-help" id="anthropic-help-row">
-        <div class="provider-instructions">
-          Anthropic organizations with custom data retention cannot make direct browser requests. Use a key from another organization or choose another provider.
-        </div>
-      </div>
-      <div class="config-row provider-help" id="gemini-help-row">
-        <div class="provider-instructions">
-          Get a free API key at <a href="https://aistudio.google.com/api-keys" target="_blank">aistudio.google.com/api-keys</a>
-        </div>
-      </div>
-      <div class="config-row provider-help" id="openrouter-help-row">
-        <div class="provider-instructions">
-          Browse <a href="https://openrouter.ai/collections/free-models" target="_blank">free models on OpenRouter</a> — many work without payment.
-        </div>
-      </div>
-      <div class="config-row provider-help" id="ollama-help-row">
-        <div class="provider-instructions">
-          To use Ollama, start it with CORS enabled for this site:<br>
-          <code>OLLAMA_ORIGINS=* ollama serve</code><br>
-          Your browser may ask to allow access to local resources.
-        </div>
-      </div>
-      <div class="config-buttons">
-        <button onclick="saveConfig()">OK</button>
-        <button onclick="closeConfig()">Cancel</button>
-      </div>
-    </div>
   </div>
 </div>
 

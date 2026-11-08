@@ -1,28 +1,3 @@
-// ── State ──────────────────────────────────────────────────────
-const MODEL_DEFAULTS = {
-  anthropic: 'claude-sonnet-5-5',
-  openai: 'gpt-6-luna',
-  gemini: 'gemini-3.8-flash',
-  openrouter: 'openrouter/free',
-  ollama: 'qwen3.5:4b',
-};
-
-const MODEL_OPTIONS = {
-  anthropic: ['claude-sonnet-5-5', 'claude-opus-5-5', 'claude-fable-5-1', 'claude-sonnet-4-6'],
-  openai: ['gpt-6-luna', 'gpt-6.1-sol', 'gpt-6-astra', 'gpt-5.6-luna'],
-  gemini: ['gemini-3.8-flash', 'gemini-3.5-flash-lite', 'gemini-3.7-flash', 'gemini-3.6-flash'],
-  openrouter: ['openrouter/free', 'nvidia/nemotron-3.5-lightning:free', 'inclusionai/ling-3.0-flash-vl:free', 'google/gemini-3.8-flash', 'openai/gpt-6-luna'],
-  ollama: ['qwen3.5:4b', 'gemma4:e2b', 'lfm2.5:8b', 'qwen3.5:9b', 'qwen3.6:27b'],
-};
-
-const LEGACY_DEFAULTS = {
-  anthropic: 'claude-sonnet-4-6',
-  openai: 'gpt-5-mini-2025-08-07',
-  gemini: 'gemini-2.5-flash',
-  openrouter: 'google/gemini-2.0-flash-exp:free',
-  ollama: 'qwen2.5:3b',
-};
-
 const STATIC_CACHE_BASE = '/static/projects/webofbabel/cache/';
 
 // Default bookmarks. `cache` key maps to a static HTML file for pre-generated content.
@@ -53,131 +28,7 @@ const state = {
   loading: false,
   abortController: null,
   bookmarks: [],
-  config: {
-    provider: 'anthropic',
-    providers: {
-      anthropic: { model: MODEL_DEFAULTS.anthropic, key: '' },
-      openai:    { model: MODEL_DEFAULTS.openai, key: '' },
-      gemini:    { model: MODEL_DEFAULTS.gemini, key: '' },
-      openrouter: { model: MODEL_DEFAULTS.openrouter, key: '' },
-      ollama:    { model: MODEL_DEFAULTS.ollama, key: '', ollamaUrl: 'http://localhost:11434' },
-    },
-  },
 };
-
-// Flat view of current provider's config for the generation layer
-function getActiveConfig() {
-  const p = state.config.provider;
-  const pc = state.config.providers[p];
-  return { provider: p, model: pc.model, key: pc.key, ollamaUrl: pc.ollamaUrl || '' };
-}
-
-// ── Config persistence ─────────────────────────────────────────
-function loadConfig() {
-  try {
-    const savedV3 = localStorage.getItem('webofbabel_config_v3');
-    const saved = JSON.parse(savedV3 || localStorage.getItem('webofbabel_config_v2'));
-    if (saved) {
-      state.config.provider = saved.provider || state.config.provider;
-      for (const p of ['anthropic', 'openai', 'gemini', 'openrouter', 'ollama']) {
-        if (saved.providers?.[p]) Object.assign(state.config.providers[p], saved.providers[p]);
-      }
-      if (!savedV3) {
-        for (const p of Object.keys(LEGACY_DEFAULTS)) {
-          if (state.config.providers[p].model === LEGACY_DEFAULTS[p]) {
-            state.config.providers[p].model = MODEL_DEFAULTS[p];
-          }
-        }
-        localStorage.setItem('webofbabel_config_v3', JSON.stringify(state.config));
-      }
-    }
-  } catch {}
-  populateConfigUI();
-}
-
-function populateConfigUI() {
-  const p = state.config.provider;
-  const pc = state.config.providers[p];
-  document.getElementById('cfg-provider').value = p;
-  document.getElementById('cfg-key').value = pc.key;
-  document.getElementById('cfg-ollama-url').value = state.config.providers.ollama.ollamaUrl;
-  const isOllama = p === 'ollama';
-  document.getElementById('ollama-url-row').classList.toggle('show', isOllama);
-  document.getElementById('ollama-help-row').classList.toggle('show', isOllama);
-  document.getElementById('anthropic-help-row').classList.toggle('show', p === 'anthropic');
-  document.getElementById('gemini-help-row').classList.toggle('show', p === 'gemini');
-  document.getElementById('openrouter-help-row').classList.toggle('show', p === 'openrouter');
-  document.getElementById('api-key-row').style.display = isOllama ? 'none' : '';
-
-  const select = document.getElementById('cfg-model');
-  select.innerHTML = '';
-  for (const m of (MODEL_OPTIONS[p] || [])) {
-    const opt = document.createElement('option');
-    opt.value = m;
-    opt.textContent = m;
-    select.appendChild(opt);
-  }
-  const customOpt = document.createElement('option');
-  customOpt.value = '__custom__';
-  customOpt.textContent = 'Custom...';
-  select.appendChild(customOpt);
-
-  const models = MODEL_OPTIONS[p] || [];
-  if (models.includes(pc.model)) {
-    select.value = pc.model;
-    document.getElementById('custom-model-row').style.display = 'none';
-  } else {
-    select.value = '__custom__';
-    document.getElementById('cfg-custom-model').value = pc.model;
-    document.getElementById('custom-model-row').style.display = '';
-  }
-}
-
-function onModelSelectChange() {
-  const val = document.getElementById('cfg-model').value;
-  document.getElementById('custom-model-row').style.display = val === '__custom__' ? '' : 'none';
-}
-
-function getSelectedModel() {
-  const val = document.getElementById('cfg-model').value;
-  return val === '__custom__' ? document.getElementById('cfg-custom-model').value : val;
-}
-
-function saveConfig() {
-  const p = document.getElementById('cfg-provider').value;
-  state.config.provider = p;
-  state.config.providers[p].model = getSelectedModel();
-  state.config.providers[p].key = document.getElementById('cfg-key').value;
-  if (p === 'ollama') {
-    state.config.providers.ollama.ollamaUrl = document.getElementById('cfg-ollama-url').value;
-  }
-  localStorage.setItem('webofbabel_config_v3', JSON.stringify(state.config));
-  closeConfig();
-  // If we're on a page that failed to load (no cached content), retry
-  if (state.currentUrl && state.currentUrl !== 'about:babel' && !state.currentHtml) {
-    generate(state.currentUrl);
-  }
-}
-
-function onProviderChange() {
-  const oldP = state.config.provider;
-  state.config.providers[oldP].model = getSelectedModel();
-  state.config.providers[oldP].key = document.getElementById('cfg-key').value;
-  if (oldP === 'ollama') {
-    state.config.providers.ollama.ollamaUrl = document.getElementById('cfg-ollama-url').value;
-  }
-  state.config.provider = document.getElementById('cfg-provider').value;
-  populateConfigUI();
-}
-
-function openConfig() {
-  document.getElementById('config-overlay').classList.add('open');
-  loadConfig();
-}
-
-function closeConfig() {
-  document.getElementById('config-overlay').classList.remove('open');
-}
 
 // ── Bookmarks ──────────────────────────────────────────────────
 const BOOKMARKS_VERSION = 7;
@@ -498,11 +349,6 @@ function navigate(url, linkText, formData) {
   if (!/^[a-z]+:/i.test(url)) url = 'http://' + url;
   url = normalizeUrl(url);
 
-  if (url === 'about:config') {
-    openConfig();
-    return;
-  }
-
   state.historyIndex++;
   state.history.splice(state.historyIndex);
   state.history.push({ url, title: url, summary: '', linkText: linkText || '', formData: formData || null });
@@ -574,7 +420,6 @@ async function generate(url) {
   const entryIndex = state.historyIndex;
   state.abortController = new AbortController();
   const currentEntry = state.history[entryIndex];
-  const messages = buildMessages(url, state.history, entryIndex, currentEntry?.linkText, currentEntry?.formData);
   const iframe = document.getElementById('viewport');
   state.currentHtml = '';
   iframe.srcdoc = '<p style="font-family: sans-serif">Loading...</p>';
@@ -585,7 +430,12 @@ async function generate(url) {
   const RENDER_INTERVAL = 150;
 
   try {
-    for await (const chunk of complete(messages, getActiveConfig(), state.abortController.signal)) {
+    for await (const chunk of complete(
+      url,
+      currentEntry?.linkText,
+      currentEntry?.formData,
+      state.abortController.signal
+    )) {
       if (firstChunk) {
         cancelStatus();
         transferStart = Date.now();
@@ -644,13 +494,9 @@ async function generate(url) {
     cancelStatus();
     if (err.name === 'AbortError') {
       setStatus('Stopped');
-    } else if (err.message === '__NO_KEY__') {
-      setStatus('API key required');
-      openConfig();
     } else {
       setStatus('Error: ' + err.message);
       writeToIframe(iframe, `<h2>Error</h2><pre>${esc(err.message)}</pre>`);
-      if (err.openConfig) openConfig();
     }
     setLoading(false);
   }
@@ -687,7 +533,6 @@ window.addEventListener('message', function(e) {
 });
 
 // ── Init ───────────────────────────────────────────────────────
-loadConfig();
 loadBookmarks();
 renderBookmarks();
 (async function() {

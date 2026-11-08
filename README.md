@@ -7,5 +7,9 @@ web.
 Run it locally with:
 
 ```bash
-uvx douwe webofbabel
+OPENROUTER_API_KEY=your-key uvx douwe webofbabel
 ```
+
+Page generation runs through OpenRouter on the server, so API keys are never
+sent to the browser. It uses `deepseek/deepseek-v4.1-flash-1017` by default.
+Set `WEBOFBABEL_MODEL` to use another OpenRouter model.
